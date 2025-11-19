@@ -23,13 +23,13 @@ Sur la base du travail de l’année précédente, les étudiants reconstruiront
 – le calcul de proximités entre énoncés ;  
 – la projection factorielle ou la clusterisation permettant d’identifier les domaines sémantiques.
 
-2. Construction de modèles DSM 
+2. Construction de modèles DSM  
 À partir du même corpus, les étudiants construiront une matrice de cooccurrences généralisée, appliqueront des pondérations, puis éventuellement une réduction de dimension (SVD). Ils étudieront la stabilité, l’interprétabilité et la capacité du DSM à révéler des évolutions sémantiques.
 
-3. Entraînement de modèles Word2Vec/FastText  
+3. Entraînement de modèles Word2Vec/FastText     
 Un modèle prédictif sera entraîné pour chaque période du corpus. Les espaces vectoriels seront alignés afin de suivre la trajectoire sémantique de mots cibles. Les dérives sémantiques seront mesurées via distance cosinus, changement de voisinage, ou réduction dimensionnelle.
 
-4. Analyse comparative des trois approches  
+4. Analyse comparative des trois approches    
 Les étudiants compareront les résultats produits par les trois méthodes sur un ensemble de mots sélectionnés (politiques, techniques, culturels). Ils analyseront :  
 – les types de changements capturés ;  
 – la finesse des distinctions sémantiques ;  
