@@ -7,7 +7,9 @@ Hugo Dumoulin – hdumoulin@parisnanterre.fr
 ## Problématique scientifique
 
 Les modèles distributionnels constituent un outil séduisant pour l’étude du changement linguistique (Hamilton, Leskovec & Jurasfky 2016). Cependant, ils reposent sur des fondations théoriques et méthodologiques très diverses : modèles neuronaux prédictifs, matrices statistiquement pondérées, ou encore dispositifs issus de la tradition de l’analyse du discours. Comparer de manière systématique leurs capacités à représenter les évolutions sémantiques dans le temps permet de rendre compte de différences d’interprétation, de granularité et de robustesse.  
-Ce projet propose de comparer trois modèles : (1) les modèles neuronaux de type Word2Vec ou FastText (Mikolov et al. 2013), (2) les matrices de cooccurrences généralisées (ou DSM) telles que formalisées dans les travaux de Stefanie Evert (2005), et (3) le dispositif AAD69 , approche structurale et discursive centrée sur la notion d’énoncé et sur la construction de domaines sémantiques (Pêcheux 1969). L’objectif est d’étudier leurs convergences, leurs divergences, et leur capacité respective à rendre compte de changements sémantiques réels observables dans un corpus de référence.   
+
+Ce projet propose de comparer trois modèles : (1) les modèles neuronaux de type Word2Vec ou FastText (Mikolov et al. 2013), (2) les matrices de cooccurrences généralisées (ou DSM) telles que formalisées dans les travaux de Stefanie Evert (2005), et (3) le dispositif AAD69 , approche structurale et discursive centrée sur la notion d’énoncé et sur la construction de domaines sémantiques (Pêcheux 1969). L’objectif est d’étudier leurs convergences, leurs divergences, et leur capacité respective à rendre compte de changements sémantiques réels observables dans un corpus de référence.    
+
 Ces trois approches seront confrontées à un même corpus de presse diachronique constitué à partir des trois journaux Le Figaro, La Croix et L’Humanité, depuis leur création jusqu’à 1954, qui sera divisé en périodes. Les documents sont accessibles sur Gallica grâce à l’API Document. 
 
 ## Travaux à réaliser
@@ -40,7 +42,8 @@ L’articulation entre analyse lexicale, analyse thématique et analyse discursi
 – Une reconstruction fonctionnelle en Python de l’algorithme AAD69.  
 – Les modèles DSM et Word2Vec entraînés par période, accompagnés de leurs analyses.  
 – Un rapport final comprenant une analyse linguistique et scientifique approfondie et une comparaison détaillée des trois approches.  
-– Des visualisations (graphiques, cartes sémantiques, trajectoires temporelles) illustrant les évolutions observées sur les corpus diachroniques
+– Des visualisations (graphiques, cartes sémantiques, trajectoires temporelles) illustrant les évolutions observées sur les corpus diachroniques.  
+
 Ce projet tuteuré permettra ainsi aux étudiants d’acquérir une compréhension fine des différents paradigmes de la sémantique distributionnelle, tout en mobilisant des compétences pratiques en ingénierie linguistique, en programmation et en analyse statistique.
 
 ## Supports
