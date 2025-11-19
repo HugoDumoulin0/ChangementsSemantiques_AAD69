@@ -16,6 +16,7 @@ Le projet se décompose en plusieurs étapes complémentaires :
 
 1. Mise en œuvre de l’algorithme AAD69  
 Sur la base du travail de l’année précédente, les étudiants reconstruiront en Python l’algorithme décrit par Pêcheux dans l’ouvrage de 1969 et ses prolongements. Le dispositif doit réaliser :
+
 – le découpage du corpus en énoncés élémentaires reliés entre eux par des relations syntaxiques et discursives 
 – la construction de matrices lexicales énoncés × mots ;  
 – le calcul de proximités entre énoncés ;  
@@ -46,6 +47,7 @@ Ce projet tuteuré permettra ainsi aux étudiants d’acquérir une compréhensi
 ## Supports
 
 Github du projet : https://github.com/HugoDumoulin0/ChangementsSemantiques_AAD69 (me contacter pour l’accès) 
+
 Gihub du projet 2025 : https://github.com/lucilebessac/AAD69-synonymie-contextuelle
 
 ## Bibliographie
