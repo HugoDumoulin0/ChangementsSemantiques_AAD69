@@ -55,7 +55,11 @@ Gihub du projet 2025 : https://github.com/lucilebessac/AAD69-synonymie-contextue
 ## Bibliographie
 
 Evert, S. (2005). The Statistics of Word cooccurrences :Word pairs and Collocations. Phd Thesis. University of Stuttgart.  
+
 Hamilton, W. L., Leskovec, J., & Jurafsky, D. (2016). “Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change”. Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), 1489‑1501.  
+
 Léon, J. (2010). « AAD69 : Archéologie d’une étrange machine. » Semen, 29, 89 90.  
+
 Mikolov, T., Chen, K., Corrado, G., & Dean, J. (2013). Efficient Estimation of Word Representations in Vector Space.  
+
 Pêcheux, M. (1969). Analyse automatique du discours. Dunod.  
