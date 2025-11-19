@@ -15,7 +15,7 @@ Ces trois approches seront confrontées à un même corpus de presse diachroniqu
 Le projet se décompose en plusieurs étapes complémentaires :
 
 1. Mise en œuvre de l’algorithme AAD69  
-Sur la base du travail de l’année précédente, les étudiants reconstruiront en Python l’algorithme décrit par Pêcheux dans l’ouvrage de 1969 et ses prolongements. Le dispositif doit réaliser : 
+Sur la base du travail de l’année précédente, les étudiants reconstruiront en Python l’algorithme décrit par Pêcheux dans l’ouvrage de 1969 et ses prolongements. Le dispositif doit réaliser :
 – le découpage du corpus en énoncés élémentaires reliés entre eux par des relations syntaxiques et discursives 
 – la construction de matrices lexicales énoncés × mots ;  
 – le calcul de proximités entre énoncés ;  
