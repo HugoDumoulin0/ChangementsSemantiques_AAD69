@@ -6,8 +6,8 @@ Hugo Dumoulin – hdumoulin@parisnanterre.fr
 
 ## Problématique scientifique
 
-Les modèles distributionnels constituent un outil séduisant pour l’étude du changement linguistique (Hamilton, Leskovec & Jurasfky 2016). Cependant, ils reposent sur des fondations théoriques et méthodologiques très diverses : modèles neuronaux prédictifs, matrices statistiquement pondérées, ou encore dispositifs issus de la tradition de l’analyse du discours. Comparer de manière systématique leurs capacités à représenter les évolutions sémantiques dans le temps permet de rendre compte de différences d’interprétation, de granularité et de robustesse.\n
-Ce projet propose de comparer trois modèles : (1) les modèles neuronaux de type Word2Vec ou FastText (Mikolov et al. 2013), (2) les matrices de cooccurrences généralisées (ou DSM) telles que formalisées dans les travaux de Stefanie Evert (2005), et (3) le dispositif AAD69 , approche structurale et discursive centrée sur la notion d’énoncé et sur la construction de domaines sémantiques (Pêcheux 1969). L’objectif est d’étudier leurs convergences, leurs divergences, et leur capacité respective à rendre compte de changements sémantiques réels observables dans un corpus de référence.\n
+Les modèles distributionnels constituent un outil séduisant pour l’étude du changement linguistique (Hamilton, Leskovec & Jurasfky 2016). Cependant, ils reposent sur des fondations théoriques et méthodologiques très diverses : modèles neuronaux prédictifs, matrices statistiquement pondérées, ou encore dispositifs issus de la tradition de l’analyse du discours. Comparer de manière systématique leurs capacités à représenter les évolutions sémantiques dans le temps permet de rendre compte de différences d’interprétation, de granularité et de robustesse.  
+Ce projet propose de comparer trois modèles : (1) les modèles neuronaux de type Word2Vec ou FastText (Mikolov et al. 2013), (2) les matrices de cooccurrences généralisées (ou DSM) telles que formalisées dans les travaux de Stefanie Evert (2005), et (3) le dispositif AAD69 , approche structurale et discursive centrée sur la notion d’énoncé et sur la construction de domaines sémantiques (Pêcheux 1969). L’objectif est d’étudier leurs convergences, leurs divergences, et leur capacité respective à rendre compte de changements sémantiques réels observables dans un corpus de référence.   
 Ces trois approches seront confrontées à un même corpus de presse diachronique constitué à partir des trois journaux Le Figaro, La Croix et L’Humanité, depuis leur création jusqu’à 1954, qui sera divisé en périodes. Les documents sont accessibles sur Gallica grâce à l’API Document. 
 
 ## Travaux à réaliser
@@ -15,9 +15,9 @@ Ces trois approches seront confrontées à un même corpus de presse diachroniqu
 Le projet se décompose en plusieurs étapes complémentaires :
 
 1. Mise en œuvre de l’algorithme AAD69  
-Sur la base du travail de l’année précédente, les étudiants reconstruiront en Python l’algorithme décrit par Pêcheux dans l’ouvrage de 1969 et ses prolongements. Le dispositif doit réaliser :
-– le découpage du corpus en énoncés élémentaires reliés entre eux par des relations syntaxiques et discursives ; 
-– la construction de matrices lexicales énoncés × mots ;   
+Sur la base du travail de l’année précédente, les étudiants reconstruiront en Python l’algorithme décrit par Pêcheux dans l’ouvrage de 1969 et ses prolongements. Le dispositif doit réaliser :  
+– le découpage du corpus en énoncés élémentaires reliés entre eux par des relations syntaxiques et discursives ;   
+– la construction de matrices lexicales énoncés × mots ;    
 – le calcul de proximités entre énoncés ;  
 – la projection factorielle ou la clusterisation permettant d’identifier les domaines sémantiques.
 
