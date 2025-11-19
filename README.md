@@ -10,7 +10,7 @@ Les modèles distributionnels constituent un outil séduisant pour l’étude du
 Ce projet propose de comparer trois modèles : (1) les modèles neuronaux de type Word2Vec ou FastText (Mikolov et al. 2013), (2) les matrices de cooccurrences généralisées (ou DSM) telles que formalisées dans les travaux de Stefanie Evert (2005), et (3) le dispositif AAD69 , approche structurale et discursive centrée sur la notion d’énoncé et sur la construction de domaines sémantiques (Pêcheux 1969). L’objectif est d’étudier leurs convergences, leurs divergences, et leur capacité respective à rendre compte de changements sémantiques réels observables dans un corpus de référence.
 Ces trois approches seront confrontées à un même corpus de presse diachronique constitué à partir des trois journaux Le Figaro, La Croix et L’Humanité, depuis leur création jusqu’à 1954, qui sera divisé en périodes. Les documents sont accessibles sur Gallica grâce à l’API Document. 
 
-##Travaux à réaliser
+## Travaux à réaliser
 
 Le projet se décompose en plusieurs étapes complémentaires :
 
@@ -35,7 +35,7 @@ Les étudiants compareront les résultats produits par les trois méthodes sur u
 – les effets de corpus et les limites méthodologiques.  
 L’articulation entre analyse lexicale, analyse thématique et analyse discursive constituera un axe majeur de la réflexion.
 
-##Livrables attendus
+## Livrables attendus
 
 – Une reconstruction fonctionnelle en Python de l’algorithme AAD69.  
 – Les modèles DSM et Word2Vec entraînés par période, accompagnés de leurs analyses.  
@@ -43,12 +43,12 @@ L’articulation entre analyse lexicale, analyse thématique et analyse discursi
 – Des visualisations (graphiques, cartes sémantiques, trajectoires temporelles) illustrant les évolutions observées sur les corpus diachroniques
 Ce projet tuteuré permettra ainsi aux étudiants d’acquérir une compréhension fine des différents paradigmes de la sémantique distributionnelle, tout en mobilisant des compétences pratiques en ingénierie linguistique, en programmation et en analyse statistique.
 
-##Supports
+## Supports
 
 Github du projet : https://github.com/HugoDumoulin0/ChangementsSemantiques_AAD69 (me contacter pour l’accès) 
 Gihub du projet 2025 : https://github.com/lucilebessac/AAD69-synonymie-contextuelle
 
-##Bibliographie
+## Bibliographie
 
 Evert, S. (2005). The Statistics of Word cooccurrences :Word pairs and Collocations. Phd Thesis. University of Stuttgart.
 Hamilton, W. L., Leskovec, J., & Jurafsky, D. (2016). “Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change”. Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), 1489‑1501. 
