@@ -1,0 +1,125 @@
+# 1. Installer les packages nécessaires (à faire une fois)
+install.packages(c("wordspace", "stopwords", "Matrix", "factoextra"), dependencies = TRUE)
+
+# 2. Charger les bibliothèques
+library(wordspace)
+library(stopwords)
+library(Matrix)
+library(factoextra)
+
+# 3. Spécifier le chemin vers un seul fichier texte
+text_file <- "/home/miya/Downloads/enonces_elementaires.txt"  # 🔁 À adapter
+
+# 4. Lire les lignes du fichier
+all_texts <- tryCatch(readLines(text_file, warn = FALSE, encoding = "UTF-8"), error = function(e) NULL)
+all_texts <- all_texts[nzchar(all_texts)]  # supprimer les lignes vides
+
+# 5. Fonction de tokenisation ligne par ligne
+clean_tokenize_line <- function(line) {
+  line <- tolower(line)
+  line <- gsub("[^a-zàâçéèêëîïôûùüÿœ\\s]", " ", line)
+  words <- unlist(strsplit(line, "\\s+"))
+  words <- words[nchar(words) > 2]
+  words <- words[!words %in% stopwords("fr")]
+  return(words)
+}
+
+# 6. Tokenisation
+max_lines <- 20000
+selected_lines <- head(all_texts, max_lines)
+tokens_list <- lapply(selected_lines, clean_tokenize_line)
+tokens <- unlist(tokens_list)
+
+# 7. Limiter à 100 000 tokens pour test rapide
+tokens <- tokens[1:min(100000, length(tokens))]
+cat("Nombre de tokens utilisés :", length(tokens), "\n")
+
+# 8. Générer les triplets (mot, contexte, 1)
+window_size <- 2
+triplets <- vector("list", length(tokens) * window_size * 2)
+idx <- 1
+for (i in seq_along(tokens)) {
+  target <- tokens[i]
+  context_ids <- (i - window_size):(i + window_size)
+  context_ids <- context_ids[context_ids != i & context_ids > 0 & context_ids <= length(tokens)]
+  for (c in tokens[context_ids]) {
+    triplets[[idx]] <- c(target, c, 1)
+    idx <- idx + 1
+  }
+}
+triplets <- triplets[1:(idx-1)]
+
+# 9. Convertir en table et agréger les fréquences
+cooc_df <- as.data.frame(do.call(rbind, triplets), stringsAsFactors = FALSE)
+colnames(cooc_df) <- c("term", "context", "score")
+cooc_df$score <- as.numeric(cooc_df$score)
+cooc_df_agg <- aggregate(score ~ term + context, data = cooc_df, sum)
+
+# 10. Créer la matrice DSM brute
+all_words <- sort(unique(c(cooc_df_agg$term, cooc_df_agg$context)))
+term_idx <- match(cooc_df_agg$term, all_words)
+context_idx <- match(cooc_df_agg$context, all_words)
+m <- sparseMatrix(
+  i = term_idx,
+  j = context_idx,
+  x = cooc_df_agg$score,
+  dims = c(length(all_words), length(all_words)),
+  dimnames = list(all_words, all_words)
+)
+dsm_raw <- dsm(m, raw.freq = TRUE)
+
+# 11. Score d'association PPMI
+dsm_ppmi <- dsm.score(dsm_raw, score = "MI")
+
+# 12. Mots proches de "démocratie"
+print(nearest.neighbours(dsm_ppmi, "démocratie", n = 10))
+
+# 13. Distances cosines
+dist_mat <- dist.matrix(dsm_ppmi, method = "cosine")
+
+# 14. MDS classique
+coords <- cmdscale(dist_mat, k = 2)
+plot(coords, type = "n", main = "Projection DSM (PPMI + cosine)", xlab = "Dim 1", ylab = "Dim 2")
+text(coords, labels = rownames(coords), cex = 0.7, col = "blue")
+
+# 15. Clustering avec les top mots
+mat_ppmi <- dsm_ppmi$M
+row_sums <- rowSums(mat_ppmi)
+top_n <- 100
+top_words <- names(sort(row_sums, decreasing = TRUE))[1:top_n]
+mat_top <- as.matrix(mat_ppmi[top_words, , drop = FALSE])
+keep_cols <- apply(mat_top, 2, function(col) sd(col) > 0)
+mat_top_clean <- mat_top[, keep_cols]
+dsm_top <- subset(dsm_ppmi, subset = rownames(dsm_ppmi) %in% top_words)
+dist_mat_top <- dist.matrix(dsm_top, method = "cosine")
+coords_kmeans <- cmdscale(dist_mat_top, k = 2)
+
+# 16. Visualisation MDS + K-means
+coords_df <- as.data.frame(coords_kmeans)
+colnames(coords_df) <- c("Dim1", "Dim2")
+set.seed(123)
+k <- 4
+clustering <- kmeans(coords_df, centers = k)
+fviz_cluster(clustering, data = coords_df,
+             geom = "text", labelsize = 8, repel = TRUE,
+             main = "Clustering des mots (MDS + K-means)")
+
+# 17. PCA + K-means
+mat <- as.matrix(dsm_ppmi)
+non_constant_rows <- apply(mat, 1, function(x) sd(x) > 0)
+mat <- mat[non_constant_rows, ]
+non_constant_cols <- apply(mat, 2, function(x) sd(x) > 0)
+mat <- mat[, non_constant_cols]
+row_scores <- rowSums(mat)
+top_words <- names(sort(row_scores, decreasing = TRUE))[1:top_n]
+mat_top <- mat[top_words, ]
+non_constant_cols_top <- apply(mat_top, 2, function(x) sd(x) > 0)
+mat_top <- mat_top[, non_constant_cols_top]
+res.pca <- prcomp(mat_top, scale. = TRUE)
+summary(res.pca)
+coords_pca <- res.pca$x[, 1:2]
+clustering <- kmeans(coords_pca, centers = k, nstart = 25)
+fviz_cluster(clustering, data = coords_pca,
+             geom = "text", labelsize = 8, repel = TRUE,
+             main = "Clustering des mots (PCA + K-means)")
+

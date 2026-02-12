@@ -1,0 +1,1050 @@
+# sent_id = 194238
+# text = Conformément à le premier alinéa de l’ article 28 de la Constitution , je déclare ouverte la session ordinaire 2018-2019 .
+1	Conformément	conformément	ADV	ADV	_	15	advmod	_	_
+2	à	à	ADP	ADP	_	5	case	_	_
+3	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	5	det	_	_
+4	premier	premier	ADJ	ADJ	Gender=Masc|Number=Sing	5	amod	_	_
+5	alinéa	alinéa	NOUN	NOUN	Gender=Masc|Number=Sing	1	obl:arg	_	_
+6	de	de	ADP	ADP	_	8	case	_	_
+7	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	8	det	_	_
+8	article	article	NOUN	NOUN	Gender=Masc|Number=Sing	5	nmod	_	_
+9	28	28	NUM	NUM	Number=Plur	8	nmod	_	_
+10	de	de	ADP	ADP	_	12	case	_	_
+11	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	12	det	_	_
+12	Constitution	constitution	NOUN	NOUN	Gender=Fem|Number=Sing	8	nmod	_	_
+13	,	,	PUNCT	PUNCT	_	1	punct	_	_
+14	je	moi	PRON	PRON	Emph=No|Number=Sing|Person=1|PronType=Prs	15	nsubj	_	_
+15	déclare	déclarer	VERB	VERB	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	0	root	_	_
+16	ouverte	ouvrir	VERB	VERB	Gender=Fem|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	15	xcomp	_	_
+17	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	18	det	_	_
+18	session	session	NOUN	NOUN	Gender=Fem|Number=Sing	16	obj	_	_
+19	ordinaire	ordinaire	ADJ	ADJ	Gender=Fem|Number=Sing	18	amod	_	_
+20	2018-2019	2018-2019	NUM	NUM	Number=Plur	18	nmod	_	_
+21	.	.	PUNCT	PUNCT	_	15	punct	_	_
+
+# sent_id = 194239
+# text = [[ Applaudissements ] ]
+1	[[	[[	PUNCT	PUNCT	_	2	punct	_	_
+2	Applaudissements	applaudissement	NOUN	NOUN	Gender=Masc|Number=Plur	0	root	_	_
+3	]	]	PUNCT	PUNCT	_	2	punct	_	_
+4	]	]	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194240
+# text = J’ ai reçu aujourd’hui , de le ministre d’ État , ministre de l’ intérieur , une communication m’ informant qu’ hier , le dimanche 30 septembre 2018 , M. Jean-Luc Poudroux a été élu député de la septième circonscription de La Réunion .
+1	J’	moi	PRON	PRON	Emph=No|Number=Sing|Person=1|PronType=Prs	3	nsubj	_	_
+2	ai	avoir	AUX	AUX	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	3	aux:tense	_	_
+3	reçu	recevoir	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Act	0	root	_	_
+4	aujourd’hui	aujourd'hui	ADV	ADV	_	3	advmod	_	_
+5	,	,	PUNCT	PUNCT	_	8	punct	_	_
+6	de	de	ADP	ADP	_	8	case	_	_
+7	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	8	det	_	_
+8	ministre	ministre	NOUN	NOUN	Gender=Masc|Number=Sing	3	obl:mod	_	_
+9	d’	de	ADP	ADP	_	10	case	_	_
+10	État	État	NOUN	NOUN	Gender=Masc|Number=Sing	8	nmod	_	_
+11	,	,	PUNCT	PUNCT	_	12	punct	_	_
+12	ministre	ministre	NOUN	NOUN	Gender=Masc|Number=Sing	8	appos	_	_
+13	de	de	ADP	ADP	_	15	case	_	_
+14	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	15	det	_	_
+15	intérieur	intérieur	NOUN	NOUN	Gender=Masc|Number=Sing	12	nmod	_	_
+16	,	,	PUNCT	PUNCT	_	18	punct	_	_
+17	une	un	DET	DET	Definite=Ind|Gender=Fem|Number=Sing|PronType=Art	18	det	_	_
+18	communication	communication	NOUN	NOUN	Gender=Fem|Number=Sing	3	obj	_	_
+19	m’	moi	PRON	PRON	Emph=No|Number=Sing|Person=1|PronType=Prs	20	iobj	_	_
+20	informant	informer	VERB	VERB	Tense=Pres|VerbForm=Part	18	acl	_	_
+21	qu’	que	SCONJ	SCONJ	_	35	mark	_	_
+22	hier	hier	ADV	ADV	_	35	advmod	_	_
+23	,	,	PUNCT	PUNCT	_	22	punct	_	_
+24	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	25	det	_	_
+25	dimanche	dimanche	NOUN	NOUN	Gender=Masc|Number=Sing	35	obl:mod	_	_
+26	30	30	NUM	NUM	Number=Plur	25	nmod	_	_
+27	septembre	septembre	NOUN	NOUN	Gender=Masc|Number=Sing	26	nmod	_	_
+28	2018	2018	NUM	NUM	Number=Plur	27	nmod	_	_
+29	,	,	PUNCT	PUNCT	_	25	punct	_	_
+30	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	35	nsubj:pass	_	_
+31	Jean-Luc	Jean-Luc	PROPN	PROPN	_	30	nmod	_	_
+32	Poudroux	Poudroux	PROPN	PROPN	_	31	flat:name	_	_
+33	a	avoir	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	35	aux:tense	_	_
+34	été	être	AUX	AUX	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part	35	aux:pass	_	_
+35	élu	élire	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	20	ccomp	_	_
+36	député	député	NOUN	NOUN	Gender=Masc|Number=Sing	35	xcomp	_	_
+37	de	de	ADP	ADP	_	40	case	_	_
+38	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	40	det	_	_
+39	septième	septième	ADJ	ADJ	Gender=Fem|Number=Sing	40	amod	_	_
+40	circonscription	circonscription	NOUN	NOUN	Gender=Fem|Number=Sing	36	nmod	_	_
+41	de	de	ADP	ADP	_	43	case	_	_
+42	La	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	43	det	_	_
+43	Réunion	Réunion	PROPN	PROPN	Gender=Fem|Number=Sing	40	nmod	_	_
+44	.	.	PUNCT	PUNCT	_	3	punct	_	_
+
+# sent_id = 194241
+# text = [[ Applaudissements sur les bancs de le groupe LR et sur quelques bancs de les groupes LaREM et GDR .
+1	[[	[[	PUNCT	PUNCT	_	2	punct	_	_
+2	Applaudissements	applaudissement	NOUN	NOUN	Gender=Masc|Number=Plur	0	root	_	_
+3	sur	sur	ADP	ADP	_	5	case	_	_
+4	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	5	det	_	_
+5	bancs	banc	NOUN	NOUN	Gender=Masc|Number=Plur	2	nmod	_	_
+6	de	de	ADP	ADP	_	8	case	_	_
+7	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	8	det	_	_
+8	groupe	groupe	NOUN	NOUN	Gender=Masc|Number=Sing	5	nmod	_	_
+9	LR	LR	PROPN	PROPN	_	8	appos	_	_
+10	et	et	CCONJ	CCONJ	_	13	cc	_	_
+11	sur	sur	ADP	ADP	_	13	case	_	_
+12	quelques	quelque	DET	DET	Definite=Ind|Number=Plur|PronType=Art	13	det	_	_
+13	bancs	banc	NOUN	NOUN	Gender=Masc|Number=Plur	5	conj	_	_
+14	de	de	ADP	ADP	_	16	case	_	_
+15	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	16	det	_	_
+16	groupes	groupe	NOUN	NOUN	Gender=Masc|Number=Plur	13	nmod	_	_
+17	LaREM	LaREM	PROPN	PROPN	_	16	appos	_	_
+18	et	et	CCONJ	CCONJ	_	19	cc	_	_
+19	GDR	GDR	PROPN	PROPN	_	17	conj	_	_
+20	.	.	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194242
+# text = – Mme Caroline Fiat applaudit également ] ]
+1	–	–	PUNCT	PUNCT	_	5	punct	_	_
+2	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	5	nsubj	_	_
+3	Caroline	Caroline	PROPN	PROPN	_	2	flat:name	_	_
+4	Fiat	Fiat	PROPN	PROPN	_	2	flat:name	_	_
+5	applaudit	applaudir	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	0	root	_	_
+6	également	également	ADV	ADV	_	5	advmod	_	_
+7	]	]	PUNCT	PUNCT	_	5	punct	_	_
+8	]	]	PUNCT	PUNCT	_	5	punct	_	_
+
+# sent_id = 194243
+# text = L’ ordre de le jour appelle la nomination de les six vice-présidents , des trois questeurs et des douze secrétaires de l’ Assemblée nationale .
+1	L’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	2	det	_	_
+2	ordre	ordre	NOUN	NOUN	Gender=Masc|Number=Sing	6	nsubj	_	_
+3	de	de	ADP	ADP	_	5	case	_	_
+4	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	5	det	_	_
+5	jour	jour	NOUN	NOUN	Gender=Masc|Number=Sing	2	nmod	_	_
+6	appelle	appeler	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	0	root	_	_
+7	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	8	det	_	_
+8	nomination	nomination	NOUN	NOUN	Gender=Fem|Number=Sing	6	obj	_	_
+9	de	de	ADP	ADP	_	12	case	_	_
+10	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	12	det	_	_
+11	six	six	NUM	NUM	Number=Plur	12	nummod	_	_
+12	vice-présidents	vice-président	NOUN	NOUN	Gender=Masc|Number=Plur	8	nmod	_	_
+13	,	,	PUNCT	PUNCT	_	16	punct	_	_
+14	des	un	DET	DET	Definite=Ind|Number=Plur|PronType=Art	16	det	_	_
+15	trois	trois	NUM	NUM	Number=Plur	16	nummod	_	_
+16	questeurs	questeur	NOUN	NOUN	Gender=Masc|Number=Plur	12	appos	_	_
+17	et	et	CCONJ	CCONJ	_	20	cc	_	_
+18	des	un	DET	DET	Definite=Ind|Number=Plur|PronType=Art	20	det	_	_
+19	douze	douze	NUM	NUM	Number=Plur	20	nummod	_	_
+20	secrétaires	secrétaire	NOUN	NOUN	Gender=Masc|Number=Plur	12	conj	_	_
+21	de	de	ADP	ADP	_	23	case	_	_
+22	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	23	det	_	_
+23	Assemblée	assemblée	NOUN	NOUN	Gender=Fem|Number=Sing	20	nmod	_	_
+24	nationale	national	ADJ	ADJ	Gender=Fem|Number=Sing	23	amod	_	_
+25	.	.	PUNCT	PUNCT	_	6	punct	_	_
+
+# sent_id = 194244
+# text = Les présidents de les groupes qui se sont réunis aujourd’hui à douze heures ne sont pas parvenus à un accord sur la répartition de les postes à le sein de le Bureau .
+1	Les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	2	det	_	_
+2	présidents	président	NOUN	NOUN	Gender=Masc|Number=Plur	17	nsubj	_	_
+3	de	de	ADP	ADP	_	5	case	_	_
+4	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	5	det	_	_
+5	groupes	groupe	NOUN	NOUN	Gender=Masc|Number=Plur	2	nmod	_	_
+6	qui	qui	PRON	PRON	PronType=Rel	9	nsubj	_	_
+7	se	soi	PRON	PRON	Person=3|PronType=Prs|Reflex=Yes	9	expl:pv	_	_
+8	sont	être	AUX	AUX	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	9	aux:tense	_	_
+9	réunis	réunir	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Act	5	acl:relcl	_	_
+10	aujourd’hui	aujourd'hui	ADV	ADV	_	9	advmod	_	_
+11	à	à	ADP	ADP	_	13	case	_	_
+12	douze	douze	NUM	NUM	Number=Plur	13	nummod	_	_
+13	heures	heure	NOUN	NOUN	Gender=Fem|Number=Plur	9	obl:mod	_	_
+14	ne	ne	ADV	ADV	Polarity=Neg	17	advmod	_	_
+15	sont	être	AUX	AUX	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	17	aux:tense	_	_
+16	pas	pas	ADV	ADV	Polarity=Neg	17	advmod	_	_
+17	parvenus	parvenir	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Act	0	root	_	_
+18	à	à	ADP	ADP	_	20	case	_	_
+19	un	un	DET	DET	Definite=Ind|Gender=Masc|Number=Sing|PronType=Art	20	det	_	_
+20	accord	accord	NOUN	NOUN	Gender=Masc|Number=Sing	17	obl:arg	_	_
+21	sur	sur	ADP	ADP	_	23	case	_	_
+22	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	23	det	_	_
+23	répartition	répartition	NOUN	NOUN	Gender=Fem|Number=Sing	20	nmod	_	_
+24	de	de	ADP	ADP	_	26	case	_	_
+25	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	26	det	_	_
+26	postes	poste	NOUN	NOUN	Gender=Masc|Number=Plur	23	nmod	_	_
+27	à	à	ADP	ADP	_	29	case	_	_
+28	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	29	det	_	_
+29	sein	sein	NOUN	NOUN	Gender=Masc|Number=Sing	23	nmod	_	_
+30	de	de	ADP	ADP	_	32	case	_	_
+31	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	32	det	_	_
+32	Bureau	bureau	NOUN	NOUN	Gender=Masc|Number=Sing	29	nmod	_	_
+33	.	.	PUNCT	PUNCT	_	17	punct	_	_
+
+# sent_id = 194245
+# text = Pour les fonctions de vice-président , je suis saisi de la candidature de : Mme Carole Bureau-Bonnard ;
+1	Pour	pour	ADP	ADP	_	3	case	_	_
+2	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	3	det	_	_
+3	fonctions	fonction	NOUN	NOUN	Gender=Fem|Number=Plur	9	obl:mod	_	_
+4	de	de	ADP	ADP	_	5	case	_	_
+5	vice-président	vice-président	NOUN	NOUN	Gender=Masc|Number=Sing	3	nmod	_	_
+6	,	,	PUNCT	PUNCT	_	3	punct	_	_
+7	je	moi	PRON	PRON	Emph=No|Number=Sing|Person=1|PronType=Prs	9	nsubj:pass	_	_
+8	suis	être	AUX	AUX	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	9	aux:pass	_	_
+9	saisi	saisir	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+10	de	de	ADP	ADP	_	12	case	_	_
+11	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	12	det	_	_
+12	candidature	candidature	NOUN	NOUN	Gender=Fem|Number=Sing	9	obl:arg	_	_
+13	de	de	ADP	ADP	_	15	case	_	_
+14	:	:	PUNCT	PUNCT	_	15	punct	_	_
+15	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	12	nmod	_	_
+16	Carole	Carole	PROPN	PROPN	_	15	flat:name	_	_
+17	Bureau-Bonnard	Bureau-Bonnard	PROPN	PROPN	_	15	flat:name	_	_
+18	;	;	PUNCT	PUNCT	_	9	punct	_	_
+
+# sent_id = 194246
+# text = M. Hugues Renson ;
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Hugues	Hugues	PROPN	PROPN	_	1	nmod	_	_
+3	Renson	Renson	PROPN	PROPN	_	2	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194247
+# text = M. Sylvain Waserman ;
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Sylvain	Sylvain	PROPN	PROPN	_	1	nmod	_	_
+3	Waserman	Waserman	PROPN	PROPN	_	2	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194248
+# text = Mme Annie Genevard ;
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	Annie	Annie	PROPN	PROPN	_	1	flat:name	_	_
+3	Genevard	Genevard	PROPN	PROPN	_	1	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194249
+# text = M. Marc Le Fur ;
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Marc	Marc	PROPN	PROPN	_	1	appos	_	_
+3	Le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	4	det	_	_
+4	Fur	Fur	PROPN	PROPN	Gender=Masc|Number=Sing	2	nmod	_	_
+5	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194250
+# text = M. Maurice Leroy ;
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Maurice	Maurice	PROPN	PROPN	_	1	nmod	_	_
+3	Leroy	Leroy	PROPN	PROPN	_	2	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194251
+# text = Mme Sabine Rubin . [[ Applaudissements ] ]
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	Sabine	Sabine	PROPN	PROPN	Number=Sing	1	flat:name	_	_
+3	Rubin	Rubin	PROPN	PROPN	_	1	flat:name	_	_
+4	.	.	PUNCT	PUNCT	_	6	punct	_	_
+5	[[	[[	PUNCT	PUNCT	_	6	punct	_	_
+6	Applaudissements	applaudissement	NOUN	NOUN	Gender=Masc|Number=Plur	1	nmod	_	_
+7	]	]	PUNCT	PUNCT	_	6	punct	_	_
+8	]	]	PUNCT	PUNCT	_	6	punct	_	_
+
+# sent_id = 194252
+# text = Le nombre de les candidats étant supérieur à le nombre de sièges à pourvoir , il y a lieu de procéder à un scrutin .
+1	Le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	2	det	_	_
+2	nombre	nombre	NOUN	NOUN	Gender=Masc|Number=Sing	7	nsubj	_	_
+3	de	de	ADP	ADP	_	5	case	_	_
+4	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	5	det	_	_
+5	candidats	candidat	NOUN	NOUN	Gender=Masc|Number=Plur	2	nmod	_	_
+6	étant	être	AUX	AUX	Tense=Pres|VerbForm=Part	7	cop	_	_
+7	supérieur	supérieur	ADJ	ADJ	Gender=Masc|Number=Sing	18	advcl	_	_
+8	à	à	ADP	ADP	_	10	case	_	_
+9	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	10	det	_	_
+10	nombre	nombre	NOUN	NOUN	Gender=Masc|Number=Sing	7	obl:arg	_	_
+11	de	de	ADP	ADP	_	12	case	_	_
+12	sièges	siège	NOUN	NOUN	Gender=Masc|Number=Plur	10	nmod	_	_
+13	à	à	ADP	ADP	_	14	mark	_	_
+14	pourvoir	pourvoir	VERB	VERB	VerbForm=Inf	12	acl	_	_
+15	,	,	PUNCT	PUNCT	_	7	punct	_	_
+16	il	lui	PRON	PRON	Emph=No|Gender=Masc|Number=Sing|Person=3|PronType=Prs	18	expl:subj	_	_
+17	y	y	PRON	PRON	Emph=No|Person=3|PronType=Prs	18	expl:comp	_	_
+18	a	avoir	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	0	root	_	_
+19	lieu	lieu	NOUN	NOUN	Gender=Masc|Number=Sing	18	obj:lvc	_	_
+20	de	de	ADP	ADP	_	21	mark	_	_
+21	procéder	procéder	VERB	VERB	VerbForm=Inf	18	ccomp	_	_
+22	à	à	ADP	ADP	_	24	case	_	_
+23	un	un	DET	DET	Definite=Ind|Gender=Masc|Number=Sing|PronType=Art	24	det	_	_
+24	scrutin	scrutin	NOUN	NOUN	Gender=Masc|Number=Sing	21	obl:arg	_	_
+25	.	.	PUNCT	PUNCT	_	18	punct	_	_
+
+# sent_id = 194253
+# text = Je rappelle que le scrutin est secret .
+1	Je	moi	PRON	PRON	Number=Sing|Person=1|PronType=Prs	2	nsubj	_	_
+2	rappelle	rappeler	VERB	VERB	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	0	root	_	_
+3	que	que	SCONJ	SCONJ	_	7	mark	_	_
+4	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	5	det	_	_
+5	scrutin	scrutin	NOUN	NOUN	Gender=Masc|Number=Sing	7	nsubj	_	_
+6	est	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	7	cop	_	_
+7	secret	secret	ADJ	ADJ	Gender=Masc|Number=Sing	2	ccomp	_	_
+8	.	.	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194254
+# text = à les deux premiers tours de scrutin sont élus , dans l’ ordre de les suffrages , les candidats ayant obtenu la majorité absolue de les suffrages exprimés .
+1	à	à	ADP	ADP	_	5	case	_	_
+2	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	5	det	_	_
+3	deux	deux	NUM	NUM	Number=Plur	5	nummod	_	_
+4	premiers	premier	ADJ	ADJ	Gender=Masc|Number=Plur	5	amod	_	_
+5	tours	tour	NOUN	NOUN	Gender=Masc|Number=Plur	9	obl:mod	_	_
+6	de	de	ADP	ADP	_	7	case	_	_
+7	scrutin	scrutin	NOUN	NOUN	Gender=Masc|Number=Sing	5	nmod	_	_
+8	sont	être	AUX	AUX	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	9	aux:pass	_	_
+9	élus	élire	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+10	,	,	PUNCT	PUNCT	_	13	punct	_	_
+11	dans	dans	ADP	ADP	_	13	case	_	_
+12	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	13	det	_	_
+13	ordre	ordre	NOUN	NOUN	Gender=Masc|Number=Sing	9	obl:mod	_	_
+14	de	de	ADP	ADP	_	16	case	_	_
+15	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	16	det	_	_
+16	suffrages	suffrage	NOUN	NOUN	Gender=Masc|Number=Plur	13	nmod	_	_
+17	,	,	PUNCT	PUNCT	_	21	punct	_	_
+18	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	19	det	_	_
+19	candidats	candidat	NOUN	NOUN	Gender=Masc|Number=Plur	21	nsubj	_	_
+20	ayant	avoir	AUX	AUX	Tense=Pres|VerbForm=Part	21	aux:tense	_	_
+21	obtenu	obtenir	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Act	9	advcl	_	_
+22	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	23	det	_	_
+23	majorité	majorité	NOUN	NOUN	Gender=Fem|Number=Sing	21	obj	_	_
+24	absolue	absolu	ADJ	ADJ	Gender=Fem|Number=Sing	23	amod	_	_
+25	de	de	ADP	ADP	_	27	case	_	_
+26	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	27	det	_	_
+27	suffrages	suffrage	NOUN	NOUN	Gender=Masc|Number=Plur	23	nmod	_	_
+28	exprimés	exprimer	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Pass	27	acl	_	_
+29	.	.	PUNCT	PUNCT	_	9	punct	_	_
+
+# sent_id = 194255
+# text = à le troisième tour , la majorité relative suffit .
+1	à	à	ADP	ADP	_	4	case	_	_
+2	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	4	det	_	_
+3	troisième	troisième	ADJ	ADJ	Gender=Masc|Number=Sing	4	amod	_	_
+4	tour	tour	NOUN	NOUN	Gender=Masc|Number=Sing	9	obl:mod	_	_
+5	,	,	PUNCT	PUNCT	_	4	punct	_	_
+6	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	7	det	_	_
+7	majorité	majorité	NOUN	NOUN	Gender=Fem|Number=Sing	9	nsubj	_	_
+8	relative	relatif	ADJ	ADJ	Gender=Fem|Number=Sing	7	amod	_	_
+9	suffit	suffire	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	0	root	_	_
+10	.	.	PUNCT	PUNCT	_	9	punct	_	_
+
+# sent_id = 194256
+# text = En cas d’ égalité de les suffrages , le plus âgé est élu .
+1	En	en	ADP	ADP	_	2	case	_	_
+2	cas	cas	NOUN	NOUN	Gender=Masc|Number=Sing	13	obl:mod	_	_
+3	d’	de	ADP	ADP	_	4	case	_	_
+4	égalité	égalité	NOUN	NOUN	Gender=Fem|Number=Sing	2	nmod	_	_
+5	de	de	ADP	ADP	_	7	case	_	_
+6	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	7	det	_	_
+7	suffrages	suffrage	NOUN	NOUN	Gender=Masc|Number=Plur	4	nmod	_	_
+8	,	,	PUNCT	PUNCT	_	2	punct	_	_
+9	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	11	det	_	_
+10	plus	plus	ADV	ADV	_	11	advmod	_	_
+11	âgé	âgé	ADJ	ADJ	Gender=Masc|Number=Sing	13	nsubj:pass	_	_
+12	est	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	13	aux:pass	_	_
+13	élu	élire	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+14	.	.	PUNCT	PUNCT	_	13	punct	_	_
+
+# sent_id = 194257
+# text = Les bulletins manuscrits sont valables .
+1	Les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	2	det	_	_
+2	bulletins	bulletin	NOUN	NOUN	Gender=Masc|Number=Plur	5	nsubj	_	_
+3	manuscrits	manuscrit	ADJ	ADJ	Gender=Masc|Number=Plur	2	amod	_	_
+4	sont	être	AUX	AUX	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	5	cop	_	_
+5	valables	valable	ADJ	ADJ	Gender=Masc|Number=Plur	0	root	_	_
+6	.	.	PUNCT	PUNCT	_	5	punct	_	_
+
+# sent_id = 194258
+# text = Toutefois , afin de faciliter la tâche de nos collègues , des bulletins imprimés sont à votre disposition dans les salles voisines de l’ hémicycle .
+1	Toutefois	toutefois	ADV	ADV	_	18	advmod	_	_
+2	,	,	PUNCT	PUNCT	_	1	punct	_	_
+3	afin	afin	ADV	ADV	_	18	advmod	_	_
+4	de	de	ADP	ADP	_	5	mark	_	_
+5	faciliter	faciliter	VERB	VERB	VerbForm=Inf	3	ccomp	_	_
+6	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	7	det	_	_
+7	tâche	tâche	NOUN	NOUN	Gender=Fem|Number=Sing	5	obj	_	_
+8	de	de	ADP	ADP	_	10	case	_	_
+9	nos	son	DET	DET	Number=Plur|Number[psor]=Plur|Person[psor]=1|Poss=Yes|PronType=Prs	10	det	_	_
+10	collègues	collègue	NOUN	NOUN	Number=Plur	7	nmod	_	_
+11	,	,	PUNCT	PUNCT	_	3	punct	_	_
+12	des	un	DET	DET	Definite=Ind|Number=Plur|PronType=Art	13	det	_	_
+13	bulletins	bulletin	NOUN	NOUN	Gender=Masc|Number=Plur	18	nsubj	_	_
+14	imprimés	imprimer	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Pass	13	amod	_	_
+15	sont	être	AUX	AUX	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	18	cop	_	_
+16	à	à	ADP	ADP	_	18	case	_	_
+17	votre	son	DET	DET	Number=Sing|Number[psor]=Plur|Person[psor]=2|Poss=Yes|PronType=Prs	18	det	_	_
+18	disposition	disposition	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+19	dans	dans	ADP	ADP	_	21	case	_	_
+20	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	21	det	_	_
+21	salles	salle	NOUN	NOUN	Gender=Fem|Number=Plur	18	obl:mod	_	_
+22	voisines	voisin	ADJ	ADJ	Gender=Fem|Number=Plur	21	amod	_	_
+23	de	de	ADP	ADP	_	25	case	_	_
+24	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	25	det	_	_
+25	hémicycle	hémicycle	NOUN	NOUN	Gender=Masc|Number=Sing	21	nmod	_	_
+26	.	.	PUNCT	PUNCT	_	18	punct	_	_
+
+# sent_id = 194259
+# text = Ces bulletins devront être mis dans l’ urne sous enveloppe .
+1	Ces	ce	DET	DET	Number=Plur|PronType=Dem	2	det	_	_
+2	bulletins	bulletin	NOUN	NOUN	Gender=Masc|Number=Plur	3	nsubj	_	_
+3	devront	devoir	VERB	VERB	Mood=Ind|Number=Plur|Person=3|Tense=Fut|VerbForm=Fin	0	root	_	_
+4	être	être	AUX	AUX	VerbForm=Inf	5	aux:pass	_	_
+5	mis	mettre	VERB	VERB	Gender=Masc|Tense=Past|VerbForm=Part|Voice=Pass	3	xcomp	_	_
+6	dans	dans	ADP	ADP	_	8	case	_	_
+7	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	8	det	_	_
+8	urne	urne	NOUN	NOUN	Gender=Fem|Number=Sing	5	obl:arg	_	_
+9	sous	sous	ADP	ADP	_	10	case	_	_
+10	enveloppe	enveloppe	NOUN	NOUN	Gender=Fem|Number=Sing	5	obl:mod	_	_
+11	.	.	PUNCT	PUNCT	_	3	punct	_	_
+
+# sent_id = 194260
+# text = Il sera procédé sous le contrôle de quatre scrutateurs titulaires et de deux scrutateurs suppléants dont je vais tirer les noms à le sort .
+1	Il	lui	PRON	PRON	Gender=Masc|Number=Sing|Person=3|PronType=Prs	3	nsubj:pass	_	_
+2	sera	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Fut|VerbForm=Fin	3	aux:pass	_	_
+3	procédé	procéder	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+4	sous	sous	ADP	ADP	_	6	case	_	_
+5	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	6	det	_	_
+6	contrôle	contrôle	NOUN	NOUN	Gender=Masc|Number=Sing	3	obl:mod	_	_
+7	de	de	ADP	ADP	_	9	case	_	_
+8	quatre	quatre	NUM	NUM	Number=Plur	9	nummod	_	_
+9	scrutateurs	scrutateur	NOUN	NOUN	Gender=Masc|Number=Plur	6	nmod	_	_
+10	titulaires	titulaire	ADJ	ADJ	Gender=Masc|Number=Plur	9	amod	_	_
+11	et	et	CCONJ	CCONJ	_	14	cc	_	_
+12	de	de	ADP	ADP	_	14	case	_	_
+13	deux	deux	NUM	NUM	Number=Plur	14	nummod	_	_
+14	scrutateurs	scrutateur	NOUN	NOUN	Gender=Masc|Number=Plur	9	conj	_	_
+15	suppléants	suppléant	ADJ	ADJ	Gender=Masc|Number=Plur	14	amod	_	_
+16	dont	dont	PRON	PRON	PronType=Rel	21	nmod	_	_
+17	je	moi	PRON	PRON	Number=Sing|Person=1|PronType=Prs	18	nsubj	_	_
+18	vais	aller	VERB	VERB	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	14	acl:relcl	_	_
+19	tirer	tirer	VERB	VERB	VerbForm=Inf	18	xcomp	_	_
+20	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	21	det	_	_
+21	noms	nom	NOUN	NOUN	Gender=Masc|Number=Plur	19	obj	_	_
+22	à	à	ADP	ADP	_	24	case	_	_
+23	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	24	det	_	_
+24	sort	sort	NOUN	NOUN	Gender=Masc|Number=Sing	19	obl:mod	_	_
+25	.	.	PUNCT	PUNCT	_	3	punct	_	_
+
+# sent_id = 194261
+# text = Sont désignés scrutateurs titulaires : M. Francois Jolivet , M. Jean-Carles Grelier , M. Stéphane Viry et Mme Trastour-Isnart .
+1	Sont	être	AUX	AUX	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	2	aux:pass	_	_
+2	désignés	désigner	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+3	scrutateurs	scrutateur	NOUN	NOUN	Gender=Masc|Number=Plur	2	xcomp	_	_
+4	titulaires	titulaire	ADJ	ADJ	Gender=Masc|Number=Plur	3	amod	_	_
+5	:	:	PUNCT	PUNCT	_	6	punct	_	_
+6	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	3	appos	_	_
+7	Francois	Francois	PROPN	PROPN	_	6	nmod	_	_
+8	Jolivet	Jolivet	PROPN	PROPN	_	7	flat:name	_	_
+9	,	,	PUNCT	PUNCT	_	10	punct	_	_
+10	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	6	conj	_	_
+11	Jean-Carles	Jean-Carles	PROPN	PROPN	_	10	nmod	_	_
+12	Grelier	Grelier	PROPN	PROPN	_	11	flat:name	_	_
+13	,	,	PUNCT	PUNCT	_	14	punct	_	_
+14	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	6	conj	_	_
+15	Stéphane	Stéphane	PROPN	PROPN	_	14	nmod	_	_
+16	Viry	Viry	PROPN	PROPN	_	15	flat:name	_	_
+17	et	et	CCONJ	CCONJ	_	18	cc	_	_
+18	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	6	conj	_	_
+19	Trastour-Isnart	Trastour-Isnart	PROPN	PROPN	_	18	flat:name	_	_
+20	.	.	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194262
+# text = Sont désignés scrutateurs suppléants : M. Jean-Louis Thiériot et M. Thierry Michels .
+1	Sont	être	AUX	AUX	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	2	aux:pass	_	_
+2	désignés	désigner	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+3	scrutateurs	scrutateur	NOUN	NOUN	Gender=Masc|Number=Plur	2	xcomp	_	_
+4	suppléants	suppléant	ADJ	ADJ	Gender=Masc|Number=Plur	3	amod	_	_
+5	:	:	PUNCT	PUNCT	_	6	punct	_	_
+6	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	3	appos	_	_
+7	Jean-Louis	Jean-Louis	PROPN	PROPN	_	6	nmod	_	_
+8	Thiériot	Thiériot	PROPN	PROPN	_	7	flat:name	_	_
+9	et	et	CCONJ	CCONJ	_	10	cc	_	_
+10	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	6	conj	_	_
+11	Thierry	Thierry	PROPN	PROPN	Gender=Masc|Number=Sing	10	nmod	_	_
+12	Michels	Michels	PROPN	PROPN	_	11	flat:name	_	_
+13	.	.	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194263
+# text = Nous allons procéder à le premier tour de scrutin , qui sera ouvert pour une durée de quarante-cinq minutes .
+1	Nous	nous	PRON	PRON	Number=Plur|Person=1|PronType=Prs	2	nsubj	_	_
+2	allons	aller	VERB	VERB	Mood=Ind|Number=Plur|Person=1|Tense=Pres|VerbForm=Fin	0	root	_	_
+3	procéder	procéder	VERB	VERB	VerbForm=Inf	2	xcomp	_	_
+4	à	à	ADP	ADP	_	7	case	_	_
+5	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	7	det	_	_
+6	premier	premier	ADJ	ADJ	Gender=Masc|NumType=Ord|Number=Sing	7	amod	_	_
+7	tour	tour	NOUN	NOUN	Gender=Masc|Number=Sing	3	obl:arg	_	_
+8	de	de	ADP	ADP	_	9	case	_	_
+9	scrutin	scrutin	NOUN	NOUN	Gender=Masc|Number=Sing	7	nmod	_	_
+10	,	,	PUNCT	PUNCT	_	13	punct	_	_
+11	qui	qui	PRON	PRON	PronType=Rel	13	nsubj:pass	_	_
+12	sera	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Fut|VerbForm=Fin	13	aux:pass	_	_
+13	ouvert	ouvrir	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	7	acl:relcl	_	_
+14	pour	pour	ADP	ADP	_	16	case	_	_
+15	une	un	DET	DET	Definite=Ind|Gender=Fem|Number=Sing|PronType=Art	16	det	_	_
+16	durée	durée	NOUN	NOUN	Gender=Fem|Number=Sing	13	obl:mod	_	_
+17	de	de	ADP	ADP	_	19	case	_	_
+18	quarante-cinq	quarante-cinq	NUM	NUM	NumType=Card	19	nummod	_	_
+19	minutes	minute	NOUN	NOUN	Gender=Fem|Number=Plur	16	nmod	_	_
+20	.	.	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194264
+# text = J’ ouvre le scrutin , qui est annoncé dans l’ enceinte de l’ Assemblée nationale .
+1	J’	moi	PRON	PRON	Emph=No|Number=Sing|Person=1|PronType=Prs	2	nsubj	_	_
+2	ouvre	ouvrir	VERB	VERB	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	0	root	_	_
+3	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	4	det	_	_
+4	scrutin	scrutin	NOUN	NOUN	Gender=Masc|Number=Sing	2	obj	_	_
+5	,	,	PUNCT	PUNCT	_	8	punct	_	_
+6	qui	qui	PRON	PRON	PronType=Rel	8	nsubj:pass	_	_
+7	est	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	8	aux:pass	_	_
+8	annoncé	annoncer	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	4	acl:relcl	_	_
+9	dans	dans	ADP	ADP	_	11	case	_	_
+10	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	11	det	_	_
+11	enceinte	enceinte	NOUN	NOUN	Gender=Fem|Number=Sing	8	obl:mod	_	_
+12	de	de	ADP	ADP	_	14	case	_	_
+13	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	14	det	_	_
+14	Assemblée	assemblée	NOUN	NOUN	Gender=Fem|Number=Sing	11	nmod	_	_
+15	nationale	national	ADJ	ADJ	Gender=Fem|Number=Sing	14	amod	_	_
+16	.	.	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194265
+# text = Le scrutin sera clos à quinze heures cinquante-cinq .
+1	Le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	2	det	_	_
+2	scrutin	scrutin	NOUN	NOUN	Gender=Masc|Number=Sing	4	nsubj:pass	_	_
+3	sera	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Fut|VerbForm=Fin	4	aux:pass	_	_
+4	clos	clore	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+5	à	à	ADP	ADP	_	7	case	_	_
+6	quinze	quinze	NUM	NUM	Number=Plur	7	nummod	_	_
+7	heures	heure	NOUN	NOUN	Gender=Fem|Number=Plur	4	obl:mod	_	_
+8	cinquante-cinq	cinquante-cinq	NUM	NUM	Number=Plur	7	nmod	_	_
+9	.	.	PUNCT	PUNCT	_	4	punct	_	_
+
+# sent_id = 194266
+# text = La séance est suspendue .
+1	La	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	2	det	_	_
+2	séance	séance	NOUN	NOUN	Gender=Fem|Number=Sing	4	nsubj:pass	_	_
+3	est	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	4	aux:pass	_	_
+4	suspendue	suspendre	VERB	VERB	Gender=Fem|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+5	.	.	PUNCT	PUNCT	_	4	punct	_	_
+
+# sent_id = 194267
+# text = La séance est reprise .
+1	La	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	2	det	_	_
+2	séance	séance	NOUN	NOUN	Gender=Fem|Number=Sing	4	nsubj:pass	_	_
+3	est	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	4	aux:pass	_	_
+4	reprise	reprendre	VERB	VERB	Gender=Fem|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+5	.	.	PUNCT	PUNCT	_	4	punct	_	_
+
+# sent_id = 194268
+# text = Avant toute chose , je voudrais rendre hommage à la mémoire de Charles Aznavour qui vient de nous quitter et qui incarnait si talentueusement l’ appartenance à plusieurs cultures , pour le plus grand bénéfice de l’ humanité tout entière . [[ Mmes et MM . les députés se lèvent et applaudissent ] ]
+1	Avant	avant	ADP	ADP	_	3	case	_	_
+2	toute	tout	DET	DET	Gender=Fem|Number=Sing|PronType=Ind	3	det	_	_
+3	chose	chose	NOUN	NOUN	Gender=Fem|Number=Sing	6	obl:mod	_	_
+4	,	,	PUNCT	PUNCT	_	3	punct	_	_
+5	je	moi	PRON	PRON	Number=Sing|Person=1|PronType=Prs	6	nsubj	_	_
+6	voudrais	vouloir	VERB	VERB	Mood=Cnd|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	0	root	_	_
+7	rendre	rendre	VERB	VERB	VerbForm=Inf	6	xcomp	_	_
+8	hommage	hommage	NOUN	NOUN	Gender=Masc|Number=Sing	7	obj:lvc	_	_
+9	à	à	ADP	ADP	_	11	case	_	_
+10	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	11	det	_	_
+11	mémoire	mémoire	NOUN	NOUN	Gender=Fem|Number=Sing	7	obl:arg	_	_
+12	de	de	ADP	ADP	_	13	case	_	_
+13	Charles	Charles	PROPN	PROPN	_	11	nmod	_	_
+14	Aznavour	Aznavour	PROPN	PROPN	_	13	flat:name	_	_
+15	qui	qui	PRON	PRON	PronType=Rel	16	nsubj	_	_
+16	vient	venir	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	13	acl:relcl	_	_
+17	de	de	ADP	ADP	_	19	mark	_	_
+18	nous	nous	PRON	PRON	Emph=No|Number=Plur|Person=1|PronType=Prs	19	obj	_	_
+19	quitter	quitter	VERB	VERB	VerbForm=Inf	16	xcomp	_	_
+20	et	et	CCONJ	CCONJ	_	22	cc	_	_
+21	qui	qui	PRON	PRON	PronType=Rel	22	nsubj	_	_
+22	incarnait	incarner	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin	16	conj	_	_
+23	si	si	SCONJ	SCONJ	_	24	case	_	_
+24	talentueusement	talentueusement	ADV	ADV	_	22	advmod	_	_
+25	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	26	det	_	_
+26	appartenance	appartenance	NOUN	NOUN	Gender=Fem|Number=Sing	22	obj	_	_
+27	à	à	ADP	ADP	_	29	case	_	_
+28	plusieurs	plusieurs	DET	DET	Number=Plur|PronType=Ind	29	det	_	_
+29	cultures	culture	NOUN	NOUN	Gender=Fem|Number=Plur	26	nmod	_	_
+30	,	,	PUNCT	PUNCT	_	35	punct	_	_
+31	pour	pour	ADP	ADP	_	35	case	_	_
+32	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	35	det	_	_
+33	plus	plus	ADV	ADV	_	34	advmod	_	_
+34	grand	grand	ADJ	ADJ	Gender=Masc|Number=Sing	35	amod	_	_
+35	bénéfice	bénéfice	NOUN	NOUN	Gender=Masc|Number=Sing	22	obl:mod	_	_
+36	de	de	ADP	ADP	_	38	case	_	_
+37	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	38	det	_	_
+38	humanité	humanité	NOUN	NOUN	Gender=Fem|Number=Sing	35	nmod	_	_
+39	tout	tout	ADV	ADV	_	40	advmod	_	_
+40	entière	entier	ADJ	ADJ	Gender=Fem|Number=Sing	35	amod	_	_
+41	.	.	PUNCT	PUNCT	_	50	punct	_	_
+42	[[	[[	PUNCT	PUNCT	_	50	punct	_	_
+43	Mmes	monsieur	NOUN	NOUN	Gender=Fem|Number=Plur	50	nsubj	_	_
+44	et	et	CCONJ	CCONJ	_	45	cc	_	_
+45	MM	MM	PROPN	PROPN	_	43	conj	_	_
+46	.	.	PUNCT	PUNCT	_	48	punct	_	_
+47	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	48	det	_	_
+48	députés	député	NOUN	NOUN	Gender=Masc|Number=Plur	50	nsubj	_	_
+49	se	soi	PRON	PRON	Person=3|PronType=Prs|Reflex=Yes	50	expl:pv	_	_
+50	lèvent	lever	VERB	VERB	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	35	parataxis	_	_
+51	et	et	CCONJ	CCONJ	_	52	cc	_	_
+52	applaudissent	applaudir	VERB	VERB	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	50	conj	_	_
+53	]	]	PUNCT	PUNCT	_	50	punct	_	_
+54	]	]	PUNCT	PUNCT	_	50	punct	_	_
+
+# sent_id = 194269
+# text = Mes chers collègues , voici le résultat de le scrutin pour l’ élection de les vice-présidents de l’ Assemblée nationale .
+1	Mes	son	DET	DET	Number=Plur|Poss=Yes	3	det	_	_
+2	chers	cher	ADJ	ADJ	Gender=Masc|Number=Plur	3	amod	_	_
+3	collègues	collègue	NOUN	NOUN	Number=Plur	5	nsubj	_	_
+4	,	,	PUNCT	PUNCT	_	3	punct	_	_
+5	voici	voici	VERB	VERB	_	0	root	_	_
+6	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	7	det	_	_
+7	résultat	résultat	NOUN	NOUN	Gender=Masc|Number=Sing	5	obj	_	_
+8	de	de	ADP	ADP	_	10	case	_	_
+9	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	10	det	_	_
+10	scrutin	scrutin	NOUN	NOUN	Gender=Masc|Number=Sing	7	nmod	_	_
+11	pour	pour	ADP	ADP	_	13	case	_	_
+12	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	13	det	_	_
+13	élection	élection	NOUN	NOUN	Gender=Fem|Number=Sing	7	nmod	_	_
+14	de	de	ADP	ADP	_	16	case	_	_
+15	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	16	det	_	_
+16	vice-présidents	vice-président	NOUN	NOUN	Gender=Masc|Number=Plur	13	nmod	_	_
+17	de	de	ADP	ADP	_	19	case	_	_
+18	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	19	det	_	_
+19	Assemblée	assemblée	NOUN	NOUN	Gender=Fem|Number=Sing	16	nmod	_	_
+20	nationale	national	ADJ	ADJ	Gender=Fem|Number=Sing	19	amod	_	_
+21	.	.	PUNCT	PUNCT	_	5	punct	_	_
+
+# sent_id = 194270
+# text = Nombre de votants : 224 Bulletins blancs ou nuls : 2 Suffrages exprimés : 222 Majorité absolue : 112 Ont obtenu : Mme Annie Genevard : 211 voix M. Marc Le Fur : 210 voix M. Maurice Leroy : 210 voix M. Sylvain Waserman : 209 voix M. Hugues Renson : 209 voix Mme Carole Bureau-Bonnard : 208 voix Mme Sabine Rubin : 9 voix .
+1	Nombre	nombre	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	de	de	ADP	ADP	_	3	case	_	_
+3	votants	votant	NOUN	NOUN	Gender=Masc|Number=Plur	1	nmod	_	_
+4	:	:	PUNCT	PUNCT	_	6	punct	_	_
+5	224	224	NUM	NUM	NumType=Card	6	nummod	_	_
+6	Bulletins	bulletin	NOUN	NOUN	Gender=Masc|Number=Plur	1	appos	_	_
+7	blancs	blanc	ADJ	ADJ	Gender=Masc|Number=Plur	6	amod	_	_
+8	ou	ou	CCONJ	CCONJ	_	9	cc	_	_
+9	nuls	nul	ADJ	ADJ	Gender=Masc|Number=Plur	7	conj	_	_
+10	:	:	PUNCT	PUNCT	_	12	punct	_	_
+11	2	2	NUM	NUM	NumType=Card	12	nummod	_	_
+12	Suffrages	suffrage	NOUN	NOUN	Gender=Masc|Number=Plur	6	nmod	_	_
+13	exprimés	exprimer	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Pass	12	acl	_	_
+14	:	:	PUNCT	PUNCT	_	16	punct	_	_
+15	222	222	NUM	NUM	NumType=Card	12	nummod	_	_
+16	Majorité	majorité	NOUN	NOUN	Gender=Fem|Number=Sing	12	nmod	_	_
+17	absolue	absolu	ADJ	ADJ	Gender=Fem|Number=Sing	16	amod	_	_
+18	:	:	PUNCT	PUNCT	_	21	punct	_	_
+19	112	112	NUM	NUM	NumType=Card	21	nsubj	_	_
+20	Ont	avoir	AUX	AUX	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	21	aux:tense	_	_
+21	obtenu	obtenir	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part	1	parataxis	_	_
+22	:	:	PUNCT	PUNCT	_	23	punct	_	_
+23	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	21	parataxis	_	_
+24	Annie	Annie	PROPN	PROPN	Gender=Fem|Number=Sing	23	nmod	_	_
+25	Genevard	Genevard	PROPN	PROPN	_	24	flat:name	_	_
+26	:	:	PUNCT	PUNCT	_	28	punct	_	_
+27	211	211	NUM	NUM	NumType=Card	28	nummod	_	_
+28	voix	voix	NOUN	NOUN	Gender=Fem|Number=Plur	23	nmod	_	_
+29	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	23	nmod	_	_
+30	Marc	Marc	PROPN	PROPN	Gender=Masc|Number=Sing	29	nmod	_	_
+31	Le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	32	det	_	_
+32	Fur	Fur	PROPN	PROPN	Gender=Masc|Number=Sing	30	nmod	_	_
+33	:	:	PUNCT	PUNCT	_	35	punct	_	_
+34	210	210	NUM	NUM	NumType=Card	35	nummod	_	_
+35	voix	voix	NOUN	NOUN	Gender=Fem|Number=Plur	23	nmod	_	_
+36	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	35	nmod	_	_
+37	Maurice	Maurice	PROPN	PROPN	Gender=Masc|Number=Sing	36	nmod	_	_
+38	Leroy	Leroy	PROPN	PROPN	Gender=Masc|Number=Sing	37	flat:name	_	_
+39	:	:	PUNCT	PUNCT	_	41	punct	_	_
+40	210	210	NUM	NUM	NumType=Card	41	nummod	_	_
+41	voix	voix	NOUN	NOUN	Gender=Fem|Number=Plur	35	nmod	_	_
+42	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	41	nmod	_	_
+43	Sylvain	Sylvain	PROPN	PROPN	Gender=Masc|Number=Sing	42	nmod	_	_
+44	Waserman	Waserman	PROPN	PROPN	_	43	flat:name	_	_
+45	:	:	PUNCT	PUNCT	_	47	punct	_	_
+46	209	209	NUM	NUM	NumType=Card	47	nummod	_	_
+47	voix	voix	NOUN	NOUN	Gender=Fem|Number=Plur	41	nmod	_	_
+48	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	47	nmod	_	_
+49	Hugues	Hugues	PROPN	PROPN	Gender=Masc|Number=Sing	48	nmod	_	_
+50	Renson	Renson	PROPN	PROPN	_	49	flat:name	_	_
+51	:	:	PUNCT	PUNCT	_	53	punct	_	_
+52	209	209	NUM	NUM	NumType=Card	53	nummod	_	_
+53	voix	voix	NOUN	NOUN	Gender=Fem|Number=Plur	48	nmod	_	_
+54	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	53	nmod	_	_
+55	Carole	Carole	PROPN	PROPN	Gender=Fem|Number=Sing	54	nmod	_	_
+56	Bureau-Bonnard	Bureau-Bonnard	PROPN	PROPN	_	55	flat:name	_	_
+57	:	:	PUNCT	PUNCT	_	59	punct	_	_
+58	208	208	NUM	NUM	NumType=Card	59	nummod	_	_
+59	voix	voix	NOUN	NOUN	Gender=Fem|Number=Plur	53	nmod	_	_
+60	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	59	nmod	_	_
+61	Sabine	Sabine	PROPN	PROPN	Gender=Fem|Number=Sing	60	nmod	_	_
+62	Rubin	Rubin	PROPN	PROPN	_	60	flat:name	_	_
+63	:	:	PUNCT	PUNCT	_	65	punct	_	_
+64	9	9	NUM	NUM	NumType=Card	65	nummod	_	_
+65	voix	voix	NOUN	NOUN	Gender=Fem|Number=Plur	59	nmod	_	_
+66	.	.	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194271
+# text = Mme Annie Genevard , M. Marc Le Fur , M. Maurice Leroy , M. Sylvain Waserman , M. Hugues Renson et Mme Carole Bureau-Bonnard ayant obtenu la majorité absolue de les suffrages exprimés , je les proclame vice-présidents de l’ Assemblée nationale .
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	37	nsubj	_	_
+2	Annie	Annie	PROPN	PROPN	Gender=Fem|Number=Sing	1	nmod	_	_
+3	Genevard	Genevard	PROPN	PROPN	_	2	flat:name	_	_
+4	,	,	PUNCT	PUNCT	_	5	punct	_	_
+5	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	1	conj	_	_
+6	Marc	Marc	PROPN	PROPN	Gender=Masc|Number=Sing	5	nmod	_	_
+7	Le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	8	det	_	_
+8	Fur	Fur	PROPN	PROPN	Gender=Masc|Number=Sing	6	nmod	_	_
+9	,	,	PUNCT	PUNCT	_	10	punct	_	_
+10	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	1	conj	_	_
+11	Maurice	Maurice	PROPN	PROPN	Gender=Masc|Number=Sing	10	nmod	_	_
+12	Leroy	Leroy	PROPN	PROPN	Gender=Masc|Number=Sing	11	flat:name	_	_
+13	,	,	PUNCT	PUNCT	_	14	punct	_	_
+14	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	1	conj	_	_
+15	Sylvain	Sylvain	PROPN	PROPN	Gender=Masc|Number=Sing	14	nmod	_	_
+16	Waserman	Waserman	PROPN	PROPN	_	15	flat:name	_	_
+17	,	,	PUNCT	PUNCT	_	18	punct	_	_
+18	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	1	conj	_	_
+19	Hugues	Hugues	PROPN	PROPN	Gender=Masc|Number=Sing	18	nmod	_	_
+20	Renson	Renson	PROPN	PROPN	_	19	flat:name	_	_
+21	et	et	CCONJ	CCONJ	_	22	cc	_	_
+22	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	1	conj	_	_
+23	Carole	Carole	PROPN	PROPN	Gender=Fem|Number=Sing	22	flat:name	_	_
+24	Bureau-Bonnard	Bureau-Bonnard	PROPN	PROPN	_	22	flat:name	_	_
+25	ayant	avoir	AUX	AUX	Tense=Pres|VerbForm=Part	26	aux:tense	_	_
+26	obtenu	obtenir	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part	37	advcl	_	_
+27	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	28	det	_	_
+28	majorité	majorité	NOUN	NOUN	Gender=Fem|Number=Sing	26	obj	_	_
+29	absolue	absolu	ADJ	ADJ	Gender=Fem|Number=Sing	28	amod	_	_
+30	de	de	ADP	ADP	_	32	case	_	_
+31	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	32	det	_	_
+32	suffrages	suffrage	NOUN	NOUN	Gender=Masc|Number=Plur	28	nmod	_	_
+33	exprimés	exprimer	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Pass	32	acl	_	_
+34	,	,	PUNCT	PUNCT	_	26	punct	_	_
+35	je	moi	PRON	PRON	Number=Sing|Person=1|PronType=Prs	37	nsubj	_	_
+36	les	eux	PRON	PRON	Number=Plur|Person=3|PronType=Prs	37	obj	_	_
+37	proclame	proclamer	VERB	VERB	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	0	root	_	_
+38	vice-présidents	vice-président	NOUN	NOUN	Gender=Masc|Number=Plur	37	xcomp	_	_
+39	de	de	ADP	ADP	_	41	case	_	_
+40	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	41	det	_	_
+41	Assemblée	assemblée	NOUN	NOUN	Gender=Fem|Number=Sing	38	nmod	_	_
+42	nationale	national	ADJ	ADJ	Gender=Fem|Number=Sing	41	amod	_	_
+43	.	.	PUNCT	PUNCT	_	37	punct	_	_
+
+# sent_id = 194272
+# text = [[ De nombreux députés de les groupes LaREM , MODEM , LR et UDI-Agir se lèvent et applaudissent ] ]
+1	[[	[[	PUNCT	PUNCT	_	16	punct	_	_
+2	De	un	DET	DET	Definite=Ind|Number=Plur|PronType=Art	4	det	_	_
+3	nombreux	nombreux	ADJ	ADJ	Gender=Masc|Number=Plur	4	amod	_	_
+4	députés	député	NOUN	NOUN	Gender=Masc|Number=Plur	16	nsubj	_	_
+5	de	de	ADP	ADP	_	7	case	_	_
+6	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	7	det	_	_
+7	groupes	groupe	NOUN	NOUN	Gender=Masc|Number=Plur	4	nmod	_	_
+8	LaREM	LaREM	PROPN	PROPN	_	7	appos	_	_
+9	,	,	PUNCT	PUNCT	_	10	punct	_	_
+10	MODEM	MODEM	PROPN	PROPN	_	8	conj	_	_
+11	,	,	PUNCT	PUNCT	_	12	punct	_	_
+12	LR	LR	PROPN	PROPN	_	8	conj	_	_
+13	et	et	CCONJ	CCONJ	_	14	cc	_	_
+14	UDI-Agir	UDI-Agir	PROPN	PROPN	_	8	conj	_	_
+15	se	soi	PRON	PRON	Person=3|PronType=Prs|Reflex=Yes	16	expl:pv	_	_
+16	lèvent	lever	VERB	VERB	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	0	root	_	_
+17	et	et	CCONJ	CCONJ	_	18	cc	_	_
+18	applaudissent	applaudir	VERB	VERB	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	16	conj	_	_
+19	]	]	PUNCT	PUNCT	_	16	punct	_	_
+20	]	]	PUNCT	PUNCT	_	16	punct	_	_
+
+# sent_id = 194273
+# text = Tous les sièges de vice-président ayant été pourvus , il n’ y a pas lieu de procéder à les autres tours de scrutin .
+1	Tous	tout	ADJ	ADJ	Gender=Masc|Number=Plur	3	amod	_	_
+2	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	3	det	_	_
+3	sièges	siège	NOUN	NOUN	Gender=Masc|Number=Plur	8	nsubj:pass	_	_
+4	de	de	ADP	ADP	_	5	case	_	_
+5	vice-président	vice-président	NOUN	NOUN	Gender=Masc|Number=Sing	3	nmod	_	_
+6	ayant	avoir	AUX	AUX	Tense=Pres|VerbForm=Part	8	aux:tense	_	_
+7	été	être	AUX	AUX	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part	8	aux:pass	_	_
+8	pourvus	pourvoir	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Pass	13	advcl	_	_
+9	,	,	PUNCT	PUNCT	_	8	punct	_	_
+10	il	lui	PRON	PRON	Emph=No|Gender=Masc|Number=Sing|Person=3|PronType=Prs	13	expl:subj	_	_
+11	n’	ne	ADV	ADV	Polarity=Neg	13	advmod	_	_
+12	y	y	PRON	PRON	Emph=No|Person=3|PronType=Prs	13	expl:comp	_	_
+13	a	avoir	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	0	root	_	_
+14	pas	pas	ADV	ADV	Polarity=Neg	13	advmod	_	_
+15	lieu	lieu	NOUN	NOUN	Gender=Masc|Number=Sing	13	obj:lvc	_	_
+16	de	de	ADP	ADP	_	17	mark	_	_
+17	procéder	procéder	VERB	VERB	VerbForm=Inf	13	xcomp	_	_
+18	à	à	ADP	ADP	_	21	case	_	_
+19	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	21	det	_	_
+20	autres	autre	ADJ	ADJ	Gender=Masc|Number=Plur	21	amod	_	_
+21	tours	tour	NOUN	NOUN	Gender=Masc|Number=Plur	17	obl:arg	_	_
+22	de	de	ADP	ADP	_	23	case	_	_
+23	scrutin	scrutin	NOUN	NOUN	Gender=Masc|Number=Sing	21	nmod	_	_
+24	.	.	PUNCT	PUNCT	_	13	punct	_	_
+
+# sent_id = 194274
+# text = Pour les fonctions de questeur et de secrétaire , le nombre de candidats n’ est pas supérieur à le nombre de sièges à pourvoir .
+1	Pour	pour	ADP	ADP	_	3	case	_	_
+2	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	3	det	_	_
+3	fonctions	fonction	NOUN	NOUN	Gender=Fem|Number=Plur	17	obl:mod	_	_
+4	de	de	ADP	ADP	_	5	case	_	_
+5	questeur	questeur	NOUN	NOUN	Gender=Masc|Number=Sing	3	nmod	_	_
+6	et	et	CCONJ	CCONJ	_	8	cc	_	_
+7	de	de	ADP	ADP	_	8	case	_	_
+8	secrétaire	secrétaire	NOUN	NOUN	Gender=Masc|Number=Sing	5	conj	_	_
+9	,	,	PUNCT	PUNCT	_	3	punct	_	_
+10	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	11	det	_	_
+11	nombre	nombre	NOUN	NOUN	Gender=Masc|Number=Sing	17	nsubj	_	_
+12	de	de	ADP	ADP	_	13	case	_	_
+13	candidats	candidat	NOUN	NOUN	Gender=Masc|Number=Plur	11	nmod	_	_
+14	n’	ne	ADV	ADV	Polarity=Neg	17	advmod	_	_
+15	est	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	17	cop	_	_
+16	pas	pas	ADV	ADV	Polarity=Neg	17	advmod	_	_
+17	supérieur	supérieur	ADJ	ADJ	Gender=Masc|Number=Sing	0	root	_	_
+18	à	à	ADP	ADP	_	20	case	_	_
+19	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	20	det	_	_
+20	nombre	nombre	NOUN	NOUN	Gender=Masc|Number=Sing	17	obl:arg	_	_
+21	de	de	ADP	ADP	_	22	case	_	_
+22	sièges	siège	NOUN	NOUN	Gender=Masc|Number=Plur	20	nmod	_	_
+23	à	à	ADP	ADP	_	24	mark	_	_
+24	pourvoir	pourvoir	VERB	VERB	VerbForm=Inf	22	acl	_	_
+25	.	.	PUNCT	PUNCT	_	17	punct	_	_
+
+# sent_id = 194275
+# text = Je proclame donc questeurs : M. Florian Bachelier ;
+1	Je	moi	PRON	PRON	Number=Sing|Person=1|PronType=Prs	2	nsubj	_	_
+2	proclame	proclamer	VERB	VERB	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	0	root	_	_
+3	donc	donc	ADV	ADV	_	2	advmod	_	_
+4	questeurs	questeur	NOUN	NOUN	Gender=Masc|Number=Plur	2	obj	_	_
+5	:	:	PUNCT	PUNCT	_	6	punct	_	_
+6	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	4	appos	_	_
+7	Florian	Florian	PROPN	PROPN	Gender=Masc|Number=Sing	6	nmod	_	_
+8	Bachelier	Bachelier	PROPN	PROPN	_	7	flat:name	_	_
+9	;	;	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194276
+# text = Mme Laurianne Rossi ;
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	Laurianne	Laurianne	PROPN	PROPN	_	1	flat:name	_	_
+3	Rossi	Rossi	PROPN	PROPN	_	1	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194277
+# text = M. Éric Ciotti . [[ Applaudissements ] ]
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Éric	Éric	PROPN	PROPN	_	1	nmod	_	_
+3	Ciotti	Ciotti	PROPN	PROPN	_	2	flat:name	_	_
+4	.	.	PUNCT	PUNCT	_	6	punct	_	_
+5	[[	[[	PUNCT	PUNCT	_	6	punct	_	_
+6	Applaudissements	applaudissement	NOUN	NOUN	Gender=Masc|Number=Plur	1	nmod	_	_
+7	]	]	PUNCT	PUNCT	_	6	punct	_	_
+8	]	]	PUNCT	PUNCT	_	6	punct	_	_
+
+# sent_id = 194278
+# text = De même , je proclame secrétaires : M. Lénaïck Adam ;
+1	De	de	ADP	ADP	_	5	advmod	_	_
+2	même	même	ADV	ADV	_	1	fixed	_	_
+3	,	,	PUNCT	PUNCT	_	1	punct	_	_
+4	je	moi	PRON	PRON	Number=Sing|Person=1|PronType=Prs	5	nsubj	_	_
+5	proclame	proclamer	VERB	VERB	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	0	root	_	_
+6	secrétaires	secrétaire	NOUN	NOUN	Gender=Masc|Number=Plur	5	obj	_	_
+7	:	:	PUNCT	PUNCT	_	8	punct	_	_
+8	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	6	appos	_	_
+9	Lénaïck	Lénaïck	PROPN	PROPN	_	8	nmod	_	_
+10	Adam	Adam	PROPN	PROPN	_	9	flat:name	_	_
+11	;	;	PUNCT	PUNCT	_	5	punct	_	_
+
+# sent_id = 194279
+# text = Mme Ramlati Ali ;
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	Ramlati	Ramlati	PROPN	PROPN	_	1	flat:name	_	_
+3	Ali	Ali	PROPN	PROPN	_	1	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194280
+# text = Mme Danielle Brulebois ;
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	Danielle	Danielle	PROPN	PROPN	_	1	flat:name	_	_
+3	Brulebois	Brulebois	PROPN	PROPN	_	1	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194281
+# text = M. Luc Carvounas ;
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Luc	Luc	PROPN	PROPN	_	1	nmod	_	_
+3	Carvounas	Carvounas	PROPN	PROPN	_	2	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194282
+# text = M. Lionel Causse ;
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Lionel	Lionel	PROPN	PROPN	Gender=Masc|Number=Sing	1	nmod	_	_
+3	Causse	Causse	PROPN	PROPN	_	2	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194283
+# text = M. Alexis Corbière ;
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Alexis	Alexis	PROPN	PROPN	_	1	nmod	_	_
+3	Corbière	Corbière	PROPN	PROPN	_	2	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194284
+# text = Mme Laurence Dumont ;
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	Laurence	Laurence	PROPN	PROPN	_	1	flat:name	_	_
+3	Dumont	Dumont	PROPN	PROPN	_	1	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194285
+# text = Mme Marie Guévenoux ;
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	Marie	Marie	PROPN	PROPN	_	1	flat:name	_	_
+3	Guévenoux	Guévenoux	PROPN	PROPN	_	1	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194286
+# text = Mme Annaïg Le Meur ;
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	Annaïg	Annaïg	PROPN	PROPN	_	1	flat:name	_	_
+3	Le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	4	det	_	_
+4	Meur	Meur	PROPN	PROPN	Gender=Masc|Number=Sing	1	nmod	_	_
+5	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194287
+# text = Mme Sophie Mette ;
+1	Mme	Mme	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	Sophie	Sophie	PROPN	PROPN	_	1	flat:name	_	_
+3	Mette	Mette	PROPN	PROPN	_	1	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194288
+# text = M. Gabriel Serville ;
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Gabriel	Gabriel	PROPN	PROPN	_	1	nmod	_	_
+3	Serville	Serville	PROPN	PROPN	_	2	flat:name	_	_
+4	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194289
+# text = M. Guillaume Vuilletet . [[ Nouveaux applaudissements ] ]
+1	M.	monsieur	NOUN	NOUN	Gender=Masc|Number=Sing	0	root	_	_
+2	Guillaume	Guillaume	PROPN	PROPN	Gender=Masc|Number=Sing	1	nmod	_	_
+3	Vuilletet	Vuilletet	PROPN	PROPN	_	2	flat:name	_	_
+4	.	.	PUNCT	PUNCT	_	7	punct	_	_
+5	[[	[[	PUNCT	PUNCT	_	7	punct	_	_
+6	Nouveaux	nouveau	ADJ	ADJ	Gender=Masc|Number=Plur	7	amod	_	_
+7	applaudissements	applaudissement	NOUN	NOUN	Gender=Masc|Number=Plur	1	nmod	_	_
+8	]	]	PUNCT	PUNCT	_	7	punct	_	_
+9	]	]	PUNCT	PUNCT	_	7	punct	_	_
+
+# sent_id = 194290
+# text = Je constate que le Bureau de l’ Assemblée nationale est constitué .
+1	Je	moi	PRON	PRON	Number=Sing|Person=1|PronType=Prs	2	nsubj	_	_
+2	constate	constater	VERB	VERB	Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin	0	root	_	_
+3	que	que	SCONJ	SCONJ	_	11	mark	_	_
+4	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	5	det	_	_
+5	Bureau	bureau	NOUN	NOUN	Gender=Masc|Number=Sing	11	nsubj:pass	_	_
+6	de	de	ADP	ADP	_	8	case	_	_
+7	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	8	det	_	_
+8	Assemblée	assemblée	NOUN	NOUN	Gender=Fem|Number=Sing	5	nmod	_	_
+9	nationale	national	ADJ	ADJ	Gender=Fem|Number=Sing	8	amod	_	_
+10	est	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	11	aux:pass	_	_
+11	constitué	constituer	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	2	ccomp	_	_
+12	.	.	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194291
+# text = Sa nomination sera notifiée à le Président de la République , à le Premier ministre , à le président de le Sénat et publiée à le Journal officiel .
+1	Sa	son	DET	DET	Gender=Fem|Number=Sing|Number[psor]=Sing|Person[psor]=3|Poss=Yes|PronType=Prs	2	det	_	_
+2	nomination	nomination	NOUN	NOUN	Gender=Fem|Number=Sing	4	nsubj:pass	_	_
+3	sera	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Fut|VerbForm=Fin	4	aux:pass	_	_
+4	notifiée	notifier	VERB	VERB	Gender=Fem|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+5	à	à	ADP	ADP	_	7	case	_	_
+6	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	7	det	_	_
+7	Président	président	NOUN	NOUN	Gender=Masc|Number=Sing	4	obl:arg	_	_
+8	de	de	ADP	ADP	_	10	case	_	_
+9	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	10	det	_	_
+10	République	république	NOUN	NOUN	Gender=Fem|Number=Sing	7	nmod	_	_
+11	,	,	PUNCT	PUNCT	_	15	punct	_	_
+12	à	à	ADP	ADP	_	15	case	_	_
+13	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	15	det	_	_
+14	Premier	premier	ADJ	ADJ	Gender=Masc|Number=Sing	15	amod	_	_
+15	ministre	ministre	NOUN	NOUN	Gender=Masc|Number=Sing	7	conj	_	_
+16	,	,	PUNCT	PUNCT	_	19	punct	_	_
+17	à	à	ADP	ADP	_	19	case	_	_
+18	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	19	det	_	_
+19	président	président	NOUN	NOUN	Gender=Masc|Number=Sing	7	conj	_	_
+20	de	de	ADP	ADP	_	22	case	_	_
+21	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	22	det	_	_
+22	Sénat	sénat	NOUN	NOUN	Gender=Masc|Number=Sing	19	nmod	_	_
+23	et	et	CCONJ	CCONJ	_	24	cc	_	_
+24	publiée	publier	VERB	VERB	Gender=Fem|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	4	conj	_	_
+25	à	à	ADP	ADP	_	27	case	_	_
+26	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	27	det	_	_
+27	Journal	journal	NOUN	NOUN	Gender=Masc|Number=Sing	24	obl:mod	_	_
+28	officiel	officiel	ADJ	ADJ	Gender=Masc|Number=Sing	27	amod	_	_
+29	.	.	PUNCT	PUNCT	_	4	punct	_	_
+
+# sent_id = 194292
+# text = Prochaine séance , demain , à quinze heures : Questions à le Gouvernement ;
+1	Prochaine	prochain	ADJ	ADJ	Gender=Fem|Number=Sing	2	amod	_	_
+2	séance	séance	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+3	,	,	PUNCT	PUNCT	_	4	punct	_	_
+4	demain	demain	ADV	ADV	_	2	advmod	_	_
+5	,	,	PUNCT	PUNCT	_	8	punct	_	_
+6	à	à	ADP	ADP	_	8	case	_	_
+7	quinze	quinze	NUM	NUM	NumType=Card	8	nummod	_	_
+8	heures	heure	NOUN	NOUN	Gender=Fem|Number=Plur	2	nmod	_	_
+9	:	:	PUNCT	PUNCT	_	10	punct	_	_
+10	Questions	question	NOUN	NOUN	Gender=Fem|Number=Plur	2	appos	_	_
+11	à	à	ADP	ADP	_	13	case	_	_
+12	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	13	det	_	_
+13	Gouvernement	gouvernement	NOUN	NOUN	Gender=Masc|Number=Sing	10	nmod	_	_
+14	;	;	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 194293
+# text = Lecture définitive de le projet de loi relatif à l’ équilibre dans le secteur agricole et alimentaire ;
+1	Lecture	lecture	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+2	définitive	définitif	ADJ	ADJ	Gender=Fem|Number=Sing	1	amod	_	_
+3	de	de	ADP	ADP	_	5	case	_	_
+4	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	5	det	_	_
+5	projet	projet	NOUN	NOUN	Gender=Masc|Number=Sing	1	nmod	_	_
+6	de	de	ADP	ADP	_	7	case	_	_
+7	loi	loi	NOUN	NOUN	Gender=Fem|Number=Sing	5	nmod	_	_
+8	relatif	relatif	ADJ	ADJ	Gender=Masc|Number=Sing	5	amod	_	_
+9	à	à	ADP	ADP	_	11	case	_	_
+10	l’	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	11	det	_	_
+11	équilibre	équilibre	NOUN	NOUN	Gender=Masc|Number=Sing	8	obl:arg	_	_
+12	dans	dans	ADP	ADP	_	14	case	_	_
+13	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	14	det	_	_
+14	secteur	secteur	NOUN	NOUN	Gender=Masc|Number=Sing	8	obl:mod	_	_
+15	agricole	agricole	ADJ	ADJ	Gender=Masc|Number=Sing	14	amod	_	_
+16	et	et	CCONJ	CCONJ	_	17	cc	_	_
+17	alimentaire	alimentaire	ADJ	ADJ	Gender=Masc|Number=Sing	15	conj	_	_
+18	;	;	PUNCT	PUNCT	_	1	punct	_	_
+
+# sent_id = 194294
+# text = Suite de la discussion de le projet de loi relatif à la croissance et la transformation de les entreprises .
+1	Suite	suite	NOUN	NOUN	_	4	case	_	_
+2	de	de	ADP	ADP	_	1	fixed	_	_
+3	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	4	det	_	_
+4	discussion	discussion	NOUN	NOUN	Gender=Fem|Number=Sing	0	root	_	_
+5	de	de	ADP	ADP	_	7	case	_	_
+6	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	7	det	_	_
+7	projet	projet	NOUN	NOUN	Gender=Masc|Number=Sing	4	nmod	_	_
+8	de	de	ADP	ADP	_	9	case	_	_
+9	loi	loi	NOUN	NOUN	Gender=Fem|Number=Sing	7	nmod	_	_
+10	relatif	relatif	ADJ	ADJ	Gender=Masc|Number=Sing	7	amod	_	_
+11	à	à	ADP	ADP	_	13	case	_	_
+12	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	13	det	_	_
+13	croissance	croissance	NOUN	NOUN	Gender=Fem|Number=Sing	10	obl:arg	_	_
+14	et	et	CCONJ	CCONJ	_	16	cc	_	_
+15	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	16	det	_	_
+16	transformation	transformation	NOUN	NOUN	Gender=Fem|Number=Sing	13	conj	_	_
+17	de	de	ADP	ADP	_	19	case	_	_
+18	les	le	DET	DET	Definite=Def|Number=Plur|PronType=Art	19	det	_	_
+19	entreprises	entreprise	NOUN	NOUN	Gender=Fem|Number=Plur	16	nmod	_	_
+20	.	.	PUNCT	PUNCT	_	4	punct	_	_
+
+# sent_id = 194295
+# text = La séance est levée .
+1	La	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	2	det	_	_
+2	séance	séance	NOUN	NOUN	Gender=Fem|Number=Sing	4	nsubj:pass	_	_
+3	est	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	4	aux:pass	_	_
+4	levée	lever	VERB	VERB	Gender=Fem|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+5	.	.	PUNCT	PUNCT	_	4	punct	_	_

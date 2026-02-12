@@ -1,0 +1,19 @@
+# Dépendances pour l'extraction d'énoncés élémentaires et traitement de corpus ParlaMint
+# Inclut les scripts d'analyse syntaxique et de renumérotation des sent_id
+
+# Analyse syntaxique et traitement NLP
+grewpy>=0.4.0
+spacy-conll>=1.4.0
+stanza>=1.4.0
+
+# Calcul scientifique et apprentissage automatique
+torch>=1.9.0
+numpy>=1.21.0
+
+# Gestion des chemins de fichiers
+pathlib2>=2.3.6; python_version < "3.4"
+
+# Note: 
+# - pathlib et os sont inclus dans Python par défaut
+# - spaCy sera installé automatiquement avec spacy-conll si nécessaire
+# - Le script de renumérotation utilise uniquement des modules standards (os)
