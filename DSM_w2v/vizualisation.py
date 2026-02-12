@@ -14,6 +14,7 @@ sns.set(style="whitegrid", palette="muted")
 
 # Choix de DSM Term-term ou DSM term-term avec word2vec
 corpus = "DSM"
+
 if corpus == "DSM" :
     spec = importlib.util.spec_from_file_location("DSM_module", "./DSM_term-context_surface.py")
     DSM_module = importlib.util.module_from_spec(spec)
@@ -22,6 +23,7 @@ if corpus == "DSM" :
     ppmi_matrix = DSM_module.ppmi_matrix  #la matrice PPMI
 
     data = ppmi_matrix.values
+
 
 elif corpus == "DSM_w2v" :
     data_path = "word2vec_similarity_matrix.csv"
@@ -35,21 +37,21 @@ else:
     raise ValueError("Corpus invalide. Choisir 'DSM' ou 'DSM_w2v'")
 
 
-
 #Choix de la visualisation
-method = 'MDS'  #PCA ou MDS
+method = 'PCA'  #PCA ou MDS
 if method == 'PCA':
     scaler = StandardScaler() #normalistion "centrer et réduire"
     data_normalized = scaler.fit_transform(data)
 
     reducer = PCA(n_components=2, random_state=42)
-    data_2d = reducer.fit_transform(data)
+    data_2d = reducer.fit_transform(data_normalized)
 
 elif method == 'MDS':
     reducer = MDS(n_components=2, random_state=42)
     data_2d = reducer.fit_transform(data)
 else:
     raise ValueError("Méthode invalide. Choisir 'PCA' ou 'MDS'")
+
 
 
 # Clustering K-Means
@@ -64,25 +66,32 @@ print(f"Silhouette score : {score:.3f}")
 
 class_names= None
 
+labels = ppmi_matrix.index
+
 # Visualisation
 plt.figure(figsize=(10, 7))
 palette = sns.color_palette("tab10", n_colors=n_clusters)
 
 for i in range(n_clusters):
-    label_name = class_names[i] if class_names is not None else f"Groupe {i+1}"
+    # label_name = class_names[i] if class_names is not None else f"Groupe {i+1}"
     plt.scatter(
         data_2d[clusters == i, 0],
         data_2d[clusters == i, 1],
-        label=label_name,
+        # label=label_name,
         s=50,
         alpha=0.7,
         color=palette[i]
     )
 
-plt.title(f"Espace sémantique réduit en 2D avec {method} avec K-Means=5")
-plt.xlabel("Dimension 1")
-plt.ylabel("Dimension 2")
-plt.legend()
+
+for i, lab in enumerate(labels):
+    plt.annotate(lab, (data_2d[i,0], data_2d[i,1]), fontsize=7)
+
+plt.axhline(0, color="grey", lw=1)
+plt.axvline(0, color="grey", lw=1)
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("ACP – individus")
 plt.show()
 
 
