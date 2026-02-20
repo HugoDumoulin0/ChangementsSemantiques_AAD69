@@ -87,6 +87,8 @@ def indexe_enonces_elem(corpus, liste_match, param):
         }
         liste_des_enonces_elem.append(dico_un_enonce_elem)
         n += 1
+        print("debug")
+        print(dico_un_enonce_elem)
 
     print(f"Indexation des énoncés terminée en {time.time() - start_indexation:.2f} secondes")
     return liste_des_enonces_elem
@@ -118,7 +120,7 @@ def generate_conll(text, filename):
 
     # sauvegarder au format .conll
     conll = doc._.conll_str
-    with open(f"{filename}.conll", "w", encoding="utf-8") as f:
+    with open(f"corpus/conll/{filename}.conll", "w", encoding="utf-8") as f:
         f.write(conll)
     print(f"Conll généré")
 
@@ -144,20 +146,20 @@ if __name__ == "__main__":
     ## GÉNÉRATION DES FICHIERS CONLL
 
     ## Corpus
-    dossier_parent = Path("corpus/")
+    dossier_parent = Path("corpus")
 
     # Lire tous les fichiers contenus dans les sous-dossiers
     fichiers = [fichier for fichier in dossier_parent.iterdir() if fichier.is_file()]
 
     for fichier in fichiers:
-        print(fichier.stem)
-        with open(fichier, "r", encoding="utf-8") as f:
-            contenu = f.read()
-
-            destination_filename = fichier.stem  # Utiliser le nom de fichier sans extension
-
-            # Appel unique, nlp déjà initialisé
-            generate_conll(contenu, destination_filename)
+            print(fichier.stem)
+            with open(fichier, "r", encoding="utf-8") as f:
+                contenu = f.read()
+    
+                destination_filename = fichier.stem  # Utiliser le nom de fichier sans extension
+    
+                # Appel unique, nlp déjà initialisé
+                generate_conll(contenu, destination_filename)
 
     ## FIN GÉNÉRATION DES FICHIERS CONLL
     ## ANALYSE DES FICHIERS CONLL POUR EN EXTRAIRE LES ÉNONCÉS ÉLÉMENTAIRES
@@ -165,7 +167,7 @@ if __name__ == "__main__":
     # Chronométrage du chargement du corpus
     start_corpus = time.time()
     print("Chargement du corpus...")
-    treebank_folder_path = "corpus/"
+    treebank_folder_path = "corpus/conll"
     corpus = grewpy.Corpus(treebank_folder_path)
     print(f"Corpus chargé en {time.time() - start_corpus:.2f} secondes\n")
 
@@ -218,7 +220,8 @@ if __name__ == "__main__":
             }"""
 
     all_patterns = [
-        pattern,
+        pattern
+        ,
         pattern_conj,
         pattern_rel,
         pattern_comp,
@@ -231,9 +234,10 @@ if __name__ == "__main__":
 
     for p in all_patterns:
         req=grewpy.Request(p)
+        print(req)
         matches = corpus.search(req)
         all_matches.extend(matches)
-
+    
     print(f"Motifs trouvés en {time.time() - start_patterns:.2f} secondes\n")
 
     ## INDEXATION DES ÉNONCÉS ÉLÉMENTAIRES DANS UNE LISTE DE DICTIONNAIRES
