@@ -7,28 +7,27 @@ Created on Thu Jan 23 12:05:05 2025
 """
 
 import grewpy
-from grewpy import Corpus, Request
+from grewpy import Corpus, Request, Graph
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
 
 
-grewpy.set_config("sud") # ud or basic 
+grewpy.set_config("ud") # ud or basic 
 
 # path="/Users/hugodumoulin/Desktop/ArchivU/Travail/motifs/grewpy-tutorial/SUD_English-PUD/"
 # treebank_path="/Users/hugodumoulin/Desktop/ArchivU/Travail/motifs/grewpy-tutorial/SUD_English-PUD/en_pud-sud-test.conllu"
 
-path="/Users/hugodumoulin/Desktop/Cours_SDL/MCF_2025-2026/projet tuteuré/ChangementsSemantiques_AAD69/bibliographie/grew"
-treebank_path="/Users/hugodumoulin/Desktop/Cours_SDL/MCF_2025-2026/projet tuteuré/ChangementsSemantiques_AAD69/bibliographie/projet Tuteuré 2025/AAD69-synonymie-contextuelle/data/ParlaMint_100/ParlaMint-FR_2018-07-05-E1006.conll"
+path="./"
+treebank_path="/Users/hugodumoulin/Desktop/Cours_SDL/MCF_2025-2026/projet tuteuré/ChangementsSemantiques_AAD69/bibliographie/projet Tuteuré 2025/AAD69-synonymie-contextuelle/data/ParlaMint_100/ParlaMint-FR_2018-07-05-E1006.conll'
 
 corpus = Corpus(treebank_path)
 # print(type(corpus))
 
 
-# req1 = Request("pattern { X1 [upos=NOUN, Gender=Masc] ; X2 [Number=Sing, upos=ADJ] ; X1<X2}")
+req1 = Request("pattern { X1 [upos=NOUN] ; X2 [upos=ADJ] ; X1 < X2}")
 # req1 = Request('pattern { X1 [Number=Sing,upos=DET,lemma="le",Definite=Def,PronType=Art] ; X2 [Number=Sing] ; X1<X2}')
-req1 = Request('pattern { X1 [upos=DET]; X2 [upos=ADJ]; X3 [upos=NOUN]; X1 < X2; X2 < X3}')
-
+# req1 = Request('pattern { X1 [upos=DET]; X2 [upos=ADJ]; X3 [upos=NOUN]; X1 < X2; X2 < X3}')
 
 liste_match = corpus.search(req1, deco=True)
 
@@ -57,10 +56,11 @@ def index(treebank_path, req, param):
         index.append(liste_forms)
     return index
 
-for i in index(treebank_path, req1, "lemma"):
+for i in index(treebank_path, req1, "form"):
     print(i)
-    
-dump_graphique(liste_match[0])
+
+print(liste_match[1])
+dump_graphique(liste_match[1])
 
 
 

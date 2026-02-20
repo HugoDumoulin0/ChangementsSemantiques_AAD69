@@ -63,7 +63,6 @@ clusters = kmeans.fit_predict(data_2d)
 score = silhouette_score(data, clusters, metric="cosine")
 print(f"Silhouette score : {score:.3f}")
 
-
 class_names= None
 
 labels = ppmi_matrix.index
@@ -71,6 +70,15 @@ labels = ppmi_matrix.index
 # Visualisation
 plt.figure(figsize=(10, 7))
 palette = sns.color_palette("tab10", n_colors=n_clusters)
+
+# eigvals = reducer.explained_variance_
+# contrib = pd.DataFrame(
+#     data_2d**2 / eigvals,
+#     columns=[f"PC{i+1}" for i in range(data_2d.shape[1])]
+# )
+# contrib["Plan_12"] = contrib["PC1"] + contrib["PC2"]
+# contrib.sort_values("Plan_12", ascending=False).head(10)
+# top = contrib.sort_values("Plan_12", ascending=False).head(10).index
 
 for i in range(n_clusters):
     # label_name = class_names[i] if class_names is not None else f"Groupe {i+1}"
@@ -85,14 +93,17 @@ for i in range(n_clusters):
 
 
 for i, lab in enumerate(labels):
-    plt.annotate(lab, (data_2d[i,0], data_2d[i,1]), fontsize=7)
+    # if lab in top:
+        plt.annotate(lab, (data_2d[i,0], data_2d[i,1]), fontsize=7)
 
 plt.axhline(0, color="grey", lw=1)
 plt.axvline(0, color="grey", lw=1)
-plt.xlabel("PC1")
-plt.ylabel("PC2")
+plt.xlabel("Dimension 1")
+plt.ylabel("Dimension 2")
 plt.title("ACP – individus")
 plt.show()
+
+
 
 
 top_k = 10

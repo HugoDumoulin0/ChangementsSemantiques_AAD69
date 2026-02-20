@@ -138,7 +138,7 @@ if __name__ == "__main__":
     ## GÉNÉRATION DES FICHIERS CONLL
 
     ## Corpus Parlamint2018_raw disponible sur le dépôt 
-    dossier_parent = Path("../../data/Parlamint2018_raw")
+    dossier_parent = Path("data/Parlamint2018_raw")
 
     # Lire tous les fichiers contenus dans les sous-dossiers
     fichiers = [fichier for fichier in dossier_parent.iterdir() if fichier.is_dir() for fichier in fichier.iterdir() if fichier.is_file()]
@@ -159,7 +159,10 @@ if __name__ == "__main__":
     # Chronométrage du chargement du corpus
     start_corpus = time.time()
     print("Chargement du corpus...")
-    treebank_folder_path = "../data/ParlaMint_100"
+    import os
+    print(os.getcwd())
+    treebank_folder_path = 'data/conll'
+    # treebank_folder_path='/Users/hugodumoulin/Desktop/Cours_SDL/MCF_2025-2026/projet tuteuré/ChangementsSemantiques_AAD69/bibliographie/projet Tuteuré 2025/AAD69-synonymie-contextuelle/data/conll'
     corpus = grewpy.Corpus(treebank_folder_path)
     print(f"Corpus chargé en {time.time() - start_corpus:.2f} secondes\n")
 
@@ -202,7 +205,7 @@ if __name__ == "__main__":
     # Enregistrement dans un fichier texte
     print("Écriture des énoncés dans un fichier texte...")
 
-    output_path = "../../data/enonces_elementaires.txt"
+    output_path = "data/enonces_elementaires.txt"
     with open(output_path, "w", encoding="utf-8") as f:
         for ee in liste_enonces_elem:
             formes = ee["formes_EE"]
