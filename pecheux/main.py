@@ -140,7 +140,11 @@ def generate_conll(text, filename):
     # sauvegarder au format .conll
     conll = doc._.conll_str
 <<<<<<< HEAD
+<<<<<<< HEAD
     with open(f"corpus/{filename}.conll", "w", encoding="utf-8") as f:
+=======
+    with open(f"{filename}.conll", "w", encoding="utf-8") as f:
+>>>>>>> parent of 1bd7846 (update main)
 =======
     with open(f"{filename}.conll", "w", encoding="utf-8") as f:
 >>>>>>> parent of 1bd7846 (update main)
@@ -167,6 +171,9 @@ if __name__ == "__main__":
     ## Corpus Parlamint2018_raw disponible sur le dépôt 
 =======
     ## Corpus
+<<<<<<< HEAD
+>>>>>>> parent of 1bd7846 (update main)
+=======
 >>>>>>> parent of 1bd7846 (update main)
     dossier_parent = Path("corpus/")
 
@@ -290,6 +297,9 @@ if __name__ == "__main__":
         matches = corpus.search(req)
         all_matches.extend(matches)
 
+<<<<<<< HEAD
+>>>>>>> parent of 1bd7846 (update main)
+=======
 >>>>>>> parent of 1bd7846 (update main)
     print(f"Motifs trouvés en {time.time() - start_patterns:.2f} secondes\n")
 
