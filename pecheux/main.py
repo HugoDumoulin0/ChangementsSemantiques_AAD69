@@ -106,6 +106,9 @@ def indexe_enonces_elem(corpus, liste_match, param):
         }
         liste_des_enonces_elem.append(dico_un_enonce_elem)
         n += 1
+<<<<<<< HEAD
+>>>>>>> parent of 1bd7846 (update main)
+=======
 >>>>>>> parent of 1bd7846 (update main)
 
     print(f"Indexation des énoncés terminée en {time.time() - start_indexation:.2f} secondes")
