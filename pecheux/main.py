@@ -77,6 +77,7 @@ def indexe_enonces_elem(corpus, liste_match, param):
         if not sujets:  # Pas de sujet, on gère les PP ou D N
             sujets = [None]
 
+<<<<<<< HEAD
         for sujet in sujets:
             formes_EE = {}
             # Sujets / noms
@@ -97,6 +98,15 @@ def indexe_enonces_elem(corpus, liste_match, param):
             }
             liste_des_enonces_elem.append(dico_un_enonce_elem)
             n += 1
+=======
+        dico_un_enonce_elem = {
+            "id_EE": n + 1,
+            "id_sent": sent_id,
+            "formes_EE": formes_EE,
+        }
+        liste_des_enonces_elem.append(dico_un_enonce_elem)
+        n += 1
+>>>>>>> parent of 1bd7846 (update main)
 
     print(f"Indexation des énoncés terminée en {time.time() - start_indexation:.2f} secondes")
     return liste_des_enonces_elem
@@ -129,7 +139,11 @@ def generate_conll(text, filename):
 
     # sauvegarder au format .conll
     conll = doc._.conll_str
+<<<<<<< HEAD
     with open(f"corpus/{filename}.conll", "w", encoding="utf-8") as f:
+=======
+    with open(f"{filename}.conll", "w", encoding="utf-8") as f:
+>>>>>>> parent of 1bd7846 (update main)
         f.write(conll)
     print(f"Conll généré")
 
@@ -149,7 +163,11 @@ if __name__ == "__main__":
 
     ## GÉNÉRATION DES FICHIERS CONLL
 
+<<<<<<< HEAD
     ## Corpus Parlamint2018_raw disponible sur le dépôt 
+=======
+    ## Corpus
+>>>>>>> parent of 1bd7846 (update main)
     dossier_parent = Path("corpus/")
 
     # Lire tous les fichiers contenus dans les sous-dossiers
@@ -199,6 +217,7 @@ if __name__ == "__main__":
             X-[nsubj|obj|iobj|nsubj:pass|cop]->Y;
             Y-[det]->Z;
             X-[aux:pass|aux:tense]->W;
+<<<<<<< HEAD
         }""",
         # PP D N
         """pattern {
@@ -216,6 +235,62 @@ if __name__ == "__main__":
         req = grewpy.Request(pat)
         matches = corpus.search(req)
         all_matches.extend(matches)
+=======
+            }"""
+
+    pattern_conj = """pattern {
+            Z-[conj]->X;
+            X-[cc]->CC;
+            }"""
+
+    pattern_rel = """pattern {
+            Z-[acl:relcl]->Y;
+            Y-[nsubj|obj]->R;
+            }"""
+
+    pattern_comp = """pattern {
+            V[upos=VERB];
+            C[upos=VERB];
+            V -[ccomp]-> C;
+            }"""
+
+    pattern_comp_inf = """pattern {
+            V[upos=VERB];
+            CI[upos=VERB, VerbForm=Inf];
+            V -[xcomp]-> CI;
+            }"""
+
+    pattern_circ = """pattern {
+            V[upos=VERB];
+            S[upos=VERB];
+            V -[advcl]-> S;
+            }"""
+
+    pattern_appos = """pattern {
+            N1[upos=NOUN|PROPN];
+            N2[upos=NOUN];
+            N1 -[appos]-> N2;
+            N2-[det]->D2
+            }"""
+
+    all_patterns = [
+        pattern,
+        pattern_conj,
+        pattern_rel,
+        pattern_comp,
+        pattern_comp_inf,
+        pattern_circ,
+        pattern_appos,
+        ]
+
+    all_matches = []
+
+    for p in all_patterns:
+        req=grewpy.Request(p)
+        matches = corpus.search(req)
+        all_matches.extend(matches)
+
+>>>>>>> parent of 1bd7846 (update main)
     print(f"Motifs trouvés en {time.time() - start_patterns:.2f} secondes\n")
 
     ## INDEXATION DES ÉNONCÉS ÉLÉMENTAIRES DANS UNE LISTE DE DICTIONNAIRES
