@@ -17,17 +17,17 @@ Modified on 06/06/2025 by Lucile Bessac
 
 import time
 import grewpy
+import numpy as np
 from pathlib import Path
 import torch
 import torch.serialization
-import numpy as np
 from numpy.core.multiarray import _reconstruct
 from spacy_conll import init_parser
 
 def patch_torch_load():
     """Patch la fonction torch.load pour éviter les erreurs de chargement de modèle.
-    Je ne me souviens pas précisément quelle est l'errzeur mais la fonction de 
-    génération du conll nécessite de patcher torch.load pour éviter les erreurs. 
+    Je ne me souviens pas précisément quelle est l'errzeur mais la fonction de
+    génération du conll nécessite de patcher torch.load pour éviter les erreurs.
     Je ne sais pas si c'est lié à la version de torch ou à un autre problème.
     :return: None"""
 
@@ -40,58 +40,67 @@ def patch_torch_load():
         if 'weights_only' not in kwargs:
             kwargs['weights_only'] = False
         return original_torch_load(*args, **kwargs)
-    
+
     torch.load = patched_torch_load
 
 
 def indexe_enonces_elem(corpus, liste_match, param):
-    print("LISTE DES MATCHS\n")
-    for element in liste_match:
-        print(element)
+    start_indexation = time.time()
+    print("Setup config SUD")
+
+    grewpy.set_config("sud")
+    print(f"Config UD setup en {time.time() - start_indexation:.2f} secondes")
+
+    # print("LISTE DES MATCHS\n")
+    # for element in liste_match:
+    #     print(element)
 
     liste_des_enonces_elem = []
     n = 0
 
-    def get_feature(node_label):
+    def get_feature(node_label): # pour éviter les erreurs si le label n'existe pas
         if node_label in nodes:
             node_id = str(nodes[node_label])
             if node_id in sent_features:
-                return sent_features[node_id].get(param, "")
+                return sent_features[node_id][param]
             else:
                 print(f"⚠️ No feature for node_id '{node_id}' in sentence '{sent_id}'")
         return ""
 
     for match in liste_match:
         sent_id = match["sent_id"]
-        formes_EE = {}
         nodes = match["matching"]["nodes"]
         sent_features = corpus[sent_id].features
 
-        formes_EE["D1"] = get_feature("Z")
-        formes_EE["N1"] = get_feature("Y")
-        formes_EE["D2"] = get_feature("D2")
-        formes_EE["N2"] = get_feature("N2")
-        formes_EE["AUX"] = get_feature("W")
-        formes_EE["V"] = get_feature("X")
-        #Manque les PP et ADV
-        formes_EE["Rel"] = get_feature("R")
-        formes_EE["C"] = get_feature("C")
-        formes_EE["CompInf"] = get_feature("CI")
-        formes_EE["CIRC"] = get_feature("S")
-        formes_EE["Conj"] = get_feature("CC")
+        # Si pattern contient des sujets multiples, itérer sur tous les nsubj
+        sujets = [node_id for label, node_id in nodes.items() if "Y" in label]
+        if not sujets:  # Pas de sujet, on gère les PP ou D N
+            sujets = [None]
 
-        dico_un_enonce_elem = {
-            "id_EE": n + 1,
-            "id_sent": sent_id,
-            "formes_EE": formes_EE,
-        }
-        liste_des_enonces_elem.append(dico_un_enonce_elem)
-        n += 1
-        print("debug")
-        print(dico_un_enonce_elem)
+        for sujet in sujets:
+            formes_EE = {}
+            # Sujets / noms
+            formes_EE["D1"]  = get_feature("Z")
+            formes_EE["N1"]  = sent_features[str(sujet)][param] if sujet else ""
+            # Verbe / auxiliaire / adverbe
+            formes_EE["AUX"] = get_feature("W")
+            formes_EE["V"]   = get_feature("X")
+            # Complément prépositionnel
+            formes_EE["PP"] = get_feature("P")
+            formes_EE["D2"] = get_feature("D")
+            formes_EE["N2"] = get_feature("N")
+
+            dico_un_enonce_elem = {
+                "id_EE": n + 1,
+                "id_sent": sent_id,
+                "formes_EE": formes_EE,
+            }
+            liste_des_enonces_elem.append(dico_un_enonce_elem)
+            n += 1
 
     print(f"Indexation des énoncés terminée en {time.time() - start_indexation:.2f} secondes")
     return liste_des_enonces_elem
+
 
 
 def supprimer_doublons_semantiques(enonces):
@@ -120,7 +129,7 @@ def generate_conll(text, filename):
 
     # sauvegarder au format .conll
     conll = doc._.conll_str
-    with open(f"corpus/conll/{filename}.conll", "w", encoding="utf-8") as f:
+    with open(f"corpus/{filename}.conll", "w", encoding="utf-8") as f:
         f.write(conll)
     print(f"Conll généré")
 
@@ -128,38 +137,33 @@ def generate_conll(text, filename):
 
 if __name__ == "__main__":
     patch_torch_load()
-    print("Setup config UD")
-
-    start_indexation = time.time()
-    grewpy.set_config("ud")
-    print(f"Config UD setup en {time.time() - start_indexation:.2f} secondes")
 
     # Initialisation pipeline NLP
     print("Initialisation de la pipeline NLP...")
     nlp = init_parser(
     "fr",
     "stanza",
-    parser_opts={"use_gpu": False, "verbose": True}, # use_gpu=False pour éviter les problèmes de mémoire
+    parser_opts={"use_gpu": False, "verbose": True},  # use_gpu=False pour éviter les problèmes de mémoire
     include_headers=True
     )
 
     ## GÉNÉRATION DES FICHIERS CONLL
 
-    ## Corpus
-    dossier_parent = Path("corpus")
+    ## Corpus Parlamint2018_raw disponible sur le dépôt 
+    dossier_parent = Path("corpus/")
 
     # Lire tous les fichiers contenus dans les sous-dossiers
     fichiers = [fichier for fichier in dossier_parent.iterdir() if fichier.is_file()]
 
     for fichier in fichiers:
-            print(fichier.stem)
-            with open(fichier, "r", encoding="utf-8") as f:
-                contenu = f.read()
-    
-                destination_filename = fichier.stem  # Utiliser le nom de fichier sans extension
-    
-                # Appel unique, nlp déjà initialisé
-                generate_conll(contenu, destination_filename)
+        print(fichier.stem)
+        with open(fichier, "r", encoding="utf-8") as f:
+            contenu = f.read()
+
+            destination_filename = fichier.stem  # Utiliser le nom de fichier sans extension
+
+            # Appel unique, nlp déjà initialisé
+            generate_conll(contenu, destination_filename)
 
     ## FIN GÉNÉRATION DES FICHIERS CONLL
     ## ANALYSE DES FICHIERS CONLL POUR EN EXTRAIRE LES ÉNONCÉS ÉLÉMENTAIRES
@@ -167,7 +171,7 @@ if __name__ == "__main__":
     # Chronométrage du chargement du corpus
     start_corpus = time.time()
     print("Chargement du corpus...")
-    treebank_folder_path = "corpus/conll"
+    treebank_folder_path = "corpus/"
     corpus = grewpy.Corpus(treebank_folder_path)
     print(f"Corpus chargé en {time.time() - start_corpus:.2f} secondes\n")
 
@@ -178,66 +182,40 @@ if __name__ == "__main__":
     start_patterns = time.time()
 
     # Initialisation de la liste pour stocker tous les matches
-    pattern = """pattern {
+    all_matches = []
+
+    liste_patterns = [
+        # D N (aux) V PP D N
+        """pattern {
+            V-[nsubj|obj|iobj|nsubj:pass|cop]->N1;
+            N1-[det]->D1;
+            X-[aux|aux:pass|aux:tense]->W;
+            V-[obl]->N2;
+            N2-[case]->P;
+            N2-[det]->D2;
+        }""",
+        # D N V
+        """pattern {
             X-[nsubj|obj|iobj|nsubj:pass|cop]->Y;
             Y-[det]->Z;
             X-[aux:pass|aux:tense]->W;
-            }"""
-
-    pattern_conj = """pattern {
-            Z-[conj]->X;
-            X-[cc]->CC;
-            }"""
-
-    pattern_rel = """pattern {
-            Z-[acl:relcl]->Y;
-            Y-[nsubj|obj]->R;
-            }"""
-
-    pattern_comp = """pattern {
-            V[upos=VERB];
-            C[upos=VERB];
-            V -[ccomp]-> C;
-            }"""
-
-    pattern_comp_inf = """pattern {
-            V[upos=VERB];
-            CI[upos=VERB, VerbForm=Inf];
-            V -[xcomp]-> CI;
-            }"""
-
-    pattern_circ = """pattern {
-            V[upos=VERB];
-            S[upos=VERB];
-            V -[advcl]-> S;
-            }"""
-
-    pattern_appos = """pattern {
-            N1[upos=NOUN|PROPN];
-            N2[upos=NOUN];
-            N1 -[appos]-> N2;
-            N2-[det]->D2
-            }"""
-
-    all_patterns = [
-        pattern
-        ,
-        pattern_conj,
-        pattern_rel,
-        pattern_comp,
-        pattern_comp_inf,
-        pattern_circ,
-        pattern_appos,
-        ]
-
+        }""",
+        # PP D N
+        """pattern {
+            N-[case]->P;
+            N-[det]->D;
+        }""",
+        # D N
+        """pattern {
+            N-[det]->D;
+        }"""
+    ]
+    
     all_matches = []
-
-    for p in all_patterns:
-        req=grewpy.Request(p)
-        print(req)
+    for pat in liste_patterns:
+        req = grewpy.Request(pat)
         matches = corpus.search(req)
         all_matches.extend(matches)
-    
     print(f"Motifs trouvés en {time.time() - start_patterns:.2f} secondes\n")
 
     ## INDEXATION DES ÉNONCÉS ÉLÉMENTAIRES DANS UNE LISTE DE DICTIONNAIRES
@@ -250,11 +228,12 @@ if __name__ == "__main__":
     # Affichage final
     nb_EE = len(liste_enonces_elem)
     print(f"Nombre d'énoncés élémentaires indexés : {nb_EE}\n")
+    # print("\n\nLISTE DES ÉNONCÉS ÉLÉMENTAIRES :\n")
+    # for element in liste_enonces_elem:
+    #     print(element)
 
-    print("\n\nLISTE DES ÉNONCÉS ÉLÉMENTAIRES :\n")
-    for element in liste_enonces_elem:
-        print(element)
-
+    ## ENREGISTREMENT DES ÉNONCÉS ÉLÉMENTAIRES DANS UN FICHIER TEXTE RÉUTILISABLE POUR L'ANALYSE SUIVANTE AVEC R
+    
     # Enregistrement dans un fichier texte
     print("Écriture des énoncés dans un fichier texte...")
 
@@ -262,7 +241,10 @@ if __name__ == "__main__":
     with open(output_path, "w", encoding="utf-8") as f:
         for ee in liste_enonces_elem:
             formes = ee["formes_EE"]
-            phrase = " ".join([formes["D1"], formes["N1"], formes["AUX"], formes["V"],formes["D2"],formes["N2"], formes["Rel"], formes["C"], formes["CompInf"], formes["CIRC"], formes["Conj"]])
+            phrase = " ".join(filter(None, [
+                formes["D1"], formes["N1"], formes["AUX"], formes["V"],
+                formes["PP"], formes["D2"], formes["N2"]
+            ]))
             f.write(phrase.strip() + ".\n")
 
     print(f"Fichier texte généré : {output_path}")
