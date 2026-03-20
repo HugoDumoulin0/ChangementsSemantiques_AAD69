@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Sur la base d'un script créé par @hugodumoulin on Wed Apr 23 14:21:23 
+Sur la base d'un script créé par @hugodumoulin on Wed Apr 23 14:21:23
 Modifié le 06/04/2025 by Lucile Bessac
 
 Script pour extraire les énoncés élémentaires d'un corpus ParlaMint 2018
@@ -51,14 +51,10 @@ def indexe_enonces_elem(corpus, liste_match, param):
     grewpy.set_config("ud")
     print(f"Config UD setup en {time.time() - start_indexation:.2f} secondes")
 
-    # print("LISTE DES MATCHS\n")
-    # for element in liste_match:
-    #     print(element)
-
     liste_des_enonces_elem = []
     n = 0
 
-    def get_feature(node_label): # pour éviter les erreurs si le label n'existe pas
+    def get_feature(node_label):  # pour éviter les erreurs si le label n'existe pas
         if node_label in nodes:
             node_id = str(nodes[node_label])
             if node_id in sent_features:
@@ -72,31 +68,28 @@ def indexe_enonces_elem(corpus, liste_match, param):
         nodes = match["matching"]["nodes"]
         sent_features = corpus[sent_id].features
 
-        # Si pattern contient des sujets multiples, itérer sur tous les nsubj
-        sujets = [node_id for label, node_id in nodes.items() if "Y" in label]
-        if not sujets:  # Pas de sujet, on gère les PP ou D N
-            sujets = [None]
+        formes_EE = {}
+        # Déterminant du sujet : Z -[det]-> Y
+        formes_EE["D1"]  = get_feature("Z")
+        formes_EE["N1"]  = get_feature("Y")
+        formes_EE["V"]   = get_feature("X")
+        # Auxiliaire de X : X -[aux:pass|aux:tense]-> W
+        formes_EE["AUX"] = get_feature("W")
+        # Préposition du xcomp : N -[case]-> P
+        formes_EE["PP"]  = get_feature("P")
+        # Déterminant du xcomp : N -[det]-> D
+        formes_EE["D2"]  = get_feature("D")
+        # Tête du xcomp : N (X -[xcomp]-> N)
+        formes_EE["N2"]  = get_feature("N")
 
-        for sujet in sujets:
-            formes_EE = {}
-            # Sujets / noms
-            formes_EE["D1"]  = get_feature("Z")
-            formes_EE["N1"]  = sent_features[str(sujet)][param] if sujet else ""
-            # Verbe / auxiliaire / adverbe
-            formes_EE["AUX"] = get_feature("W")
-            formes_EE["V"]   = get_feature("X")
-            # Complément prépositionnel
-            formes_EE["PP"] = get_feature("P")
-            formes_EE["D2"] = get_feature("D")
-            formes_EE["N2"] = get_feature("N")
 
-            dico_un_enonce_elem = {
-                "id_EE": n + 1,
-                "id_sent": sent_id,
-                "formes_EE": formes_EE,
-            }
-            liste_des_enonces_elem.append(dico_un_enonce_elem)
-            n += 1
+        dico_un_enonce_elem = {
+            "id_EE": n + 1,
+            "id_sent": sent_id,
+            "formes_EE": formes_EE,
+        }
+        liste_des_enonces_elem.append(dico_un_enonce_elem)
+        n += 1
 
     print(f"Indexation des énoncés terminée en {time.time() - start_indexation:.2f} secondes")
     return liste_des_enonces_elem
@@ -149,7 +142,7 @@ if __name__ == "__main__":
 
     ## GÉNÉRATION DES FICHIERS CONLL
 
-    ## Corpus Parlamint2018_raw disponible sur le dépôt 
+    ## Corpus Parlamint2018_raw disponible sur le dépôt
     dossier_parent = Path("corpus/")
 
     # Lire tous les fichiers contenus dans les sous-dossiers
@@ -167,7 +160,7 @@ if __name__ == "__main__":
 
     ## FIN GÉNÉRATION DES FICHIERS CONLL
     ## ANALYSE DES FICHIERS CONLL POUR EN EXTRAIRE LES ÉNONCÉS ÉLÉMENTAIRES
-    
+
     # Chronométrage du chargement du corpus
     start_corpus = time.time()
     print("Chargement du corpus...")
@@ -181,36 +174,26 @@ if __name__ == "__main__":
     print("Recherche de motifs...")
     start_patterns = time.time()
 
-    # Initialisation de la liste pour stocker tous les matches
-    all_matches = []
-
     liste_patterns = [
-        # D N (aux) V PP D N
         """pattern {
-            V-[nsubj|obj|iobj|nsubj:pass|cop]->N1;
-            N1-[det]->D1;
-            X-[aux|aux:pass|aux:tense]->W;
-            V-[obl]->N2;
-            N2-[case]->P;
-            N2-[det]->D2;
-        }""",
-        # D N V
-        """pattern {
-            X-[nsubj|obj|iobj|nsubj:pass|cop]->Y;
-            Y-[det]->Z;
-            X-[aux:pass|aux:tense]->W;
-        }""",
-        # PP D N
-        """pattern {
+            V[upos=VERB];
+            V-[nsubj|nsubj:pass]->X;
+            X-[det]->Z;
+            V-[aux:pass|aux:tense]->W;
+            V-[xcomp|obl:mod|obl:arg]->N;
             N-[case]->P;
             N-[det]->D;
         }""",
-        # D N
         """pattern {
+            V[upos=VERB];
+            V-[nsubj|nsubj:pass]->X;
+            X-[det]->Z;
+            V-[xcomp]->N;
+            N-[case]->P;
             N-[det]->D;
-        }"""
+        }""",
     ]
-    
+
     all_matches = []
     for pat in liste_patterns:
         req = grewpy.Request(pat)
@@ -219,7 +202,7 @@ if __name__ == "__main__":
     print(f"Motifs trouvés en {time.time() - start_patterns:.2f} secondes\n")
 
     ## INDEXATION DES ÉNONCÉS ÉLÉMENTAIRES DANS UNE LISTE DE DICTIONNAIRES
-    # Chronométrage de l’indexation
+    # Chronométrage de l'indexation
     print("Indexation des énoncés élémentaires...")
     start_indexation = time.time()
     liste_enonces_elem = indexe_enonces_elem(corpus, all_matches, param)
@@ -228,12 +211,9 @@ if __name__ == "__main__":
     # Affichage final
     nb_EE = len(liste_enonces_elem)
     print(f"Nombre d'énoncés élémentaires indexés : {nb_EE}\n")
-    # print("\n\nLISTE DES ÉNONCÉS ÉLÉMENTAIRES :\n")
-    # for element in liste_enonces_elem:
-    #     print(element)
 
     ## ENREGISTREMENT DES ÉNONCÉS ÉLÉMENTAIRES DANS UN FICHIER TEXTE RÉUTILISABLE POUR L'ANALYSE SUIVANTE AVEC R
-    
+
     # Enregistrement dans un fichier texte
     print("Écriture des énoncés dans un fichier texte...")
 
@@ -241,10 +221,7 @@ if __name__ == "__main__":
     with open(output_path, "w", encoding="utf-8") as f:
         for ee in liste_enonces_elem:
             formes = ee["formes_EE"]
-            phrase = " ".join(filter(None, [
-                formes["D1"], formes["N1"], formes["AUX"], formes["V"],
-                formes["PP"], formes["D2"], formes["N2"]
-            ]))
-            f.write(phrase.strip() + ".\n")
+            phrase1 = " ".join([formes["D1"], formes["AUX"], formes["V"], formes["N1"], formes["PP"], formes["D2"],formes["N2"]])
+            f.write(phrase1.strip() + ".\n")
 
     print(f"Fichier texte généré : {output_path}")
