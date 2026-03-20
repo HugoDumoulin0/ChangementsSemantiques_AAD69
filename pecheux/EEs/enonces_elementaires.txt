@@ -1,10 +1,14 @@
-un plateau être poser.
-le valet être enchaîner.
-le roi être asseoir.
-trompette   rouleau       et.
-enchaîner   encadrer       et.
-quadrupède   oiseau       et.
-quadrupède   paquet       et.
-roi   Reine       et.
-composer.
-arriver.
+un être plateau  sur un table.
+le être roi  sur un trône.
+un être plateau  sur un table.
+le être roi  sur un trône.
+eux.
+Alice.
+lui.
+foule.
+eux.
+eux.
+Alice.
+lui.
+foule.
+eux.

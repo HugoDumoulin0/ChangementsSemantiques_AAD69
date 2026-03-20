@@ -122,7 +122,7 @@ def generate_conll(text, filename):
 
     # sauvegarder au format .conll
     conll = doc._.conll_str
-    with open(f"corpus/{filename}.conll", "w", encoding="utf-8") as f:
+    with open(f"corpus/conll/{filename}.conll", "w", encoding="utf-8") as f:
         f.write(conll)
     print(f"Conll généré")
 
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     ## GÉNÉRATION DES FICHIERS CONLL
 
     ## Corpus Parlamint2018_raw disponible sur le dépôt
-    dossier_parent = Path("corpus/")
+    dossier_parent = Path("corpus/raw")
 
     # Lire tous les fichiers contenus dans les sous-dossiers
     fichiers = [fichier for fichier in dossier_parent.iterdir() if fichier.is_file()]
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     # Chronométrage du chargement du corpus
     start_corpus = time.time()
     print("Chargement du corpus...")
-    treebank_folder_path = "corpus/"
+    treebank_folder_path = "corpus/conll"
     corpus = grewpy.Corpus(treebank_folder_path)
     print(f"Corpus chargé en {time.time() - start_corpus:.2f} secondes\n")
 
@@ -192,6 +192,10 @@ if __name__ == "__main__":
             N-[case]->P;
             N-[det]->D;
         }""",
+        """pattern {
+            V[upos=VERB];
+            V-[nsubj]->X
+        }"""
     ]
 
     all_matches = []
