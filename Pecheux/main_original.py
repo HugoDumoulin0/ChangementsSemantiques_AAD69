@@ -71,8 +71,8 @@ def indexe_enonces_elem(corpus, liste_match, param):
         formes_EE = {}
         # Déterminant du sujet : Z -[det]-> Y
         formes_EE["D1"]  = get_feature("Z")
-        formes_EE["N1"]  = get_feature("Y")
-        formes_EE["V"]   = get_feature("X")
+        formes_EE["N1"]  = get_feature("X")
+        formes_EE["V"]   = get_feature("V")
         # Auxiliaire de X : X -[aux:pass|aux:tense]-> W
         formes_EE["AUX"] = get_feature("W")
         # Préposition du xcomp : N -[case]-> P
@@ -194,7 +194,7 @@ if __name__ == "__main__":
         }""",
         """pattern {
             V[upos=VERB];
-            V-[nsubj]->X
+            V-[nsubj|nsubj:pass]->X
         }"""
     ]
 
@@ -225,7 +225,7 @@ if __name__ == "__main__":
     with open(output_path, "w", encoding="utf-8") as f:
         for ee in liste_enonces_elem:
             formes = ee["formes_EE"]
-            phrase1 = " ".join([formes["D1"], formes["AUX"], formes["V"], formes["N1"], formes["PP"], formes["D2"],formes["N2"]])
+            phrase1 = " ".join([formes["D1"],formes["N1"], formes["AUX"],  formes["V"], formes["PP"], formes["D2"],formes["N2"]])
             f.write(phrase1.strip() + ".\n")
 
     print(f"Fichier texte généré : {output_path}")

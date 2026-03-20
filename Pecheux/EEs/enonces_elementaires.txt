@@ -1,14 +1,12 @@
-un être plateau  sur un table.
-le être roi  sur un trône.
-un être plateau  sur un table.
-le être roi  sur un trône.
-eux.
-Alice.
-lui.
-foule.
-eux.
-eux.
-Alice.
-lui.
-foule.
-eux.
+un plateau être poser sur un table.
+le roi être asseoir sur un trône.
+eux  être.
+Alice  avoir.
+plateau  poser.
+lui  avoir.
+près  tenir.
+Lapin  tenir.
+valet  enchaîner.
+foule  entourer.
+eux  arriver.
+roi  asseoir.
