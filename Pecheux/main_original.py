@@ -207,6 +207,11 @@ if __name__ == "__main__":
             V-[obj|iobj]->N;
             N-[det]->D;
         }""",
+        # N PRON V
+        # D V ADP PROPRN AUX V
+        # PRON V D N PP D N
+        # NP V D N (ADJ) (ADP PRON V)
+        # PRON V ADJ
     ]
 
     all_matches = []
