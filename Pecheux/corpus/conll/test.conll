@@ -1,0 +1,133 @@
+# sent_id = 1
+# text = Quand ils arrivent , le Roi et la Reine étaient assis sur des trônes .
+1	Quand	quand	SCONJ	SCONJ	_	3	mark	_	_
+2	ils	eux	PRON	PRON	Emph=No|Gender=Masc|Number=Plur|Person=3|PronType=Prs	3	nsubj	_	_
+3	arrivent	arriver	VERB	VERB	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	11	advcl	_	_
+4	,	,	PUNCT	PUNCT	_	3	punct	_	_
+5	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	6	det	_	_
+6	Roi	roi	NOUN	NOUN	Gender=Masc|Number=Sing	11	nsubj:pass	_	_
+7	et	et	CCONJ	CCONJ	_	9	cc	_	_
+8	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	9	det	_	_
+9	Reine	Reine	PROPN	PROPN	Gender=Fem|Number=Sing	6	conj	_	_
+10	étaient	être	AUX	AUX	Mood=Ind|Number=Plur|Person=3|Tense=Imp|VerbForm=Fin	11	aux:pass	_	_
+11	assis	asseoir	VERB	VERB	Gender=Masc|Number=Plur|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+12	sur	sur	ADP	ADP	_	14	case	_	_
+13	des	un	DET	DET	Definite=Ind|Number=Plur|PronType=Art	14	det	_	_
+14	trônes	trône	NOUN	NOUN	Gender=Masc|Number=Plur	11	obl:mod	_	_
+15	.	.	PUNCT	PUNCT	_	11	punct	_	_
+
+# sent_id = 2
+# text = Une grande foule les entourait , composée de toutes sortes de quadrupèdes et d' oiseaux , et de tout le paquet de cartes .
+1	Une	un	DET	DET	Definite=Ind|Gender=Fem|Number=Sing|PronType=Art	3	det	_	_
+2	grande	grand	ADJ	ADJ	Gender=Fem|Number=Sing	3	amod	_	_
+3	foule	foule	NOUN	NOUN	Gender=Fem|Number=Sing	5	nsubj	_	_
+4	les	eux	PRON	PRON	Emph=No|Number=Plur|Person=3|PronType=Prs	5	obj	_	_
+5	entourait	entourer	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin	0	root	_	_
+6	,	,	PUNCT	PUNCT	_	7	punct	_	_
+7	composée	composer	VERB	VERB	Gender=Fem|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	5	advcl	_	_
+8	de	de	ADP	ADP	_	10	case	_	_
+9	toutes	tout	DET	DET	Gender=Fem|Number=Plur|PronType=Ind	10	det	_	_
+10	sortes	sorte	NOUN	NOUN	Gender=Fem|Number=Plur	7	obl:arg	_	_
+11	de	de	ADP	ADP	_	12	case	_	_
+12	quadrupèdes	quadrupède	NOUN	NOUN	Gender=Masc|Number=Plur	10	nmod	_	_
+13	et	et	CCONJ	CCONJ	_	15	cc	_	_
+14	d'	de	ADP	ADP	_	15	case	_	_
+15	oiseaux	oiseau	NOUN	NOUN	Gender=Masc|Number=Plur	12	conj	_	_
+16	,	,	PUNCT	PUNCT	_	21	punct	_	_
+17	et	et	CCONJ	CCONJ	_	21	cc	_	_
+18	de	de	ADP	ADP	_	21	case	_	_
+19	tout	tout	ADJ	ADJ	Gender=Masc|Number=Sing	21	amod	_	_
+20	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	21	det	_	_
+21	paquet	paquet	NOUN	NOUN	Gender=Masc|Number=Sing	12	conj	_	_
+22	de	de	ADP	ADP	_	23	case	_	_
+23	cartes	carte	NOUN	NOUN	Gender=Fem|Number=Plur	21	nmod	_	_
+24	.	.	PUNCT	PUNCT	_	5	punct	_	_
+
+# sent_id = 3
+# text = Le Valet de Coeur , debout devant eux , était enchaîné et encadré de deux soldats .
+1	Le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	2	det	_	_
+2	Valet	valet	NOUN	NOUN	Gender=Masc|Number=Sing	11	nsubj:pass	_	_
+3	de	de	ADP	ADP	_	4	case	_	_
+4	Coeur	cœur	PROPN	PROPN	_	2	nmod	_	_
+5	,	,	PUNCT	PUNCT	_	6	punct	_	_
+6	debout	debout	ADJ	ADJ	Gender=Masc|Number=Sing	2	amod	_	_
+7	devant	devant	ADP	ADP	_	8	case	_	_
+8	eux	eux	PRON	PRON	Emph=Yes|Gender=Masc|Number=Plur|Person=3|PronType=Prs	6	obl:mod	_	_
+9	,	,	PUNCT	PUNCT	_	6	punct	_	_
+10	était	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin	11	aux:pass	_	_
+11	enchaîné	enchaîner	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+12	et	et	CCONJ	CCONJ	_	13	cc	_	_
+13	encadré	encadrer	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	11	conj	_	_
+14	de	de	ADP	ADP	_	16	case	_	_
+15	deux	deux	NUM	NUM	Number=Plur	16	nummod	_	_
+16	soldats	soldat	NOUN	NOUN	Gender=Masc|Number=Plur	13	obl:agent	_	_
+17	.	.	PUNCT	PUNCT	_	11	punct	_	_
+
+# sent_id = 4
+# text = Près de le Roi se tenait le Lapin Blanc ;
+1	Près	près	ADV	ADV	_	6	nsubj:pass	_	_
+2	de	de	ADP	ADP	_	4	case	_	_
+3	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	4	det	_	_
+4	Roi	roi	NOUN	NOUN	Gender=Masc|Number=Sing	1	obl:arg	_	_
+5	se	soi	PRON	PRON	Person=3|PronType=Prs|Reflex=Yes	6	expl:pass	_	_
+6	tenait	tenir	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin	0	root	_	_
+7	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	8	det	_	_
+8	Lapin	Lapin	NOUN	NOUN	Gender=Masc|Number=Sing	6	nsubj:pass	_	_
+9	Blanc	Blanc	ADJ	ADJ	Gender=Masc|Number=Sing	8	amod	_	_
+10	;	;	PUNCT	PUNCT	_	6	punct	_	_
+
+# sent_id = 5
+# text = il avait une trompette dans une main et dans l' autre un rouleau de parchemin .
+1	il	lui	PRON	PRON	Gender=Masc|Number=Sing|Person=3|PronType=Prs	2	nsubj	_	_
+2	avait	avoir	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin	0	root	_	_
+3	une	un	DET	DET	Definite=Ind|Gender=Fem|Number=Sing|PronType=Art	4	det	_	_
+4	trompette	trompette	NOUN	NOUN	Gender=Fem|Number=Sing	2	obj	_	_
+5	dans	dans	ADP	ADP	_	7	case	_	_
+6	une	un	DET	DET	Definite=Ind|Gender=Fem|Number=Sing|PronType=Art	7	det	_	_
+7	main	main	NOUN	NOUN	Gender=Fem|Number=Sing	2	obl:mod	_	_
+8	et	et	CCONJ	CCONJ	_	13	cc	_	_
+9	dans	dans	ADP	ADP	_	11	case	_	_
+10	l'	le	DET	DET	Definite=Def|Number=Sing|PronType=Art	11	det	_	_
+11	autre	autre	PRON	PRON	Number=Sing|Person=3|PronType=Ind	13	nmod	_	_
+12	un	un	DET	DET	Definite=Ind|Gender=Masc|Number=Sing|PronType=Art	13	det	_	_
+13	rouleau	rouleau	NOUN	NOUN	Gender=Masc|Number=Sing	4	conj	_	_
+14	de	de	ADP	ADP	_	15	case	_	_
+15	parchemin	parchemin	NOUN	NOUN	Gender=Masc|Number=Sing	13	nmod	_	_
+16	.	.	PUNCT	PUNCT	_	2	punct	_	_
+
+# sent_id = 6
+# text = Sur une table à le milieu de la salle était posé un grand plateau de tartes .
+1	Sur	sur	ADP	ADP	_	3	case	_	_
+2	une	un	DET	DET	Definite=Ind|Gender=Fem|Number=Sing|PronType=Art	3	det	_	_
+3	table	table	NOUN	NOUN	Gender=Fem|Number=Sing	11	obl:mod	_	_
+4	à	à	ADP	ADP	_	6	case	_	_
+5	le	le	DET	DET	Definite=Def|Gender=Masc|Number=Sing|PronType=Art	6	det	_	_
+6	milieu	milieu	NOUN	NOUN	Gender=Masc|Number=Sing	3	nmod	_	_
+7	de	de	ADP	ADP	_	9	case	_	_
+8	la	le	DET	DET	Definite=Def|Gender=Fem|Number=Sing|PronType=Art	9	det	_	_
+9	salle	salle	NOUN	NOUN	Gender=Fem|Number=Sing	6	nmod	_	_
+10	était	être	AUX	AUX	Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin	11	aux:pass	_	_
+11	posé	poser	VERB	VERB	Gender=Masc|Number=Sing|Tense=Past|VerbForm=Part|Voice=Pass	0	root	_	_
+12	un	un	DET	DET	Definite=Ind|Gender=Masc|Number=Sing|PronType=Art	14	det	_	_
+13	grand	grand	ADJ	ADJ	Gender=Masc|Number=Sing	14	amod	_	_
+14	plateau	plateau	NOUN	NOUN	Gender=Masc|Number=Sing	11	nsubj:pass	_	_
+15	de	de	ADP	ADP	_	16	case	_	_
+16	tartes	tarte	NOUN	NOUN	Gender=Fem|Number=Plur	14	nmod	_	_
+17	.	.	PUNCT	PUNCT	_	11	punct	_	_
+
+# sent_id = 7
+# text = Elles étaients si appétissantes qu' Alice eut une envie folle de les manger .
+1	Elles	eux	PRON	PRON	Emph=No|Gender=Fem|Number=Plur|Person=3|PronType=Prs	2	nsubj	_	_
+2	étaients	être	VERB	VERB	Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin	0	root	_	_
+3	si	si	ADV	ADV	_	4	advmod	_	_
+4	appétissantes	appétissant	ADJ	ADJ	Gender=Fem|Number=Plur	2	xcomp	_	_
+5	qu'	que	SCONJ	SCONJ	_	7	mark	_	_
+6	Alice	Alice	PROPN	PROPN	_	7	nsubj	_	_
+7	eut	avoir	VERB	VERB	Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin	3	ccomp	_	_
+8	une	un	DET	DET	Definite=Ind|Gender=Fem|Number=Sing|PronType=Art	9	det	_	_
+9	envie	envie	NOUN	NOUN	Gender=Fem|Number=Sing	7	obj	_	_
+10	folle	fou	ADJ	ADJ	Gender=Fem|Number=Sing	9	amod	_	_
+11	de	de	ADP	ADP	_	13	mark	_	_
+12	les	eux	PRON	PRON	Emph=No|Number=Plur|Person=3|PronType=Prs	13	obj	_	_
+13	manger	manger	VERB	VERB	VerbForm=Inf	9	acl	_	_
+14	.	.	PUNCT	PUNCT	_	2	punct	_	_

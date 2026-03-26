@@ -175,6 +175,7 @@ if __name__ == "__main__":
     start_patterns = time.time()
 
     liste_patterns = [
+        #D N AUX V PP D N
         """pattern {
             V[upos=VERB];
             V-[nsubj|nsubj:pass]->X;
@@ -184,6 +185,7 @@ if __name__ == "__main__":
             N-[case]->P;
             N-[det]->D;
         }""",
+        # D N V PP D N
         """pattern {
             V[upos=VERB];
             V-[nsubj|nsubj:pass]->X;
@@ -192,10 +194,19 @@ if __name__ == "__main__":
             N-[case]->P;
             N-[det]->D;
         }""",
+        # N V
         """pattern {
             V[upos=VERB];
             V-[nsubj|nsubj:pass]->X
-        }"""
+        }""",
+        # D N V D N
+        """pattern {
+            V[upos=VERB];
+            V-[nsubj|nsubj:pass]->X;
+            X-[det]->Z;
+            V-[obj|iobj]->N;
+            N-[det]->D;
+        }""",
     ]
 
     all_matches = []
