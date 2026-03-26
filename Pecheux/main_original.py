@@ -76,11 +76,18 @@ def indexe_enonces_elem(corpus, liste_match, param):
         # Auxiliaire de X : X -[aux:pass|aux:tense]-> W
         formes_EE["AUX"] = get_feature("W")
         # Préposition du xcomp : N -[case]-> P
-        formes_EE["PP"]  = get_feature("P")
+        formes_EE["PP"]  = get_feature("P") or get_feature("ADP")
         # Déterminant du xcomp : N -[det]-> D
         formes_EE["D2"]  = get_feature("D")
         # Tête du xcomp : N (X -[xcomp]-> N)
-        formes_EE["N2"]  = get_feature("N")
+        formes_EE["N2"]  = get_feature("N") or get_feature("O")
+        formes_EE["NUM"] = get_feature("NUM")
+        formes_EE["ADJ"]  = get_feature("A")
+        formes_EE["N2_obj"] = get_feature("N1")
+        formes_EE["D2_obj"] = get_feature("D1")
+        formes_EE["PP2"]    = get_feature("P")
+        formes_EE["D3"]     = get_feature("D2")
+        formes_EE["N3"]     = get_feature("N2")
 
 
         dico_un_enonce_elem = {
@@ -126,7 +133,42 @@ def generate_conll(text, filename):
         f.write(conll)
     print(f"Conll généré")
 
+def construire_phrase(formes):
+    """Construit la phrase EE en ordonnant les tokens selon les champs remplis."""
+    D1, N1, V, AUX, PP, D2, N2, ADJ, NUM = (
+        formes["D1"], formes["N1"], formes["V"], formes["AUX"],
+        formes["PP"], formes["D2"], formes["N2"], formes["ADJ"], formes["NUM"]
+    )
 
+    if AUX and PP and D1 and not ADJ and not NUM:
+        # D N AUX V PP D N
+        tokens = [D1, N1, AUX, V, PP, D2, N2]
+    elif PP and D1 and not AUX and not ADJ and not NUM:
+        # D N V PP D N
+        tokens = [D1, N1, V, PP, D2, N2]
+    elif AUX and D1 and not PP and not D2 and not ADJ and not NUM:
+        # D N AUX V
+        tokens = [D1, N1, AUX, V]
+    elif ADJ and not D1 and not D2:
+        # PRON V ADJ
+        tokens = [N1, V, ADJ]
+    elif ADJ and not D1 and D2:
+        # PRON V D N ADJ
+        tokens = [N1, V, D2, N2, ADJ]
+    elif D1 and D2 and not PP and not AUX:
+        # D N V D N
+        tokens = [D1, N1, V, D2, N2]
+    elif D1 and N2 and not D2 and not PP:
+        # D N PRON V  (N2 contient le PRON via get_feature("O"))
+        tokens = [D1, N1, N2, V]
+    elif not D1 and formes["N2_obj"] and formes["PP2"] and formes["D3"]:
+        # PRON V D N PP D N
+        tokens = [N1, V, formes["D2_obj"], formes["N2_obj"], formes["PP2"], formes["D3"], formes["N3"]]
+    else:
+        # N V (fallback)
+        tokens = [N1, V]
+
+    return " ".join(t for t in tokens if t != "")
 
 if __name__ == "__main__":
     patch_torch_load()
@@ -207,11 +249,54 @@ if __name__ == "__main__":
             V-[obj|iobj]->N;
             N-[det]->D;
         }""",
-        # N PRON V
-        # D V ADP PROPRN AUX V
+        # D N PRON V
+        """pattern{
+            V-[nsubj|nsubj:pass]->X;
+            X-[det]->Z;
+            O[upos=PRON];
+            V-[obj|iobj|expl]->O;
+        }""",
+        # D V AUX V (ADP NUM N)
+        """pattern {
+            V[upos=VERB];
+            V-[nsubj|nsubj:pass]->X;
+            X-[det]->Z;
+            V-[aux:pass|aux:tense]->W;
+        }""",
         # PRON V D N PP D N
-        # NP V D N (ADJ) (ADP PRON V)
+        """pattern{
+            X[upos=PRON];
+            V-[nsubj|nsubj:pass]->X;
+            V-[obj|iobj]->N1;
+            N1-[det]->D1;
+            V-[obl:mod|obl:arg]->N2;
+            N2-[case]->P;
+            N2-[det]->D2;
+        }""",
+        # # ADP D N AUX V D N (ADP N) ?????
+        # """pattern{
+        #     N-[case]->P;
+        #     N-[det]->D;
+        #     V-[aux:pass|aux:tense]->W;
+        #     V-[obj]->N;
+        #     N-[case]->P;
+        #     P-[det]->D;
+        # }""",
+        # PROPRN V D N (ADJ) (ADP PRON V)
+        """pattern{
+            X[upos=PRON];
+            V-[nsubj|nsubj:pass]->X;
+            V-[xcomp]->N;
+            N-[det]->D;
+            N-[amod]->A;
+        }""",
         # PRON V ADJ
+        """pattern{
+            X[upos=PRON];
+            V-[nsubj|nsubj:pass]->X;
+            A[upos=ADJ];
+            V-[amod|xcomp|advmod]->A;
+        }""",
     ]
 
     all_matches = []
@@ -241,7 +326,7 @@ if __name__ == "__main__":
     with open(output_path, "w", encoding="utf-8") as f:
         for ee in liste_enonces_elem:
             formes = ee["formes_EE"]
-            phrase1 = " ".join([formes["D1"],formes["N1"], formes["AUX"],  formes["V"], formes["PP"], formes["D2"],formes["N2"]])
-            f.write(phrase1.strip() + ".\n")
+            phrase = construire_phrase(ee["formes_EE"])
+            f.write(phrase.strip() + ".\n")
 
     print(f"Fichier texte généré : {output_path}")
