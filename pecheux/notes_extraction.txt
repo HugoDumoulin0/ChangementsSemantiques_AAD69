@@ -27,6 +27,9 @@ Pattern 1 — Subordinate clause introduced by “quand”
 if head.deprel == "advcl" and any(w.text.lower() == "quand" for w in sent.words if w.head == head.id):
     relation = "simultaneity"
 
+→ φ = temporal subordinate
+if head.deprel == "advcl":
+    relation = "simultaneity"
 
 Pattern 2 — Coordinated clause with “et”
 → φ = succession

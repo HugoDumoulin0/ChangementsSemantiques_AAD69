@@ -189,6 +189,10 @@ if __name__ == "__main__":
             Y-[det]->Z;
             X-[aux:pass|aux:tense]->W;
             }"""
+    
+    pattern = """pattern {
+            X-[advcl]->Y;
+            }"""
 
     pattern_conj = """pattern {
             Z-[conj]->X;
