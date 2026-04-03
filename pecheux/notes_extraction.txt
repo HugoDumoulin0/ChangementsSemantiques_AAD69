@@ -1,0 +1,74 @@
+use Stanza to parse the sentence and extract the δ‑structure
+identify clause heads using UD relations like root, advcl, conj, and xcomp
+once I have the clause heads, apply Grew patterns to detect the articulation between subordinate and principal clauses
+The patterns allow infer φ‑relations such as simultaneity or succession
+build the Θ graph from these φ‑relations 
+
+How to detect clauses in UD (the key step)
+In UD, clauses are typically signaled by:
+✔ advcl — adverbial clause
+→ subordinate clause introduced by “quand”, “lorsque”, “parce que”, etc.
+✔ ccomp — clausal complement
+→ “Il dit que…”
+✔ xcomp — open clausal complement
+→ “Ils étaient assis” (associates with “étaient”)
+✔ acl — relative clause
+→ “la foule qui les entourait”
+✔ conj between verbs
+→ coordination of clauses
+✔ mark — subordinator
+→ “quand”, “si”, “parce que”, “comme”, etc.
+✔ root — main clause
+
+
+Pattern 1 — Subordinate clause introduced by “quand”
+→ φ = simultaneity
+
+if head.deprel == "advcl" and any(w.text.lower() == "quand" for w in sent.words if w.head == head.id):
+    relation = "simultaneity"
+
+
+Pattern 2 — Coordinated clause with “et”
+→ φ = succession
+
+If you have a verb with deprel = conj and it is coordinated with another verb via a coordinating conjunction et, you can treat this as succession (one event after another in the same discourse segment).
+In UD, this looks like:
+entourait has deprel = conj and head = étaient
+et has deprel = cc and head = entourait (or sometimes the head verb)
+
+
+Pattern 3 — Sentence-final clause
+→ φ = arrêt
+Intuition:  
+The last clause in the sentence (or in the discourse segment) can be treated as an arrêt: the narrative stops there.
+You don’t need a special label in UD for that—you can just take the rightmost clause head.
+Ex :
+def find_clause_heads(sent):
+    heads = []
+
+    for w in sent.words:
+        if w.upos == "VERB" and w.deprel in {"root", "advcl", "conj", "ccomp", "xcomp"}:
+            heads.append(w)
+
+    return heads
+
+
+def find_stop_clause(sent):
+    heads = find_clause_heads(sent)
+    if not heads:
+        return None
+
+    # take the clause whose verb has the highest position (id) in the sentence
+    stop_head = max(heads, key=lambda w: w.id)
+    return stop_head
+
+
+for sent in doc.sentences:
+    stop = find_stop_clause(sent)
+    if stop:
+        print(f"{stop.text}  --arrêt-->  {stop.text}")
+
+
+For your sentence, you should get:
+text
+entourait  --arrêt-->  entourait
