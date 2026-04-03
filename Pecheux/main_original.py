@@ -236,11 +236,6 @@ if __name__ == "__main__":
             N-[case]->P;
             N-[det]->D;
         }""",
-        # N V
-        """pattern {
-            V[upos=VERB];
-            V-[nsubj|nsubj:pass]->X
-        }""",
         # D N V D N
         """pattern {
             V[upos=VERB];
