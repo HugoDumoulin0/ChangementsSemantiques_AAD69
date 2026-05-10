@@ -25,7 +25,7 @@ def remove_punct(tokens: list[str]) -> list[str]:
     return cleaned
 
 # Chargement du corpus COHA
-TXT_FOLDER = "../ChangementsSemantiques_AAD69/COHA_sample/"
+TXT_FOLDER = "../COHA_sample/"
 
 txt_files = glob.glob(os.path.join(TXT_FOLDER, "*.txt")) #Recup tous les .txt
 if not txt_files:
