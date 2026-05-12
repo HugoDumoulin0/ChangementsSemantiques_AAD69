@@ -6,6 +6,7 @@ import re
 from gensim.models import Word2Vec
 import nltk; nltk.download("stopwords")
 from nltk.corpus import stopwords
+import time
 
 STOPWORDS = set(stopwords.words("english"))
 def remove_stopwords(tokens: list[str]) -> list[str]:
@@ -68,6 +69,22 @@ model = Word2Vec(
     workers=4,
     sg=1               # skip-gram
 )
+
+
+epochs=400
+start_time = time.time()
+# Boucle d'entraînement
+for epoch in range(epochs):
+    model.train(sentences, 
+          total_examples=model.corpus_count, 
+          epochs=1, report_delay=1, compute_loss=True)
+    loss = model.get_latest_training_loss()
+    print(loss)
+    # Calculer le temps écoulé
+    elapsed_time = time.time() - start_time
+    estimated_time = elapsed_time / (epoch + 1) * (epochs - (epoch + 1))
+    print(f"Epoch {epoch + 1}/{epochs} - Temps écoulé: {elapsed_time:.2f} secondes, Temps estimé restant: {estimated_time:.2f} secondes")
+
 
 vocab   = list(model.wv.index_to_key)
 vectors = np.array([model.wv[word] for word in vocab])
