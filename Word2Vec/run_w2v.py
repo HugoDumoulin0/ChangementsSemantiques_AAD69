@@ -71,7 +71,7 @@ model = Word2Vec(
 )
 
 
-epochs=400
+epochs=200
 start_time = time.time()
 # Boucle d'entraînement
 for epoch in range(epochs):
