@@ -1,81 +1,161 @@
 import os
 import re
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 from matplotlib.patches import FancyArrowPatch
 from matplotlib.lines import Line2D
-from collections import defaultdict
-from gensim.models import Word2Vec
+from collections import Counter, defaultdict
 from sklearn.decomposition import PCA
+import nltk; nltk.download("stopwords")
+from nltk.corpus import stopwords
 
+STOPWORDS = set(stopwords.words("english"))
+
+def remove_stopwords(tokens: list[str]) -> list[str]:
+    """Retire les stopwords anglais d'une liste de tokens."""
+    return [w for w in tokens if w not in STOPWORDS]
+
+def remove_punct(tokens: list[str]) -> list[str]:
+    """Retire la ponctuation et les caractères spéciaux de chaque token.
+    - Supprime tout caractère non alphanumérique (garde uniquement a-z et 0-9)
+    - Écarte les tokens devenus vides après nettoyage
+    """
+    cleaned = []
+    for w in tokens:
+        w = re.sub(r"[^a-z0-9]", "", w)   # supprime tout sauf lettres/chiffres
+        if w:                               # ignore les tokens vides
+            cleaned.append(w)
+    return cleaned
 
 ### CONFIG
-CORPUS_DIR      = "../COHA_sample/" # dossier contenant tous les .txt
-TARGET_WORD     = "people" # mot cible
-TOP_N_NEIGHBORS = 1 # mot voisins
-WINDOW          = 5 # fenêtre de co-occurrence (en tokens)
-MIN_COOC        = 2 # co-occurrences min pour afficher un voisin
+CORPUS_DIR      = "../COHA_sample/"   # dossier contenant tous les .txt
+TARGET_WORD     = "people"            # mot cible
+TOP_N_WORDS     = 10000               # limitation du vocabulaire pour la mémoire
+TOP_N_NEIGHBORS = 1                   # mots voisins affichés par décennie
+WINDOW_SIZE     = 5                   # fenêtre de co-occurrence (en tokens)
+MIN_COOC        = 2                   # co-occurrences min pour afficher un voisin
 
-
-### CHARGEMENT MODÈLE
-print("Chargement du modèle...")
-model       = Word2Vec.load("W2V.model")
-vocab       = list(model.wv.key_to_index)
-word_to_idx = {w: i for i, w in enumerate(vocab)}
-data        = model.wv[vocab]
-
-#PCA GLOBALE
-reducer = PCA(n_components=2, random_state=42)
-data_2d = reducer.fit_transform(data)
-
-### GROUPEMENT DES FICHIERS PAR PERIODE (DECENNIE)
+### GROUPEMENT DES FICHIERS PAR DÉCENNIE
 FILENAME_RE = re.compile(r"^[^_]+_(\d{4})_\d+\.txt$")
 
 files_by_decade = defaultdict(list)
 
 for fname in os.listdir(CORPUS_DIR):
     m = FILENAME_RE.match(fname)
-    if m:
+    if m :
         year   = int(m.group(1))
-        decade = (year // 10) * 10 #Arrondissement en décennie
+        decade = (year // 10) * 10
         files_by_decade[decade].append(os.path.join(CORPUS_DIR, fname))
-
 decades_available = sorted(files_by_decade.keys())
 
-if TARGET_WORD not in word_to_idx:
-    raise ValueError(f"'{TARGET_WORD}' introuvable dans le vocabulaire de Word2Vec.")
+### CHARGEMENT DU CORPUS PAR DÉCENNIE
+corpus_by_decade = {}
 
-
-### CONSTRUCTION VECTEUR DE CO-OCCURRENCE
-def build_cooc_vector(file_list, target, vocab_index, window):
-    cooc = np.zeros(len(vocab_index), dtype=np.float32)
-    for fpath in file_list:
+for decade in decades_available:
+    lines = []
+    for fpath in files_by_decade[decade]:
         try:
             with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
-                tokens = f.read().lower().split()
+                text = f.read().lower()
+                tokens = text.split()
+                tokens = remove_punct(tokens)
+                tokens = remove_stopwords(tokens)
+
+                lines.append(" ".join(tokens))
         except Exception:
             continue
-        for i, tok in enumerate(tokens):
-            if tok != target:
+    corpus_by_decade[decade] = lines
+    print(f"  {decade}s : {len(lines)} fichiers chargés")
+
+### VOCABULAIRE GLOBAL
+print(f"\nConstruction du vocabulaire global (top {TOP_N_WORDS} mots)...")
+
+word_freq = Counter()
+for lines in corpus_by_decade.values():
+    for line in lines:
+        word_freq.update(line.split())
+
+top_words   = [w for w, _ in word_freq.most_common(TOP_N_WORDS)]
+vocab_index = {w: i for i, w in enumerate(top_words)}
+size        = len(top_words)
+
+print(f"  Vocabulaire limité à {size} mots les plus fréquents.")
+
+if TARGET_WORD not in vocab_index:
+    raise ValueError(f"'{TARGET_WORD}' absent du top-{TOP_N_WORDS} — "
+                     f"augmenter TOP_N_WORDS ou changer de mot cible.")
+
+
+### MATRICE DE CO-OCCURRENCE GLOBALE + PPMI
+print("\nConstruction de la matrice de co-occurrence globale (fond PCA)...")
+
+global_matrix = np.zeros((size, size), dtype=np.float32)
+
+for lines in corpus_by_decade.values():
+    for line in lines:
+        words = line.split()
+        for i, target in enumerate(words):
+            if target not in vocab_index:
                 continue
-            start = max(0, i - window)
-            end   = min(len(tokens), i + window + 1)
+            start = max(i - WINDOW_SIZE, 0)
+            end   = min(i + WINDOW_SIZE + 1, len(words))
             for j in range(start, end):
-                if j == i:
-                    continue
-                ctx = tokens[j]
-                if ctx in vocab_index:
-                    cooc[vocab_index[ctx]] += 1
-    return cooc
-print(f"\nConstruction de co-occurrence pour « {TARGET_WORD} »...")
+                if i != j:
+                    context = words[j]
+                    if context in vocab_index:
+                        global_matrix[vocab_index[target], vocab_index[context]] += 1
+print(f" Co-occurrences globales totales : {int(global_matrix.sum()):,}")
+
+# Pondération PPMI
+print(" Pondération PPMI...")
+total_count  = global_matrix.sum()
+term_sums    = global_matrix.sum(axis=1)[:, np.newaxis]
+context_sums = global_matrix.sum(axis=0)[np.newaxis, :]
+
+with np.errstate(divide="ignore", invalid="ignore"):
+    P_tc = global_matrix / total_count
+    P_t  = term_sums     / total_count
+    P_c  = context_sums  / total_count
+    PMI  = np.log2(P_tc / (P_t * P_c))
+    PMI[np.isinf(PMI)] = 0
+    PMI[np.isnan(PMI)] = 0
+
+ppmi_global = np.maximum(PMI, 0)
+
+print(f"\nMatrice DSM (PPMI) globale ({size}×{size}) :")
+print(pd.DataFrame(ppmi_global, index=top_words, columns=top_words))
+
+
+# PCA GLOBALE
+print("\n  PCA globale sur la matrice PPMI...")
+reducer = PCA(n_components=2, random_state=42)
+data_2d = reducer.fit_transform(ppmi_global)   # shape (size, 2)
+
+
+### CO-OCCURRENCE DU MOT CIBLE + TRAJECTOIRE PAR DÉCENNIE
+print(f"\nConstruction des co-occurrences de « {TARGET_WORD} » par décennie...")
 
 cooc_by_decade   = {}
 coords_by_decade = {}
 
 for decade in decades_available:
-    files = files_by_decade[decade]
-    cooc  = build_cooc_vector(files, TARGET_WORD, word_to_idx, WINDOW)
+    corpus = corpus_by_decade[decade]
+
+    cooc = np.zeros(size, dtype=np.float32)
+    for line in corpus:
+        words = line.split()
+        for i, tok in enumerate(words):
+            if tok != TARGET_WORD:
+                continue
+            start = max(i - WINDOW_SIZE, 0)
+            end   = min(i + WINDOW_SIZE + 1, len(words))
+            for j in range(start, end):
+                if i != j:
+                    ctx = words[j]
+                    if ctx in vocab_index:
+                        cooc[vocab_index[ctx]] += 1
 
     if cooc.sum() == 0:
         print(f"  !!! {decade}s : '{TARGET_WORD}' jamais rencontré, ignoré")
@@ -83,12 +163,13 @@ for decade in decades_available:
 
     cooc_by_decade[decade] = cooc
 
-    # Pondération --> projection PCA
+    # Pondération + projection
     weights      = cooc / (cooc.sum() + 1e-9)
-    weighted_vec = (data * weights[:, None]).sum(axis=0)
-    pt = reducer.transform(weighted_vec.reshape(1, -1))[0]
+    weighted_vec = (ppmi_global * weights[:, None]).sum(axis=0)   # shape (size,)
+    pt           = reducer.transform(weighted_vec.reshape(1, -1))[0]
     coords_by_decade[decade] = pt
-    print(f" ✓ {decade}s  ({len(files)} fichiers · {int(cooc.sum())} co-occ.)")
+
+    print(f" ✓ {decade}s  ({len(corpus)} fichiers · {int(cooc.sum())} co-occ.)")
 
 active_decades = sorted(coords_by_decade.keys())
 if len(active_decades) < 2:
@@ -107,14 +188,13 @@ for decade in active_decades:
     for idx in ranked:
         if cooc[idx] < MIN_COOC:
             break
-        if vocab[idx] == TARGET_WORD:
+        if top_words[idx] == TARGET_WORD:
             continue
         wx, wy = data_2d[idx]
-        top.append((vocab[idx], wx, wy))
+        top.append((top_words[idx], wx, wy))
         if len(top) == TOP_N_NEIGHBORS:
             break
     neighbors[decade] = top
-
 
 ### VISUALISATION
 fig, ax = plt.subplots(figsize=(14, 9))
@@ -122,7 +202,7 @@ ax.set_facecolor("#f8f9fb")
 fig.patch.set_facecolor("#eef0f3")
 
 n_dec  = len(active_decades)
-cmap   = cm.get_cmap("inferno", n_dec)
+cmap   = cm.get_cmap("turbo", n_dec)
 colors = {d: cmap(i) for i, d in enumerate(active_decades)}
 
 # Fond : nuage global
@@ -137,11 +217,11 @@ ax.plot(xs, ys, color="dimgrey", linewidth=1.2,
 
 # Flèches de la trajectoire
 for i in range(n_dec - 1):
-    d0, d1   = active_decades[i], active_decades[i + 1]
-    x0, yy0  = coords_by_decade[d0]
-    x1, yy1  = coords_by_decade[d1]
-    arrow = FancyArrowPatch(
-        (x0, yy0), (x1, yy1),
+    d0, d1 = active_decades[i], active_decades[i + 1]
+    x0, y0 = coords_by_decade[d0]
+    x1, y1 = coords_by_decade[d1]
+    arrow  = FancyArrowPatch(
+        (x0, y0), (x1, y1),
         arrowstyle="-|>",
         mutation_scale=20,
         linewidth=2,
@@ -151,7 +231,7 @@ for i in range(n_dec - 1):
     )
     ax.add_patch(arrow)
 
-# Labels
+# Points et labels des décennies
 for decade in active_decades:
     x, y = coords_by_decade[decade]
     ax.scatter(x, y, s=150, color=colors[decade],
@@ -184,12 +264,12 @@ for decade, neighs in neighbors.items():
 # Axes et titre
 ax.axhline(0, color="grey", lw=0.7, alpha=0.4)
 ax.axvline(0, color="grey", lw=0.7, alpha=0.4)
-ax.set_xlabel(f"PC1", fontsize=11)
-ax.set_ylabel(f"PC2", fontsize=11)
+ax.set_xlabel("PC1", fontsize=11)
+ax.set_ylabel("PC2", fontsize=11)
 ax.set_title(
     f"Trajectoire sémantique de « {TARGET_WORD} » par décennie\n"
     f"{active_decades[0]}s – {active_decades[-1]}s  ·  "
-    f"co-occurrence (fenêtre={WINDOW}) | top-{TOP_N_NEIGHBORS} voisins",
+    f"co-occurrence PPMI (fenêtre={WINDOW_SIZE}) | top-{TOP_N_NEIGHBORS} voisins",
     fontsize=10, fontweight="bold", pad=14
 )
 
@@ -211,5 +291,5 @@ ax.legend(handles=legend_elements, loc="upper left",
 plt.tight_layout()
 output = f"trajectoire_{TARGET_WORD}.jpeg"
 plt.savefig(output, format="jpeg", dpi=300, bbox_inches="tight")
-print(f"\n Sauvegardé : {output}")
+print(f"\n✓ Sauvegardé : {output}")
 plt.show()
