@@ -270,9 +270,7 @@ for decade in active_decades:
         color=colors[decade], zorder=6
     )
 
-# Affichage des N points PCA les plus proches du point de chaque décennie
-# (distance euclidienne 2D — mots dont la position dans le nuage global
-# est la plus proche du point de trajectoire de TARGET_WORD à cette période)
+# Affichage des mots dee PCA Globale les plus proches pour chaque décennie
 for decade in active_decades:
     c      = colors[decade]
     tx, ty = coords_by_decade[decade]
