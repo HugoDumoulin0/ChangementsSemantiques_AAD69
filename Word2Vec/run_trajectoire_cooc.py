@@ -30,7 +30,7 @@ CORPUS_DIR      = "../COHA_sample/"
 TARGET_WORD     = "people"
 TOP_N_WORDS     = 6000
 TOP_N_NEIGHBORS = 3
-TOP_N_COOC      = 50        # voisins par co-occurrence brute à afficher
+TOP_N_COOC      = 50        # voisins par co-occurrence
 WINDOW_SIZE     = 5
 MIN_COOC        = 2
 
@@ -157,6 +157,7 @@ for decade in decades_available:
     print(f" ✓ {decade} : matrice PPMI sauvegardée → {matrix_path}")
 
 ### MATRICE GLOBALE (somme des matrices par décennie)
+global_matrix_path = os.path.join(MATRICES_DIR, "ppmi_global.npy")
 
 if os.path.exists(global_matrix_path):
     ppmi_global = np.load(global_matrix_path)
