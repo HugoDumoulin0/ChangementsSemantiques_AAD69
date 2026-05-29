@@ -106,18 +106,27 @@ print("\nConstruction / chargement des matrices PPMI par décennie...")
 ppmi_by_decade = {}
 cooc_by_decade = {}
 
+# MATRICE COOC GLOBALE
+cooc_global_path = os.path.join(MATRICES_DIR, "cooc_global.npy")
+cooc_global = np.zeros((size, size), dtype=np.float32)
+
 for decade in decades_available:
     matrix_path = os.path.join(MATRICES_DIR, f"ppmi_{decade}.npy")
-    cooc_path   = os.path.join(MATRICES_DIR, f"cooc_{TARGET_WORD}_{decade}.npy")
+    cooc_path = os.path.join(MATRICES_DIR, f"cooc_{TARGET_WORD}_{decade}.npy")
+    cooc_matrix_path = os.path.join(MATRICES_DIR, f"cooc_matrix_{decade}.npy")
 
-    if os.path.exists(matrix_path) and os.path.exists(cooc_path):
+    if (os.path.exists(matrix_path) and os.path.exists(cooc_path) and os.path.exists(cooc_matrix_path)):
         ppmi_by_decade[decade] = np.load(matrix_path)
         cooc_by_decade[decade] = np.load(cooc_path)
+
+        # fusion dans la globale même depuis le cache
+        cooc_global += np.load(cooc_matrix_path)
+
         print(f"  ✓ {decade}s : matrice + cooc chargées depuis le cache")
         continue
 
     cooc_matrix = np.zeros((size, size), dtype=np.float32)
-    corpus      = corpus_by_decade[decade]
+    corpus = corpus_by_decade[decade]
 
     for line in corpus:
         words = line.split()
@@ -125,7 +134,7 @@ for decade in decades_available:
             if target not in vocab_index:
                 continue
             start = max(i - WINDOW_SIZE, 0)
-            end   = min(i + WINDOW_SIZE + 1, len(words))
+            end = min(i + WINDOW_SIZE + 1, len(words))
             for j in range(start, end):
                 if i != j:
                     context = words[j]
@@ -134,21 +143,25 @@ for decade in decades_available:
 
     print(f"  {decade}s : {int(cooc_matrix.sum()):,} co-occurrences brutes")
 
+    # Sauvegarde matrice brute décennale + fusion globale
+    np.save(cooc_matrix_path, cooc_matrix)
+    cooc_global += cooc_matrix
+
     target_cooc = cooc_matrix[target_idx].copy()
     cooc_by_decade[decade] = target_cooc
     np.save(cooc_path, target_cooc)
 
-    total_count  = cooc_matrix.sum()
-    term_sums    = cooc_matrix.sum(axis=1)[:, np.newaxis]
+    total_count = cooc_matrix.sum()
+    term_sums = cooc_matrix.sum(axis=1)[:, np.newaxis]
     context_sums = cooc_matrix.sum(axis=0)[np.newaxis, :]
 
     with np.errstate(divide="ignore", invalid="ignore"):
         P_tc = cooc_matrix / total_count
-        P_t  = term_sums   / total_count
-        P_c  = context_sums / total_count
-        PMI  = np.log2(P_tc / (P_t * P_c))
+        P_t = term_sums / total_count
+        P_c = context_sums / total_count
+        PMI = np.log2(P_tc / (P_t * P_c))
         PMI[np.isinf(PMI)] = 0
-        PMI[np.isnan(PMI)]  = 0
+        PMI[np.isnan(PMI)] = 0
 
     ppmi = np.maximum(PMI, 0)
     ppmi_by_decade[decade] = ppmi
@@ -156,26 +169,32 @@ for decade in decades_available:
     np.save(matrix_path, ppmi)
     print(f" ✓ {decade} : matrice PPMI sauvegardée → {matrix_path}")
 
-### MATRICE GLOBALE (somme des matrices par décennie)
-global_matrix_path = os.path.join(MATRICES_DIR, "ppmi_global.npy")
+# Sauvegarde de la matrice globale brute
+if os.path.exists(cooc_global_path):
+    cooc_global = np.load(cooc_global_path)
+print(f"\n✓ Matrice de co-occurrence globale sauvegardée → {cooc_global_path}")
 
-if os.path.exists(global_matrix_path):
-    ppmi_global = np.load(global_matrix_path)
-    print(f"\n✓ Matrice globale chargée depuis {global_matrix_path}")
-else:
-    print("\nConcaténation des matrices par décennie → matrice globale")
-    ppmi_global = sum(ppmi_by_decade[d] for d in decades_available)
-    np.save(global_matrix_path, ppmi_global)
-    print(f"✓ Matrice globale sauvegardée → {global_matrix_path}")
-
-print(f"\nMatrice DSM pondérée globale ({size}×{size}) :")
-print(pd.DataFrame(ppmi_global, index=top_words, columns=top_words))
+####### SUPPRESSION DE LA MATRICE GLOBALE CONCATENEE
+# ### MATRICE GLOBALE (somme des matrices par décennie)
+# global_matrix_path = os.path.join(MATRICES_DIR, "ppmi_global.npy")
+#
+# if os.path.exists(global_matrix_path):
+#     ppmi_global = np.load(global_matrix_path)
+#     print(f"\n✓ Matrice globale chargée depuis {global_matrix_path}")
+# else:
+#     print("\nConcaténation des matrices par décennie → matrice globale")
+#     ppmi_global = sum(ppmi_by_decade[d] for d in decades_available)
+#     np.save(global_matrix_path, ppmi_global)
+#     print(f"✓ Matrice globale sauvegardée → {global_matrix_path}")
+#
+# print(f"\nMatrice DSM pondérée globale ({size}×{size}) :")
+# print(pd.DataFrame(ppmi_global, index=top_words, columns=top_words))
 
 
 ### PCA GLOBALE
 print("\n  PCA globale sur la matrice PPMI...")
 reducer = PCA(n_components=2, random_state=42)
-data_2d = reducer.fit_transform(ppmi_global)
+data_2d = reducer.fit_transform(cooc_global)
 
 
 ### TRAJECTOIRE DU TARGET_WORD
