@@ -1,0 +1,10 @@
+spacy>=3.7.0
+gensim>=4.3.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+matplotlib>=3.8.0
+numpy>=1.24.0
+
+# Après installation des packages, télécharger les modèles spaCy :
+# python -m spacy download en_core_web_sm
+# python -m spacy download fr_core_news_sm
