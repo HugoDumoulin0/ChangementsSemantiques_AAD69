@@ -11,23 +11,71 @@ import seaborn as sns
 import importlib.util
 from gensim.models import Word2Vec
 
-sns.set(style="whitegrid", palette="muted")
-model = Word2Vec.load("W2V.model")
-vocab = list(model.wv.key_to_index)
+STOPWORDS = set(stopwords.words("english"))
 
-vocab_freq = {word: model.wv.get_vecattr(word, "count") for word in model.wv.index_to_key}
-sorted_vocab = sorted(vocab_freq.items(), key=lambda item: item[1], reverse=True)
-N = 400
-most_frequent_words = [word for word, freq in sorted_vocab[:N]]
-labels = np.array(most_frequent_words)
+def remove_stopwords(tokens: list[str]) -> list[str]:
+    return [w for w in tokens if w not in STOPWORDS]
 
-labels = np.array(vocab)
-data = model.wv[vocab]
+def remove_punct(tokens: list[str]) -> list[str]:
+    cleaned = []
+    for w in tokens:
+        w = re.sub(r"[^a-z0-9]", "", w)
+        if w:
+            cleaned.append(w)
+    return cleaned
+
+corpus = "DSM"
+
+if corpus == "DSM" :
+    ##### CONSTRUCTION DU VOCABULAIRE GLOBAL
+    print(f"\nConstruction du vocabulaire global...")
+
+    word_freq = Counter()
+    corpus_by_decade = {}   # {decade: [tokens_str, ...]}  (une entrée = un fichier)
+
+    for decade in decades_available:
+        lines = []
+        for fpath in files_by_decade[decade]:
+            try:
+                with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
+                    text = f.read().lower()
+                    tokens = text.split()
+                    tokens = remove_punct(tokens) #nettoyage
+                    tokens = remove_stopwords(tokens)
+                    lines.append(" ".join(tokens))
+            except Exception:
+                continue
+            word_freq.update(text.split())
+            lines.append(text)
+        corpus_by_decade[decade] = lines
+
+    top_words   = [w for w, _ in word_freq.most_common(TOP_N_WORDS)]
+    vocab_index = {w: i for i, w in enumerate(top_words)}   # alias word_to_idx
+    word_to_idx = vocab_index                                # nom utilisé plus bas
+    size        = len(top_words)
+    print(f"Vocabulaire limité à {size} mots les plus fréquents.")
+
+    target_idx = vocab_index[TARGET_WORD]
+
+if corpus == "W2V" :
+    sns.set(style="whitegrid", palette="muted")
+    model = Word2Vec.load("W2V.model")
+    vocab = list(model.wv.key_to_index)
+
+    vocab_freq = {word: model.wv.get_vecattr(word, "count") for word in model.wv.index_to_key}
+    sorted_vocab = sorted(vocab_freq.items(), key=lambda item: item[1], reverse=True)
+    N = 400
+    most_frequent_words = [word for word, freq in sorted_vocab[:N]]
+    labels = np.array(most_frequent_words)
+
+    labels = np.array(vocab)
+    data = model.wv[vocab]
+
 reducer = PCA(n_components=2, random_state=42)
 data_2d = reducer.fit_transform(data)
 
 # Clustering K-Means
-n_clusters = 5
+n_clusters = 2
 kmeans = KMeans(n_clusters=n_clusters, random_state=42)
 clusters = kmeans.fit_predict(data_2d)
 
