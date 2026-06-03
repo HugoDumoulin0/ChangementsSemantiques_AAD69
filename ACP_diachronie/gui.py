@@ -332,8 +332,11 @@ class Application(tk.Tk):
 
     # Thread
     def lancer_analyse_thread(self):
+        self.progress.start()
+        self.zone_resultats.delete("1.0", tk.END)
+
         thread = threading.Thread(
-            target=self.lancer_analyse
+            target=self.executer_analyse
         )
 
         thread.daemon = True
@@ -346,21 +349,64 @@ class Application(tk.Tk):
         self.zone_resultats.insert(tk.END, texte)
         self.zone_resultats.see(tk.END)
 
+    def _finaliser_analyse(self, resultat):
+        mot = resultat["mot"]
+        vecteurs = resultat["vecteurs"]
+        labels = resultat["labels"]
+        voisins = resultat["voisins"]
+        distances = resultat["distances"]
+        distances_temp = resultat["distances_temp"]
+
+        self.progress.stop()
+
+        if vecteurs:
+            self._inserer_texte("Affichage de la trajectoire...\n")
+            afficher_trajectoire(mot, vecteurs, labels)
+
+        self._inserer_texte("\nVoisins par décennie:\n")
+
+        for decennie in sorted(voisins):
+            self._inserer_texte(f"\n{decennie}:\n")
+            for voisin, score in voisins[decennie]:
+                self._inserer_texte(f"  {voisin}: {score:.3f}\n")
+
+        self._inserer_texte("\nDistances au modèle global:\n")
+
+        for decennie in sorted(distances):
+            self._inserer_texte(
+                f"{decennie}: {distances[decennie]:.3f}\n"
+            )
+
+        afficher_distances_global(mot, distances)
+
+        self._inserer_texte("\nDistances temporelles:\n")
+
+        for periode, distance in distances_temp.items():
+            debut, fin = periode
+            self._inserer_texte(
+                f"{debut}-{fin}: {distance:.3f}\n"
+            )
+
+        afficher_distances_temporelles(mot, distances_temp)
+
+        self._inserer_texte(
+            f"\nAnalyse terminée pour : {mot}\n"
+        )
+
     # Analyse
-    def lancer_analyse(self):
+    def executer_analyse(self):
         dossier = self.var_dossier.get()
         mot = self.var_mot.get().strip()
 
         if not dossier:
             self.after(0, lambda: messagebox.showerror("Erreur", "Choisissez un dossier."))
+            self.after(0, self.progress.stop)
             return
 
         if not mot:
             self.after(0, lambda: messagebox.showerror("Erreur", "Saisissez un mot."))
+            self.after(0, self.progress.stop)
             return
-
-        self.progress.start()
-        self.zone_resultats.delete("1.0", tk.END)
 
         try:
             # Configurer les options NLP
@@ -375,6 +421,7 @@ class Application(tk.Tk):
             
             if not corpus_global:
                 self.after(0, lambda: messagebox.showerror("Erreur", "Le corpus est vide."))
+                self.after(0, self.progress.stop)
                 return
             
             # Entraîner le modèle global
@@ -394,6 +441,7 @@ class Application(tk.Tk):
                     "Erreur",
                     f"Le mot '{m}' n'existe pas dans le vocabulaire."
                 ))
+                self.after(0, self.progress.stop)
                 return
             
             # Entraîner les modèles par décennie
@@ -420,6 +468,7 @@ class Application(tk.Tk):
                     "Avertissement",
                     "Aucune rotation n'a pu être construite. Pas assez de mots communs entre les décennies et le modèle global."
                 ))
+                self.after(0, self.progress.stop)
                 return
             
             # Construire la trajectoire
@@ -431,15 +480,7 @@ class Application(tk.Tk):
                 modeles_decennies,
                 rotations
             )
-            
-            # Afficher la trajectoire
-            if vecteurs:
-                self.after(0, lambda: self._inserer_texte("Affichage de la trajectoire...\n"))
-                afficher_trajectoire(mot, vecteurs, labels)
-            
-            # Afficher les voisins par décennie
-            self.after(0, lambda: self._inserer_texte("\nVoisins par décennie:\n"))
-            
+
             voisins = most_similar_par_decennie(
                 mot,
                 modele_global,
@@ -447,43 +488,34 @@ class Application(tk.Tk):
                 rotations,
                 topn=self.var_topn.get()
             )
-            
-            for decennie in sorted(voisins):
-                self.after(0, lambda d=decennie: self._inserer_texte(f"\n{d}:\n"))
-                for voisin, score in voisins[decennie]:
-                    self.after(0, lambda v=voisin, s=score: self._inserer_texte(f"  {v}: {s:.3f}\n"))
-            
-            # Afficher les distances au global
-            self.after(0, lambda: self._inserer_texte("\nDistances au modèle global:\n"))
-            
+
             distances = distance_au_global(
                 mot,
                 modele_global,
                 modeles_decennies,
                 rotations
             )
-            
-            for decennie in sorted(distances):
-                d_val = distances[decennie]
-                self.after(0, lambda d=decennie, dv=d_val: self._inserer_texte(f"{d}: {dv:.3f}\n"))
-            
-            afficher_distances_global(mot, distances)
-            
-            # Afficher les distances temporelles
-            self.after(0, lambda: self._inserer_texte("\nDistances temporelles:\n"))
-            
+
             distances_temp = distance_temporelle(
                 mot,
                 modeles_decennies,
                 rotations
             )
-            
-            afficher_distances_temporelles(mot, distances_temp)
-            
-            self.after(0, lambda m=mot: self._inserer_texte(f"\nAnalyse terminée pour : {m}\n"))
+
+            resultat = {
+                "mot": mot,
+                "vecteurs": vecteurs,
+                "labels": labels,
+                "voisins": voisins,
+                "distances": distances,
+                "distances_temp": distances_temp
+            }
+
+            self.after(
+                0,
+                lambda r=resultat: self._finaliser_analyse(r)
+            )
 
         except Exception as e:
             self.after(0, lambda err=str(e): messagebox.showerror("Erreur", err))
-
-        finally:
             self.after(0, self.progress.stop)
