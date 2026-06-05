@@ -27,7 +27,8 @@ def normaliser_matrice(X):
 # Alignement Procrustes
 def aligner_modele(
         modele_reference,
-        modele_local
+        modele_local,
+        min_common_words=MIN_COMMON_WORDS
 ):
     """
     Calcule la matrice de rotation
@@ -48,7 +49,7 @@ def aligner_modele(
         vocab_local
     )
 
-    if len(communs) < MIN_COMMON_WORDS:
+    if len(communs) < min_common_words:
         return None
 
     X = np.array([
@@ -75,7 +76,8 @@ def aligner_modele(
 # Construction des rotations
 def construire_rotations(
         modele_global,
-        modeles_decennies
+        modeles_decennies,
+        min_common_words=MIN_COMMON_WORDS
 ):
     """
     Pré-calcule toutes les matrices
@@ -88,7 +90,8 @@ def construire_rotations(
 
         rotation = aligner_modele(
             modele_global,
-            modele
+            modele,
+            min_common_words=min_common_words
         )
 
         if rotation is not None:

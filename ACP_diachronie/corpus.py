@@ -1,6 +1,6 @@
 import os
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
 from nltk.corpus import stopwords
 import spacy
 
@@ -244,6 +244,115 @@ def extraire_annee(nom_fichier):
 def obtenir_decennie(annee):
 
     return (annee // 10) * 10
+
+
+def indexer_occurrences_corpus(dossier):
+
+    compteur = Counter()
+
+    documents_par_mot = Counter()
+    decennies_par_mot = defaultdict(set)
+    occurrences_par_decennie = defaultdict(Counter)
+
+    statistiques = {
+        "documents": 0,
+        "tokens": 0
+    }
+
+    for fichier in os.listdir(dossier):
+
+        if not fichier.endswith(".txt"):
+            continue
+
+        chemin = os.path.join(
+            dossier,
+            fichier
+        )
+
+        try:
+
+            with open(
+                chemin,
+                "r",
+                encoding="utf-8",
+                errors="ignore"
+            ) as f:
+
+                texte = f.read()
+
+        except Exception as e:
+
+            print(
+                f"Erreur lecture {fichier}: {e}"
+            )
+
+            continue
+
+        annee = extraire_annee(
+            fichier
+        )
+
+        decennie = None
+
+        if annee is not None:
+            decennie = obtenir_decennie(
+                annee
+            )
+
+        tokens = tokeniser(
+            nettoyer_texte(texte)
+        )
+
+        if not tokens:
+            continue
+
+        statistiques["documents"] += 1
+        statistiques["tokens"] += len(tokens)
+
+        compteur.update(tokens)
+
+        if decennie is not None:
+            occurrences_par_decennie[
+                decennie
+            ].update(tokens)
+
+        for mot in set(tokens):
+            documents_par_mot[mot] += 1
+
+            if decennie is not None:
+                decennies_par_mot[mot].add(
+                    decennie
+                )
+
+    return {
+        "compteur": compteur,
+        "documents_par_mot": documents_par_mot,
+        "decennies_par_mot": {
+            mot: sorted(decennies)
+            for mot, decennies in decennies_par_mot.items()
+        },
+        "occurrences_par_decennie": {
+            mot: {
+                decennie: compteur_decennie[mot]
+                for decennie, compteur_decennie in occurrences_par_decennie.items()
+                if mot in compteur_decennie
+            }
+            for mot in compteur
+        },
+        "statistiques": statistiques
+    }
+
+
+def normaliser_mot_recherche(mot):
+
+    tokens = tokeniser(
+        nettoyer_texte(mot)
+    )
+
+    if len(tokens) != 1:
+        return None
+
+    return tokens[0]
 
 
 # Lecture du corpus

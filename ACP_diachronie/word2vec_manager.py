@@ -1,5 +1,6 @@
 
 import os
+import json
 from gensim.models import Word2Vec
 
 
@@ -113,7 +114,8 @@ def entrainer_modeles_decennies(
 def sauvegarder_modeles(
         modele_global,
         modeles_decennies,
-        dossier="models"
+        dossier="models",
+        metadata=None
 ):
     """
     Sauvegarde tous les modèles.
@@ -140,6 +142,24 @@ def sauvegarder_modeles(
             )
         )
 
+    if metadata is not None:
+
+        with open(
+            os.path.join(
+                dossier,
+                "metadata.json"
+            ),
+            "w",
+            encoding="utf-8"
+        ) as f:
+
+            json.dump(
+                metadata,
+                f,
+                ensure_ascii=True,
+                indent=2
+            )
+
     print()
 
     print(
@@ -159,6 +179,79 @@ def charger_modele(
 
     return Word2Vec.load(
         chemin_modele
+    )
+
+
+def charger_modeles(
+        dossier="models"
+):
+    """
+    Recharge tous les modèles sauvegardés
+    ainsi que les métadonnées éventuelles.
+    """
+
+    chemin_global = os.path.join(
+        dossier,
+        "global.model"
+    )
+
+    if not os.path.exists(chemin_global):
+        raise FileNotFoundError(
+            f"Modèle global introuvable : {chemin_global}"
+        )
+
+    modele_global = charger_modele(
+        chemin_global
+    )
+
+    modeles_decennies = {}
+
+    for nom_fichier in os.listdir(dossier):
+
+        if not nom_fichier.endswith(".model"):
+            continue
+
+        if nom_fichier == "global.model":
+            continue
+
+        decennie_str = nom_fichier.replace(
+            ".model",
+            ""
+        )
+
+        try:
+            decennie = int(decennie_str)
+        except ValueError:
+            continue
+
+        modeles_decennies[decennie] = charger_modele(
+            os.path.join(
+                dossier,
+                nom_fichier
+            )
+        )
+
+    metadata = {}
+
+    chemin_metadata = os.path.join(
+        dossier,
+        "metadata.json"
+    )
+
+    if os.path.exists(chemin_metadata):
+
+        with open(
+            chemin_metadata,
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            metadata = json.load(f)
+
+    return (
+        modele_global,
+        modeles_decennies,
+        metadata
     )
 
 
