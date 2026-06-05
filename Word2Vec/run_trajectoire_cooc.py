@@ -14,6 +14,17 @@ from nltk.corpus import stopwords
 
 STOPWORDS = set(stopwords.words("english"))
 
+# from nltk.stem import WordNetLemmatizer
+# nltk.download("wordnet")
+# lemmatizer = WordNetLemmatizer()
+# def transform_tokens(tokens: list[str], choice: str) -> list[str]:
+#     if choice == "form":
+#         return tokens
+#     elif choice == "lemma":
+#         return [lemmatizer.lemmatize(w) for w in tokens]
+#     else:
+#         raise ValueError(f"choice doit être 'form' ou 'lemma', reçu : '{choice}'")
+
 def remove_stopwords(tokens: list[str]) -> list[str]:
     return [w for w in tokens if w not in STOPWORDS]
 
@@ -25,14 +36,16 @@ def remove_punct(tokens: list[str]) -> list[str]:
             cleaned.append(w)
     return cleaned
 
+
 ### CONFIG
-CORPUS_DIR      = "../COHA_sample/"    # dossier contenant tous les fichiers .txt
-TARGET_WORD     = "people"             # mot cible
-TOP_N_WORDS     = 6000                 # vocabulaire
-TOP_N_NEIGHBORS = 1                    # mots voisins (PCA)
-TOP_N_COOC      = 50                   # voisins par cooc
-WINDOW_SIZE     = 5                    # fenêtre de cooc (en tokens)
-MIN_COOC        = 2                    # co-occurrences min pour afficher un voisin
+CORPUS_DIR      = "../COHA_sample/"
+TARGET_WORD     = "love"
+TOP_N_WORDS     = 6000
+TOP_N_NEIGHBORS = 1
+TOP_N_COOC      = 50
+WINDOW_SIZE     = 5
+MIN_COOC        = 2
+#choice = "form"
 
 MATRICES_DIR    = "ppmi_matrix/"
 os.makedirs(MATRICES_DIR, exist_ok=True)
@@ -69,11 +82,12 @@ for decade in decades_available:
                 tokens = text.split()
                 tokens = remove_punct(tokens)
                 tokens = remove_stopwords(tokens)
-                lines.append(" ".join(tokens))
+                #tokens = transform_tokens(tokens, choice)
+                processed = " ".join(tokens)
+                lines.append(processed)
+                word_freq.update(tokens)
         except Exception:
             continue
-        word_freq.update(text.split())
-        lines.append(text)
     corpus_by_decade[decade] = lines
 
 top_words   = [w for w, _ in word_freq.most_common(TOP_N_WORDS)]
@@ -90,10 +104,6 @@ target_idx = vocab_index[TARGET_WORD]
 
 ##### MATRICE DE CO-OCCURRENCE GLOBALE
 def build_cooc_matrix(file_list_or_texts, vocab_index, window, is_texts=False):
-    """
-    Construit une matrice de co-occurrence à partir d'une liste de fichiers.
-    Retourne une matrice.
-    """
     v = len(vocab_index)
     mat = lil_matrix((v, v), dtype=np.float32)
 
@@ -136,31 +146,25 @@ else:
     print(f"  ✓ Sauvegardée → {_path_global}")
 
 
-##### PCA GLOBALE sur la matrice de co-occurrence
+##### PCA GLOBALE
 print("\nPCA globale sur la matrice globale...")
 
-# Normalisation L2 ligne par ligne pour stabiliser la PCA
 norms = np.linalg.norm(cooc_global, axis=1, keepdims=True)
 norms[norms == 0] = 1
 data = cooc_global / norms
 
 reducer = PCA(n_components=2, random_state=42)
-data_2d = reducer.fit_transform(data)   # (vocab, 2) — utilisé dans make_trajectory_plot
-#print(f"  Variance expliquée : PC1={reducer.explained_variance_ratio_[0]:.3f}, PC2={reducer.explained_variance_ratio_[1]:.3f}")
+data_2d = reducer.fit_transform(data)
 
 
 ##### MATRICES DE CO-OCCURRENCE PAR DÉCENNIE + PPMI
 def ppmi(cooc_mat):
-    """
-    Positive Pointwise Mutual Information à partir d'une matrice de co-occurrence.
-    PPMI(w, c) = max(0,  log2( P(w,c) / (P(w)*P(c)) ))
-    """
     total     = cooc_mat.sum()
     if total == 0:
         return cooc_mat.copy()
-    p_wc      = cooc_mat / total                          # P(w,c)
-    p_w       = cooc_mat.sum(axis=1, keepdims=True) / total  # P(w)
-    p_c       = cooc_mat.sum(axis=0, keepdims=True) / total  # P(c)
+    p_wc      = cooc_mat / total
+    p_w       = cooc_mat.sum(axis=1, keepdims=True) / total
+    p_c       = cooc_mat.sum(axis=0, keepdims=True) / total
     denom     = p_w * p_c
     with np.errstate(divide="ignore", invalid="ignore"):
         pmi   = np.where(denom > 0, np.log2(p_wc / denom), 0.0)
@@ -168,63 +172,60 @@ def ppmi(cooc_mat):
 
 
 print("\nConstruction des matrices par décennie + PPMI...")
-cooc_by_decade  = {}    # co-occurrence brute (vecteur ligne du mot cible)
-ppmi_by_decade  = {}    # matrice PPMI complète par décennie
+cooc_by_decade  = {}
+ppmi_by_decade  = {}
 
 for decade in decades_available:
     _path_cooc = os.path.join(MATRICES_DIR, f"cooc_{decade}.npy")
     _path_ppmi = os.path.join(MATRICES_DIR, f"ppmi_{decade}.npy")
 
-    # ── Cache : les deux fichiers existent → chargement direct ──
     if os.path.exists(_path_cooc) and os.path.exists(_path_ppmi):
-        cooc_vec = np.load(_path_cooc)
+        mat_dec = np.load(_path_cooc)
         ppmi_by_decade[decade] = np.load(_path_ppmi)
-        if cooc_vec.sum() == 0:
+        if mat_dec[target_idx].sum() == 0:
             print(f"  !!! {decade} : '{TARGET_WORD}' absent dans le cache, ignoré")
             continue
-        cooc_by_decade[decade] = cooc_vec
+        cooc_by_decade[decade] = mat_dec
         print(f" * {decade}  chargé depuis le cache  "
-              f"({int(cooc_vec.sum())} co-occ · PPMI shape={ppmi_by_decade[decade].shape})")
+              f"({int(mat_dec[target_idx].sum())} co-occ · PPMI shape={ppmi_by_decade[decade].shape})")
         continue
 
-    # ── Pas de cache → construction ──
     texts = corpus_by_decade.get(decade, [])
     if not texts:
         continue
 
-    mat_dec  = build_cooc_matrix(texts, vocab_index, WINDOW_SIZE, is_texts=True)
-    cooc_vec = mat_dec[target_idx]
+    mat_dec = build_cooc_matrix(texts, vocab_index, WINDOW_SIZE, is_texts=True)
 
-    if cooc_vec.sum() == 0:
+    if mat_dec[target_idx].sum() == 0:
         print(f"  !!! {decade} : '{TARGET_WORD}' jamais rencontré, ignoré")
         continue
 
-    cooc_by_decade[decade] = cooc_vec
+    cooc_by_decade[decade] = mat_dec
     ppmi_by_decade[decade] = ppmi(mat_dec)
 
-    np.save(_path_cooc, cooc_vec)
+    np.save(_path_cooc, mat_dec)
     np.save(_path_ppmi, ppmi_by_decade[decade])
     print(f"  ✓ {decade}  ({len(files_by_decade[decade])} fichiers · "
-          f"{int(cooc_vec.sum())} co-occ · PPMI shape={ppmi_by_decade[decade].shape})"
+          f"{int(mat_dec[target_idx].sum())} co-occ · PPMI shape={ppmi_by_decade[decade].shape})"
           f"  → sauvegardé")
 
 
-##### PROJECTION DU MOT CIBLE DANS L'ESPACE PCA PAR DÉCENNIE
-# Pour chaque décennie, on représente TARGET_WORD par une moyenne pondérée des vecteurs PCA de ses contextes (voisins dans cooc_by_decade).
-# Cela ancre la projection dans la PCA globale tout en reflétant la distribution contextuelle propre à chaque décennie.
-print(f"\nRécupération des coords pour « {TARGET_WORD} »...")
+##### PROJECTION DE TOUS LES MOTS DANS L'ESPACE PCA PAR DÉCENNIE
+print(f"\nCalcul des coordonnées PCA pour tous les mots...")
 
 coords_by_decade = {}
 for decade in sorted(cooc_by_decade.keys()):
-    cooc    = cooc_by_decade[decade]          # vecteur (vocab,)
-    weights = cooc / (cooc.sum() + 1e-9)      # distribution de probabilité sur les contextes
-
-    # Moyenne pondérée des lignes de data_2d
-    weighted_vec = (data_2d * weights[:, None]).sum(axis=0)   # (2,)
-    coords_by_decade[decade] = weighted_vec
-    print(f"  ✓ {decade}  →  PC1={weighted_vec[0]:.4f}  PC2={weighted_vec[1]:.4f}")
+    mat_dec  = cooc_by_decade[decade]
+    row_sums = mat_dec.sum(axis=1, keepdims=True) + 1e-9
+    weights  = mat_dec / row_sums
+    coords_all = weights @ data_2d
+    coords_by_decade[decade] = coords_all
+    target_xy = coords_all[target_idx]
+    print(f"  ✓ {decade}  →  PC1={target_xy[0]:.4f}  PC2={target_xy[1]:.4f}")
 
 active_decades = sorted(coords_by_decade.keys())
+
+target_coords_by_decade = {d: coords_by_decade[d][target_idx] for d in active_decades}
 
 if len(active_decades) < 2:
     raise ValueError("Moins de 2 décennies avec des données — trajectoire impossible.")
@@ -235,7 +236,7 @@ print(f"\n{len(active_decades)} décennies tracées : {active_decades[0]} → {a
 ##### TOP-N VOISINS PAR DÉCENNIE
 neighbors = {}
 for decade in active_decades:
-    cooc   = cooc_by_decade[decade]
+    cooc   = cooc_by_decade[decade][target_idx]
     ranked = np.argsort(cooc)[::-1]
     top    = []
     for idx in ranked:
@@ -253,8 +254,11 @@ for decade in active_decades:
 ##### TOP-N_COOC VOISINS PAR CO-OCCURRENCE
 top_cooc_by_decade = {}
 for decade in decades_available:
-    cooc = cooc_by_decade.get(decade)
-    if cooc is None or cooc.sum() == 0:
+    mat = cooc_by_decade.get(decade)
+    if mat is None:
+        continue
+    cooc = mat[target_idx]
+    if cooc.sum() == 0:
         continue
     ranked = np.argsort(cooc)[::-1]
     top    = []
@@ -270,22 +274,22 @@ for decade in decades_available:
 
 
 ##### VISUALISATION
-def make_trajectory_plot(ax, active_decades, coords_by_decade, neighbors, data_2d, colors, highlight=None):
+def make_trajectory_plot(ax, active_decades, target_coords_by_decade, neighbors, data_2d, colors, highlight=None):
     n_dec = len(active_decades)
     ax.set_facecolor("#f8f9fb")
 
     ax.scatter(data_2d[:, 0], data_2d[:, 1],
                s=8, c="grey", alpha=0.2, zorder=1)
 
-    xs = [coords_by_decade[d][0] for d in active_decades]
-    ys = [coords_by_decade[d][1] for d in active_decades]
+    xs = [target_coords_by_decade[d][0] for d in active_decades]
+    ys = [target_coords_by_decade[d][1] for d in active_decades]
     ax.plot(xs, ys, color="dimgrey", linewidth=1.2,
             linestyle="--", alpha=0.4, zorder=2)
 
     for i in range(n_dec - 1):
         d0, d1 = active_decades[i], active_decades[i + 1]
-        x0, y0 = coords_by_decade[d0]
-        x1, y1 = coords_by_decade[d1]
+        x0, y0 = target_coords_by_decade[d0]
+        x1, y1 = target_coords_by_decade[d1]
         alpha  = 0.85 if highlight is None else (0.9 if d0 == highlight else 0.2)
         arrow  = FancyArrowPatch(
             (x0, y0), (x1, y1),
@@ -296,7 +300,7 @@ def make_trajectory_plot(ax, active_decades, coords_by_decade, neighbors, data_2
         ax.add_patch(arrow)
 
     for decade in active_decades:
-        x, y   = coords_by_decade[decade]
+        x, y   = target_coords_by_decade[decade]
         is_hl  = (highlight is None or decade == highlight)
         size_s = 200 if (decade == highlight) else 150
         alpha  = 1.0 if is_hl else 0.25
@@ -314,7 +318,7 @@ def make_trajectory_plot(ax, active_decades, coords_by_decade, neighbors, data_2
         if highlight is not None and decade != highlight:
             continue
         c      = colors[decade]
-        tx, ty = coords_by_decade[decade]
+        tx, ty = target_coords_by_decade[decade]
         for entry in neighbors[decade]:
             nx, ny = entry["pc1"], entry["pc2"]
             ax.scatter(nx, ny, s=45, color=c,
@@ -401,7 +405,7 @@ colors = {d: cmap(i) for i, d in enumerate(active_decades)}
 
 fig, ax = plt.subplots(figsize=(14, 9))
 fig.patch.set_facecolor("#eef0f3")
-make_trajectory_plot(ax, active_decades, coords_by_decade,
+make_trajectory_plot(ax, active_decades, target_coords_by_decade,
                      neighbors, data_2d, colors)
 ax.set_title(
     f"Trajectoire sémantique de « {TARGET_WORD} » — toutes décennies\n"
@@ -457,4 +461,3 @@ for decade in decades_available:
     _path_cooc = os.path.join(MATRICES_DIR, f"cooc_{decade}.npy")
     if os.path.exists(_path_cooc):
         os.remove(_path_cooc)
-        #print(f"  Supprimé : {_path_cooc}")
