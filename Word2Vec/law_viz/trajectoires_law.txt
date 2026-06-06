@@ -1,0 +1,310 @@
+=== TRAJECTOIRES SÉMANTIQUES — mot cible : law ===
+Décennies : 1820s – 2000s  |  PPMI (fenêtre=5)  |  vocabulaire top-3500
+
+Rang   Mot                      Longueur
+------------------------------------------
+1      atmosphere                 2.8407
+2      deficiency                 2.7959
+3      striking                   2.7335
+4      sheep                      2.5048
+5      weak                       2.4135
+6      burst                      2.2956
+7      dawn                       2.2912
+8      stomach                    2.2744
+9      eastern                    2.2708
+10     kiss                       2.2638
+11     voter                      2.2627
+12     faced                      2.2501
+13     intelligent                2.2488
+14     williams                   2.2480
+15     respective                 2.2131
+16     18                         2.2126
+17     shelter                    2.2085
+18     humanity                   2.2013
+19     formal                     2.1993
+20     surely                     2.1913
+
+
+=== TOP-10 MOTS PAR DÉPLACEMENT DÉCENNAL ===
+(distance euclidienne entre la position pondérée d'une décennie
+ et celle de la décennie suivante, pour chaque mot du vocabulaire)
+
+
+
+=== TOP-20 MOTS PAR AIRE DE TRAJECTOIRE ===
+(aire du polygone formé par les positions pondérées par décennie)
+
+Rang   Mot                          Aire
+------------------------------------------
+1      deficiency                 0.0560
+2      sam                        0.0471
+3      suffered                   0.0342
+4      bomb                       0.0327
+5      extraordinary              0.0314
+6      destruction                0.0293
+7      coast                      0.0290
+8      bedroom                    0.0283
+9      reception                  0.0277
+10     recognized                 0.0273
+11     distant                    0.0273
+12     consciousness              0.0270
+13     management                 0.0270
+14     formal                     0.0269
+15     husband                    0.0268
+16     mr                         0.0263
+17     skill                      0.0260
+18     sell                       0.0246
+19     sum                        0.0239
+20     reminded                   0.0233
+--- 1820s → 1830s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      ken                          0.3301
+2      conscious                    0.3158
+3      correspondent                0.3135
+4      rail                         0.3100
+5      gen                          0.2977
+6      probable                     0.2853
+7      humanity                     0.2776
+8      faced                        0.2690
+9      unity                        0.2680
+10     suggest                      0.2671
+
+--- 1830s → 1840s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      italy                        0.4463
+2      household                    0.4117
+3      deficiency                   0.4018
+4      unexpected                   0.3523
+5      chest                        0.3258
+6      gross                        0.3145
+7      typical                      0.3082
+8      printed                      0.3066
+9      stomach                      0.3033
+10     bedroom                      0.2950
+
+--- 1840s → 1850s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      germany                      0.3243
+2      memory                       0.3076
+3      rarely                       0.3017
+4      village                      0.3002
+5      damn                         0.2879
+6      pleasant                     0.2866
+7      oil                          0.2840
+8      washed                       0.2830
+9      douglas                      0.2818
+10     cop                          0.2787
+
+--- 1850s → 1860s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      william                      0.4475
+2      mistress                     0.3520
+3      medical                      0.3301
+4      ability                      0.3217
+5      world                        0.3104
+6      pacomo                       0.3085
+7      continued                    0.3038
+8      economic                     0.3002
+9      striking                     0.2973
+10     list                         0.2958
+
+--- 1860s → 1870s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      fitzpatrick                  0.3719
+2      preparing                    0.3533
+3      list                         0.3533
+4      pacific                      0.3351
+5      source                       0.3274
+6      sell                         0.3262
+7      atmosphere                   0.3246
+8      mcclintock                   0.3225
+9      accustomed                   0.3138
+10     mineral                      0.2900
+
+--- 1870s → 1880s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      wait                         0.3773
+2      lawn                         0.3597
+3      crack                        0.3420
+4      skirt                        0.3238
+5      utter                        0.3037
+6      gnulemah                     0.2922
+7      cliff                        0.2864
+8      shirt                        0.2856
+9      sell                         0.2757
+10     resolution                   0.2751
+
+--- 1880s → 1890s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      tire                         0.3825
+2      lawn                         0.3699
+3      dead                         0.3533
+4      wait                         0.3354
+5      dawn                         0.3350
+6      hastily                      0.3347
+7      criticism                    0.3310
+8      dull                         0.3280
+9      valuable                     0.3177
+10     suffered                     0.3133
+
+--- 1890s → 1900s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      dead                         0.4140
+2      burst                        0.3985
+3      blessed                      0.3424
+4      marine                       0.3238
+5      required                     0.3194
+6      cooking                      0.3073
+7      schumann                     0.2962
+8      stranger                     0.2930
+9      pine                         0.2872
+10     tire                         0.2868
+
+--- 1900s → 1910s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      blessed                      0.4277
+2      regarded                     0.3767
+3      pointing                     0.3585
+4      substantial                  0.3536
+5      speaks                       0.3522
+6      hated                        0.3446
+7      commenced                    0.3329
+8      bore                         0.3228
+9      arrive                       0.3159
+10     possessed                    0.3052
+
+--- 1910s → 1920s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      correspondent                0.3783
+2      literary                     0.3737
+3      breeding                     0.3598
+4      dawn                         0.3291
+5      device                       0.3279
+6      porch                        0.3209
+7      physic                       0.3191
+8      bore                         0.3124
+9      denied                       0.2974
+10     referred                     0.2924
+
+--- 1920s → 1930s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      inevitable                   0.4153
+2      trained                      0.3774
+3      correspondent                0.3582
+4      status                       0.3504
+5      fitted                       0.3404
+6      bend                         0.3291
+7      shaft                        0.3288
+8      pennsylvania                 0.3238
+9      tancred                      0.3082
+10     wedding                      0.3006
+
+--- 1930s → 1940s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      15                           0.4085
+2      portrait                     0.3848
+3      inevitable                   0.3440
+4      wedding                      0.3222
+5      closing                      0.3099
+6      trained                      0.2984
+7      shaft                        0.2968
+8      colored                      0.2851
+9      solid                        0.2814
+10     physician                    0.2812
+
+--- 1940s → 1950s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      slave                        0.3184
+2      bomb                         0.3160
+3      pardon                       0.3081
+4      intelligent                  0.2973
+5      18                           0.2865
+6      bit                          0.2791
+7      comrade                      0.2756
+8      battle                       0.2741
+9      deficiency                   0.2735
+10     declaration                  0.2727
+
+--- 1950s → 1960s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      declaration                  0.3324
+2      wind                         0.3293
+3      automobile                   0.3130
+4      capt                         0.3077
+5      absence                      0.3047
+6      breaking                     0.3029
+7      striking                     0.3014
+8      mission                      0.2977
+9      barrel                       0.2886
+10     slave                        0.2853
+
+--- 1960s → 1970s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      barrel                       0.3426
+2      oldfashioned                 0.3278
+3      referred                     0.3227
+4      reflection                   0.3027
+5      income                       0.3005
+6      portrait                     0.2951
+7      carolina                     0.2805
+8      shame                        0.2729
+9      picked                       0.2670
+10     18                           0.2641
+
+--- 1970s → 1980s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      deficiency                   0.4492
+2      19                           0.3659
+3      channel                      0.3183
+4      edinburgh                    0.2866
+5      bus                          0.2801
+6      mi                           0.2787
+7      constitute                   0.2761
+8      suggested                    0.2757
+9      smiling                      0.2730
+10     williams                     0.2673
+
+--- 1980s → 1990s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      deficiency                   0.5026
+2      equivalent                   0.3742
+3      secure                       0.3266
+4      containing                   0.3224
+5      imagination                  0.3191
+6      williams                     0.2908
+7      plot                         0.2825
+8      wauna                        0.2750
+9      rarely                       0.2746
+10     constitute                   0.2732
+
+--- 1990s → 2000s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      challenge                    0.3323
+2      kiss                         0.3222
+3      radiation                    0.3212
+4      secure                       0.3173
+5      chicken                      0.3137
+6      double                       0.3047
+7      training                     0.3027
+8      corp                         0.2989
+9      emf                          0.2576
+10     26                           0.2544
+

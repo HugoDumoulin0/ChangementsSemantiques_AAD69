@@ -253,6 +253,85 @@ def make_umap_cooc_plot(ax, decade, top_cooc, color, target_word, ppmi_dec, voca
     ax.set_xlim(all_x.min() - pad_x, all_x.max() + pad_x)
     ax.set_ylim(all_y.min() - pad_y, all_y.max() + pad_y)
 
+def cosine_similarity(vec, mat):
+    vec_norm = np.linalg.norm(vec)
+    mat_norm = np.linalg.norm(mat, axis=1)
+
+    denom = (vec_norm * mat_norm) + 1e-9
+    sims = np.dot(mat, vec) / denom
+    return sims
+
+def make_umap_similarity_plot(ax, decade, top_similar, color, target_word, ppmi_dec, vocab_index, target_idx):
+
+    ax.set_facecolor("#f8f9fb")
+    ax.axis("off")
+
+    if not top_similar:
+        ax.text(0.5, 0.5, "Pas de données", ha="center", va="center", fontsize=10, transform=ax.transAxes)
+        return
+
+    neighbor_indices = [ vocab_index[e["word"]] for e in top_similar if e["word"] in vocab_index]
+    all_indices = [target_idx] + neighbor_indices
+    sub_matrix = ppmi_dec[all_indices]
+
+    n_samples = len(all_indices)
+    n_neighbors = max(2, min(15, n_samples - 2))
+    if n_samples < 4:
+        ax.text(0.5, 0.5, "Données insuffisantes\npour UMAP", ha="center", va="center", fontsize=10, transform=ax.transAxes)
+        return
+
+    umap_model = UMAP(n_components=2, n_neighbors=n_neighbors, min_dist=0.3, random_state=42, verbose=False)
+
+    coords_2d = umap_model.fit_transform(sub_matrix)
+
+    target_xy = coords_2d[0]
+    neighbor_xy = coords_2d[1:]
+
+    sims = np.array([e["sim"] for e in top_similar])
+    norm = (sims - sims.min()) / (sims.max() - sims.min() + 1e-9)
+    lw_vals = 0.4 + norm * 3.0
+    fs_vals = 6.5 + norm * 4.5
+    dot_s   = 20 + norm * 120
+
+    for i in range(len(top_similar)):
+        ax.plot([target_xy[0], neighbor_xy[i, 0]], [target_xy[1], neighbor_xy[i, 1]],
+            color=color, linewidth=lw_vals[i],
+            alpha=0.25, zorder=1
+        )
+
+    for i, entry in enumerate(top_similar):
+        nx, ny = neighbor_xy[i]
+
+        ax.scatter(nx, ny, s=dot_s[i], color=color,
+            alpha=0.70, zorder=3, linewidths=0
+        )
+
+        ha = "left" if nx >= target_xy[0] else "right"
+        offset_x = 0.02 if ha == "left" else -0.02
+
+        ax.text(nx + offset_x, ny, entry["word"],
+            fontsize=fs_vals[i], color=color, ha=ha,
+            va="center", fontweight="bold" if i < 5 else "normal",
+            alpha=0.92, zorder=4
+            )
+
+    ax.scatter(*target_xy, s=320, color=color,
+            zorder=6, linewidths=1.5, edgecolors="white"
+            )
+
+    ax.text(target_xy[0], target_xy[1], target_word,
+            ha="center", va="center", fontsize=11,
+            fontweight="bold", color="black", zorder=7
+            )
+
+    all_x = np.append(neighbor_xy[:, 0], target_xy[0])
+    all_y = np.append(neighbor_xy[:, 1], target_xy[1])
+    pad_x = (all_x.max() - all_x.min()) * 0.18 + 0.3
+    pad_y = (all_y.max() - all_y.min()) * 0.18 + 0.3
+
+    ax.set_xlim(all_x.min() - pad_x, all_x.max() + pad_x)
+    ax.set_ylim(all_y.min() - pad_y, all_y.max() + pad_y)
+
 def compute_word_trajectory_area(word_idx, ppmi_by_decade, active_decades, data_2d):
     """
     Calcule l'aire de la trajectoire d'un mot dans l'espace PCA (aire du polygone convexe
@@ -286,6 +365,10 @@ def compute_word_trajectory_area(word_idx, ppmi_by_decade, active_decades, data_
 
     return area, coords
 
+
+
+
+
 if __name__ == "__main__" :
 
 ##### CONFIGURATION
@@ -303,7 +386,8 @@ if __name__ == "__main__" :
     os.makedirs(MATRICES_DIR, exist_ok=True)
     PLOTS_DIR = f"{TARGET_WORD}_viz/cards_cooc_{TARGET_WORD}/"
     os.makedirs(PLOTS_DIR, exist_ok=True)
-
+    SIMILAR_DIR = f"{TARGET_WORD}_viz/cards_similar_{TARGET_WORD}/"
+    os.makedirs(SIMILAR_DIR, exist_ok=True)
 
 ##### GROUPEMENT DES FICHIERS PAR DÉCENNIE
     FILENAME_RE = re.compile(r"^[^_]+_(\d{4})_\d+\.txt$")
@@ -357,7 +441,7 @@ if __name__ == "__main__" :
 ##### MATRICE DE CO-OCCURRENCE
     _path_global = os.path.join(MATRICES_DIR, "cooc_global.npy")
     if os.path.exists(_path_global):
-        print(f"\nChargement de la matrice globale depuis le cache → {_path_global}")
+        print(f"\nChargement de la matrice globale → {_path_global}")
         cooc_global = np.load(_path_global)
         print(f"  Matrice globale : {cooc_global.shape}")
     else:
@@ -399,7 +483,7 @@ if __name__ == "__main__" :
                 ppmi_mat = ppmi(mat_dec)
                 np.save(_path_ppmi, ppmi_mat)
 
-            print(f" * {decade} chargé depuis le cache (matrice {mat_dec.shape})")
+            print(f" * {decade} chargé depuis {mat_dec.shape})")
 
         # Construction
         else:
@@ -450,24 +534,15 @@ if __name__ == "__main__" :
     all_trajectories_area = {}
 
     for idx, word in enumerate(top_words):
-        length, coords = compute_word_trajectory_length(
-            idx, ppmi_by_decade, active_decades, data_2d
-        )
+        length, coords = compute_word_trajectory_length(idx, ppmi_by_decade, active_decades, data_2d)
         if length is not None:
             all_trajectories[word] = (length, coords)
-
-        area, coords_a = compute_word_trajectory_area(
-            idx, ppmi_by_decade, active_decades, data_2d
-        )
+        area, coords_a = compute_word_trajectory_area(idx, ppmi_by_decade, active_decades, data_2d)
         if area is not None:
             all_trajectories_area[word] = (area, coords_a)
 
-    ranked_trajectories = sorted(
-        all_trajectories.items(), key=lambda x: x[1][0], reverse=True
-    )
-    ranked_trajectories_area = sorted(
-        all_trajectories_area.items(), key=lambda x: x[1][0], reverse=True
-    )
+    ranked_trajectories = sorted(all_trajectories.items(), key=lambda x: x[1][0], reverse=True)
+    ranked_trajectories_area = sorted(all_trajectories_area.items(), key=lambda x: x[1][0], reverse=True)
 
 ##### SAUVEGARDE DES TRAJECTOIRES
     traj_txt_path = f"{TARGET_WORD}_viz/trajectoires_{TARGET_WORD}.txt"
@@ -556,6 +631,27 @@ if __name__ == "__main__" :
                 break
         top_cooc_by_decade[decade] = top
 
+##### TOP-N VOISINS PAR SIMILARITÉ COSINUS
+    top_similar_by_decade = {}
+    for decade in active_decades:
+        ppmi_dec = ppmi_by_decade.get(decade)
+        if ppmi_dec is None:
+            continue
+        target_vec = ppmi_dec[target_idx]
+        if np.linalg.norm(target_vec) == 0:
+            continue
+        sims = cosine_similarity(target_vec, ppmi_dec)
+        ranked = np.argsort(sims)[::-1]
+        top_similar = []
+        for idx in ranked:
+            if idx == target_idx:
+                continue
+            if sims[idx] <= 0:
+                continue
+            top_similar.append({"word": top_words[idx], "sim": float(sims[idx])})
+            if len(top_similar) == TOP_N_COOC:
+                break
+        top_similar_by_decade[decade] = top_similar
 
 ##### VISUALISATIONS
 
@@ -585,7 +681,7 @@ if __name__ == "__main__" :
     ax.legend(handles=legend_elements, loc="upper left",
             framealpha=0.9, fontsize=9, title="Décennie")
     plt.tight_layout()
-    global_plot = f"trajectoire_cooc_{TARGET_WORD}.jpeg"
+    global_plot = f"{TARGET_WORD}_viz/trajectoire_cooc_{TARGET_WORD}.jpeg"
     plt.savefig(global_plot, format="jpeg", dpi=300, bbox_inches="tight")
     print(f"\n✓ Trajectoire globale sauvegardée : {global_plot}")
     plt.show()
@@ -616,6 +712,30 @@ if __name__ == "__main__" :
         #plt.show()
 
     print(f"\n✓ Terminé — {len(active_decades)} plots sauvegardés dans {PLOTS_DIR}")
+
+
+
+    print(f"\nGénération des cards similarité → {SIMILAR_DIR}")
+
+    for decade in active_decades:
+        fig, ax_radial = plt.subplots(figsize=(10, 10))
+        fig.patch.set_facecolor("#eef0f3")
+
+        top_similar = top_similar_by_decade.get(decade, [])
+        make_umap_similarity_plot(ax_radial, decade, top_similar,
+                        color=colors[decade], target_word=TARGET_WORD,
+                        ppmi_dec=ppmi_by_decade[decade], vocab_index=vocab_index,
+                        target_idx=target_idx)
+        ax_radial.set_title(
+            f"Top-{TOP_N_COOC} voisins similaires · {decade} [UMAP]\n"
+            f"taille du point / label ∝ similarité cosinus  ·  position = espace PPMI local",
+            fontsize=10,fontweight="bold",pad=10
+        )
+
+        plt.tight_layout()
+        out_path = os.path.join(SIMILAR_DIR, f"{decade}_{TARGET_WORD}.jpeg")
+        plt.savefig(out_path,format="jpeg",dpi=200,bbox_inches="tight")
+        print(f"  ✓ {out_path}")
 
 
 # VISUALISATION 3 : top-K trajectoires les plus longues — un subplot par mot
