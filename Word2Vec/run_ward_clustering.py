@@ -1,23 +1,25 @@
+import os
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-from gensim.models import Word2Vec
 from sklearn.cluster import KMeans
 from scipy.cluster.hierarchy import dendrogram
 from sklearn.decomposition import PCA
 from sklearn.cluster import AgglomerativeClustering
-from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
 
 
+MATRICES_DIR = "ppmi_matrix/"
+os.makedirs(MATRICES_DIR, exist_ok=True)
 
-model = Word2Vec.load("W2V.model")
-vocab = list(model.wv.index_to_key)
+_path_global = os.path.join(MATRICES_DIR, "cooc_global.npy")
+print(f"\nChargement de la matrice globale → {_path_global}")
+cooc_global = np.load(_path_global)
 
-# scaler = StandardScaler()
-# X_scaled = scaler.fit_transform(model.wv[vocab])
+X = cooc_global
+X_used = X
 
-X_scaled = model.wv[vocab]
+vocab = np.arange(X_used.shape[0]).astype(str)
+
 
 #Courbe d'inertie (Elbow method)
 inerties = []
@@ -25,27 +27,28 @@ K_range = range(1, 11)
 
 for k in K_range:
     kmeans = KMeans(n_clusters=k, random_state=42)
-    kmeans.fit(X_scaled)
+    kmeans.fit(X_used)
     inerties.append(kmeans.inertia_)
 
 
-#Affichage de la courbe d'inertie
 plt.figure(figsize=(8, 5))
-
 plt.plot(K_range, inerties, marker='o')
 plt.title("Méthode du coude (Inertie)")
 plt.xlabel("Nombre de clusters (K)")
 plt.ylabel("Inertie (variance intra-cluster)")
 plt.xticks(K_range)
-
 plt.grid(True)
 plt.tight_layout()
 plt.show()
 
+
 ##################################
 
-#Fonction pour dendrogramme (qu'on peut retrouver sur le site dsklearn)
 def plot_dendrogram(model, labels=None, **kwargs):
+    """
+    Cette fontion est retrouvable sur sklearn.
+    """
+
     counts = np.zeros(model.children_.shape[0])
     n_samples = len(model.labels_)
 
@@ -71,43 +74,41 @@ model = AgglomerativeClustering(
     n_clusters=None,
     linkage="ward",
 )
-model = model.fit(X_scaled)
+
+model = model.fit(X_used)
 
 
-#Affichage du dendrogramme
 plt.figure(figsize=(24, 12))
 
 plt.title("Dendrogramme - Clustering Hiérarchique (Ward)")
+
 plot_dendrogram(
     model,
     labels=vocab,
     leaf_rotation=90,
-    leaf_font_size=8
+    leaf_font_size=6
 )
 
 plt.xlabel("Observations")
-plt.ylabel("Distance (variance intra-cluster)")
+plt.ylabel("Distance")
 plt.tight_layout()
 plt.show()
 
 
 ##############################################################################
-#Script 07 Ward Visualisation
 
 n_clusters = 2
+
 model_ward = AgglomerativeClustering(
-    distance_threshold= None,
-    n_clusters = n_clusters,
+    n_clusters=n_clusters,
     linkage="ward",
 )
-cluster_labels = model_ward.fit_predict(X_scaled)
+
+cluster_labels = model_ward.fit_predict(X_used)
 
 
-# Réduction à 2D avec PCA
 pca_2d = PCA(n_components=2, random_state=42)
-X_2d = pca_2d.fit_transform(X_scaled)
-
-#print(f"Variance expliquée par PC1 et PC2 : {pca_2d.explained_variance_ratio_}")
+X_2d = pca_2d.fit_transform(X_used)
 
 plt.figure(figsize=(12, 8))
 
@@ -120,7 +121,7 @@ scatter = plt.scatter(
     alpha=0.8
 )
 
-plt.title("Clusters Ward visualisés avec PCA (2D)", fontsize=1)
+plt.title("Clusters Ward visualisés avec PCA (2D)")
 plt.xlabel("PC1")
 plt.ylabel("PC2")
 
@@ -128,25 +129,3 @@ plt.colorbar(scatter, label="Cluster ID")
 plt.grid(True)
 plt.tight_layout()
 plt.show()
-
-###########################################################################
-
-# top_k = 20
-# print("Top 20 mots par cluster")
-#
-# for k in range(n_clusters):
-#     cluster_idx = np.where(cluster_labels == k)[0]
-#     cluster_vectors = X_scaled[cluster_idx]
-#
-#     centroid = cluster_vectors.mean(axis=0).reshape(1, -1)
-#
-#     # Similarité cosinus au centroïde
-#     similarities = cosine_similarity(cluster_vectors, centroid).flatten()
-#
-#     # Indices triés par similarité décroissante
-#     top_indices = cluster_idx[np.argsort(similarities)[::-1][:top_k]]
-#
-#     top_words = vocab[top_indices]
-#
-#     print(f"\nCluster {k} ({len(cluster_idx)} mots) :")
-#     print(", ".join(top_words))
