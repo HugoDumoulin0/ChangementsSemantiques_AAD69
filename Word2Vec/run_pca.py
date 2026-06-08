@@ -92,46 +92,49 @@ data_2d = reducer.fit_transform(ppmi)
 print(f"Variance expliquée : PC1={reducer.explained_variance_ratio_[0]:.2%}, "
       f"PC2={reducer.explained_variance_ratio_[1]:.2%}")
 
-# Clustering K-Means
-kmeans   = KMeans(n_clusters=N_CLUSTERS, random_state=42, n_init="auto")
-clusters = kmeans.fit_predict(ppmi)
 
-score = silhouette_score(ppmi, clusters, metric="cosine")
-print(f"Silhouette score : {score:.3f}")
 
 # Visualisation
 plt.figure(figsize=(12, 8))
-palette = sns.color_palette("tab10", n_colors=N_CLUSTERS)
 
-for i in range(N_CLUSTERS):
-    mask = clusters == i
-    plt.scatter(
-        data_2d[mask, 0], data_2d[mask, 1],
-        s=40, alpha=0.6, color=palette[i], label=f"Cluster {i}"
-    )
+# Tous les mots dans le même nuage
+plt.scatter(
+    data_2d[:, 0],
+    data_2d[:, 1],
+    s=15,
+    alpha=0.5
+)
 
-# Annoter les N mots les plus fréquents de chaque cluster
-N_LABELS = 20
-for cluster_id in range(N_CLUSTERS):
-    indices = np.where(clusters == cluster_id)[0]
-    # trier par fréquence décroissante
-    indices_sorted = sorted(indices, key=lambda i: word_freq[vocab[i]], reverse=True)
-    for i in indices_sorted[:N_LABELS]:
+# Annoter uniquement les mots les plus fréquents
+N_LABELS = 100
+
+for word, _ in word_freq.most_common(N_LABELS):
+    if word in word_to_idx:
+        idx = word_to_idx[word]
         plt.annotate(
-            vocab[i],
-            (data_2d[i, 0], data_2d[i, 1]),
-            fontsize=7, alpha=0.8,
-            xytext=(4, 4), textcoords="offset points"
+            word,
+            (data_2d[idx, 0], data_2d[idx, 1]),
+            fontsize=8,
+            alpha=0.8,
+            xytext=(3, 3),
+            textcoords="offset points"
         )
 
 plt.axhline(0, color="grey", lw=0.8, ls="--")
 plt.axvline(0, color="grey", lw=0.8, ls="--")
+
 plt.xlabel(f"PC1 ({reducer.explained_variance_ratio_[0]:.1%})")
 plt.ylabel(f"PC2 ({reducer.explained_variance_ratio_[1]:.1%})")
-plt.title(f"ACP – COHA | Top {TOP_N_WORDS} mots | {N_CLUSTERS} clusters")
-plt.legend(loc="best", fontsize=8)
+plt.title(f"PCA du corpus COHA – Top {TOP_N_WORDS} mots")
 plt.tight_layout()
-plt.savefig("pca_coha.jpeg", format="jpeg", dpi=300, bbox_inches="tight")
+
+plt.savefig(
+    "pca_coha_2d.jpeg",
+    format="jpeg",
+    dpi=300,
+    bbox_inches="tight"
+)
+
 plt.show()
 
-print("Graphe sauvegardé → pca_coha.jpeg")
+print("Graphe sauvegardé → pca_coha_2d.jpeg")
