@@ -10,10 +10,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import importlib.util
 
+from gensim.models import Word2Vec
+
 sns.set(style="whitegrid", palette="muted")
 
 # Choix de DSM Term-term ou DSM term-term avec word2vec
-corpus = "DSM"
+corpus = "DSM_w2v"
 
 if corpus == "DSM" :
     spec = importlib.util.spec_from_file_location("DSM_module", "./DSM_term-context_surface.py")
@@ -26,25 +28,37 @@ if corpus == "DSM" :
 
 
 elif corpus == "DSM_w2v" :
-    data_path = "word2vec_similarity_matrix.csv"
-    data = pd.read_csv(data_path, index_col=0)  # index_col=0 pour utiliser les mots comme index
+    # data_path = "word2vec_similarity_matrix.csv"
+    # data = pd.read_csv(data_path, index_col=0)  # index_col=0 pour utiliser les mots comme index
     print(f"Matrice chargée : {data.shape}")
 
+    model =  Word2Vec.load("simpson.model")
+    vocab = list(model.wv.key_to_index)
+    
+    vocab_freq = {word: model.wv.get_vecattr(word, "count") for word in model.wv.index_to_key}
+    sorted_vocab = sorted(vocab_freq.items(), key=lambda item: item[1], reverse=True)
+    N = 400
+    most_frequent_words = [word for word, freq in sorted_vocab[:N]]
+    labels = np.array(most_frequent_words)
+
+    
+    labels=np.array(vocab)
+    data = model.wv[vocab]
+    
     # Convertir en numpy array
-    X = data.values
-    vocab = data.index.values
+    # X = data.values
+    # vocab = data.index.values
 else:
     raise ValueError("Corpus invalide. Choisir 'DSM' ou 'DSM_w2v'")
-
 
 #Choix de la visualisation
 method = 'PCA'  #PCA ou MDS
 if method == 'PCA':
-    scaler = StandardScaler() #normalistion "centrer et réduire"
-    data_normalized = scaler.fit_transform(data)
+    # scaler = StandardScaler() #normalistion "centrer et réduire"
+    # data_normalized = scaler.fit_transform(data)
 
     reducer = PCA(n_components=2, random_state=42)
-    data_2d = reducer.fit_transform(data_normalized)
+    data_2d = reducer.fit_transform(data)
 
 elif method == 'MDS':
     reducer = MDS(n_components=2, random_state=42)
@@ -66,7 +80,7 @@ print(f"Silhouette score : {score:.3f}")
 
 class_names= None
 
-labels = ppmi_matrix.index
+# labels = ppmi_matrix.index
 
 # Visualisation
 plt.figure(figsize=(10, 7))
@@ -92,6 +106,7 @@ plt.axvline(0, color="grey", lw=1)
 plt.xlabel("PC1")
 plt.ylabel("PC2")
 plt.title("ACP – individus")
+plt.savefig(f"{corpus}.jpeg",format="jpeg", dpi=300, bbox_inches="tight")
 plt.show()
 
 
@@ -100,7 +115,7 @@ print("\n=== Mots centraux par cluster ===")
 
 for k in range(n_clusters):
     cluster_idx = np.where(clusters == k)[0]
-    cluster_sim = X[cluster_idx][:, cluster_idx]
+    cluster_sim = data[cluster_idx][:, cluster_idx]
 
     centroid_sim = cluster_sim.mean(axis=0)
     top_idx = np.argsort(centroid_sim)[::-1][:top_k]
