@@ -170,7 +170,8 @@ def most_similar_par_decennie(
         modele_global,
         modeles_decennies,
         rotations,
-        topn=10
+        topn=10,
+        min_count_voisin=0
 ):
     """
     Voisins sémantiques du mot
@@ -197,13 +198,20 @@ def most_similar_par_decennie(
 
         similaires = modele_global.wv.similar_by_vector(
             vecteur,
-            topn=topn + 5
+            topn=max(topn + 20, topn * 5)
         )
 
         similaires = [
             x
             for x in similaires
-            if x[0] != mot
+            if (
+                x[0] != mot
+                and x[0] in modele.wv
+                and modele.wv.get_vecattr(
+                    x[0],
+                    "count"
+                ) >= min_count_voisin
+            )
         ]
 
         resultats[decennie] = similaires[:topn]
@@ -307,3 +315,171 @@ def distance_temporelle(
         distances[cle] = float(d)
 
     return distances
+
+
+def _vecteurs_par_decennie_pour_mot(
+        mot,
+        modeles_decennies,
+        rotations
+):
+    """
+    Retourne les vecteurs alignés d'un mot
+    par décennie disponible.
+    """
+
+    vecteurs = []
+
+    for decennie in sorted(modeles_decennies):
+
+        if decennie not in rotations:
+            continue
+
+        modele = modeles_decennies[decennie]
+
+        if mot not in modele.wv:
+            continue
+
+        vecteurs.append(
+            (
+                decennie,
+                vecteur_aligne(
+                    modele,
+                    mot,
+                    rotations[decennie]
+                )
+            )
+        )
+
+    return vecteurs
+
+
+def trajectoire_extremes_vocabulaire(
+        modeles_decennies,
+        rotations
+):
+    """
+    Distance directe entre la première
+    et la dernière décennie observées
+    pour chaque mot.
+    """
+
+    decennies_valides = sorted(
+        decennie
+        for decennie in modeles_decennies
+        if decennie in rotations
+    )
+
+    if len(decennies_valides) < 2:
+        return {}
+
+    premiere = decennies_valides[0]
+    derniere = decennies_valides[-1]
+
+    mots_premiere = set(
+        modeles_decennies[premiere].wv.index_to_key
+    )
+
+    mots_derniere = set(
+        modeles_decennies[derniere].wv.index_to_key
+    )
+
+    communs = sorted(
+        mots_premiere & mots_derniere
+    )
+
+    trajectoires = {}
+
+    for mot in communs:
+
+        vecteur_premiere = vecteur_aligne(
+            modeles_decennies[premiere],
+            mot,
+            rotations[premiere]
+        )
+
+        vecteur_derniere = vecteur_aligne(
+            modeles_decennies[derniere],
+            mot,
+            rotations[derniere]
+        )
+
+        trajectoires[mot] = {
+            "premiere_decennie": premiere,
+            "derniere_decennie": derniere,
+            "distance": float(
+                np.linalg.norm(
+                    vecteur_derniere -
+                    vecteur_premiere
+                )
+            )
+        }
+
+    return trajectoires
+
+
+def trajectoire_cumulee_vocabulaire(
+        modeles_decennies,
+        rotations
+):
+    """
+    Somme des distances successives
+    pour chaque mot sur les décennies
+    où il est observé.
+    """
+
+    vocabulaire = set()
+
+    for decennie, modele in modeles_decennies.items():
+
+        if decennie not in rotations:
+            continue
+
+        vocabulaire.update(
+            modele.wv.index_to_key
+        )
+
+    trajectoires = {}
+
+    for mot in sorted(vocabulaire):
+
+        vecteurs = _vecteurs_par_decennie_pour_mot(
+            mot,
+            modeles_decennies,
+            rotations
+        )
+
+        if len(vecteurs) < 2:
+            continue
+
+        somme = 0.0
+        transitions = []
+
+        for i in range(len(vecteurs) - 1):
+
+            decennie_a, vecteur_a = vecteurs[i]
+            decennie_b, vecteur_b = vecteurs[i + 1]
+
+            distance = float(
+                np.linalg.norm(
+                    vecteur_b - vecteur_a
+                )
+            )
+
+            somme += distance
+
+            transitions.append(
+                {
+                    "debut": decennie_a,
+                    "fin": decennie_b,
+                    "distance": distance
+                }
+            )
+
+        trajectoires[mot] = {
+            "premiere_decennie": vecteurs[0][0],
+            "derniere_decennie": vecteurs[-1][0],
+            "distance": somme,
+            "transitions": transitions
+        }
+
+    return trajectoires

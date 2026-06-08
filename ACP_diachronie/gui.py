@@ -16,13 +16,16 @@ from alignment import (
     construire_trajectoire,
     most_similar_par_decennie,
     distance_au_global,
-    distance_temporelle
+    distance_temporelle,
+    trajectoire_cumulee_vocabulaire,
+    trajectoire_extremes_vocabulaire
 )
 
 from visualisation import (
     creer_figure_trajectoire,
     creer_figure_distances_global,
     creer_figure_distances_temporelles,
+    creer_figure_trajectoires_vocabulaire,
     creer_figure_vide
 )
 
@@ -57,7 +60,7 @@ class Application(tk.Tk):
         )
 
         self.geometry(
-            "1200x700"
+            "1200x860"
         )
 
         self.corpus_cache = None
@@ -67,7 +70,10 @@ class Application(tk.Tk):
         self.verification_en_cours = False
         self.graph_canvases = {}
         self.fenetre_graphes = None
+        self.fenetre_voisins = None
         self.dernier_resultat = None
+        self.tri_tableau_voisins = {}
+        self.donnees_tableau_voisins = []
 
         self.creer_interface()
         self.creer_fenetre_graphes()
@@ -75,8 +81,18 @@ class Application(tk.Tk):
     
     # Interface
     def creer_interface(self):
-        frame = ttk.Frame(
+        conteneur = ttk.Frame(
             self,
+            padding=10
+        )
+
+        conteneur.pack(
+            fill="both",
+            expand=True
+        )
+
+        frame = ttk.Frame(
+            conteneur,
             padding=10
         )
 
@@ -442,6 +458,58 @@ class Application(tk.Tk):
             pady=4
         )
 
+        ttk.Label(
+            bloc_options,
+            text="Fréq. min voisins (décennie)"
+        ).grid(
+            row=1,
+            column=2,
+            padx=(0, 8),
+            pady=(6, 0),
+            sticky="w"
+        )
+
+        self.var_min_freq_voisins = tk.IntVar(
+            value=0
+        )
+
+        ttk.Entry(
+            bloc_options,
+            textvariable=self.var_min_freq_voisins,
+            width=12
+        ).grid(
+            row=1,
+            column=3,
+            sticky="w",
+            pady=(6, 0)
+        )
+
+        ttk.Label(
+            bloc_options,
+            text="Fréq. min voisins (top trajectoires)"
+        ).grid(
+            row=2,
+            column=2,
+            padx=(0, 8),
+            pady=(6, 0),
+            sticky="w"
+        )
+
+        self.var_min_freq_voisins_top = tk.IntVar(
+            value=0
+        )
+
+        ttk.Entry(
+            bloc_options,
+            textvariable=self.var_min_freq_voisins_top,
+            width=12
+        ).grid(
+            row=2,
+            column=3,
+            sticky="w",
+            pady=(6, 0)
+        )
+
         self.var_mode_voisins_graphe = tk.StringVar(
             value="Aucun"
         )
@@ -450,7 +518,7 @@ class Application(tk.Tk):
             bloc_options,
             text="Voisins sur le graphique"
         ).grid(
-            row=1,
+            row=3,
             column=0,
             padx=(0, 8),
             pady=(6, 0),
@@ -466,7 +534,7 @@ class Application(tk.Tk):
         )
 
         selecteur_voisins.grid(
-            row=1,
+            row=3,
             column=1,
             pady=(6, 0),
             sticky="w"
@@ -520,6 +588,15 @@ class Application(tk.Tk):
 
         ttk.Button(
             barre_actions,
+            text="Afficher voisins par décennie",
+            command=self.afficher_voisins_par_decennie
+        ).pack(
+            side="left",
+            padx=(0, 8)
+        )
+
+        ttk.Button(
+            barre_actions,
             text="Exporter CSV",
             command=self.exporter_resultats_csv
         ).pack(
@@ -556,14 +633,132 @@ class Application(tk.Tk):
             sticky="nsew"
         )
 
+        self.onglets_resultats = ttk.Notebook(
+            conteneur_resultats
+        )
+
+        self.onglets_resultats.pack(
+            fill="both",
+            expand=True
+        )
+
+        onglet_journal = ttk.Frame(
+            self.onglets_resultats
+        )
+
+        onglet_tableau = ttk.Frame(
+            self.onglets_resultats
+        )
+
+        self.onglets_resultats.add(
+            onglet_journal,
+            text="Journal"
+        )
+
+        self.onglets_resultats.add(
+            onglet_tableau,
+            text="Tableau"
+        )
+
         self.zone_resultats = tk.Text(
-            conteneur_resultats,
+            onglet_journal,
             height=14
         )
 
         self.zone_resultats.pack(
             fill="both",
             expand=True
+        )
+
+        barre_tableau = ttk.Frame(
+            onglet_tableau
+        )
+
+        barre_tableau.pack(
+            fill="x",
+            pady=(0, 6)
+        )
+
+        ttk.Label(
+            barre_tableau,
+            text="Filtre"
+        ).pack(
+            side="left",
+            padx=(0, 8)
+        )
+
+        self.var_filtre_tableau = tk.StringVar()
+        self.var_filtre_tableau.trace_add(
+            "write",
+            self._sur_changement_filtre_tableau
+        )
+
+        ttk.Entry(
+            barre_tableau,
+            textvariable=self.var_filtre_tableau,
+            width=30
+        ).pack(
+            side="left"
+        )
+
+        colonnes = (
+            "categorie",
+            "mot",
+            "voisin",
+            "score"
+        )
+
+        conteneur_tableau = ttk.Frame(
+            onglet_tableau
+        )
+
+        conteneur_tableau.pack(
+            fill="both",
+            expand=True
+        )
+
+        self.tableau_voisins = ttk.Treeview(
+            conteneur_tableau,
+            columns=colonnes,
+            show="headings"
+        )
+
+        for colonne, titre, largeur, ancre in [
+            ("categorie", "Catégorie", 180, "w"),
+            ("mot", "Mot", 140, "w"),
+            ("voisin", "Voisin", 180, "w"),
+            ("score", "Score", 90, "e")
+        ]:
+            self.tableau_voisins.heading(
+                colonne,
+                text=titre,
+                command=lambda c=colonne: self._trier_tableau_voisins(c)
+            )
+            self.tableau_voisins.column(
+                colonne,
+                width=largeur,
+                anchor=ancre
+            )
+
+        scrollbar_tableau = ttk.Scrollbar(
+            conteneur_tableau,
+            orient="vertical",
+            command=self.tableau_voisins.yview
+        )
+
+        self.tableau_voisins.configure(
+            yscrollcommand=scrollbar_tableau.set
+        )
+
+        self.tableau_voisins.pack(
+            side="left",
+            fill="both",
+            expand=True
+        )
+
+        scrollbar_tableau.pack(
+            side="right",
+            fill="y"
         )
 
         frame.rowconfigure(
@@ -614,7 +809,9 @@ class Application(tk.Tk):
         for identifiant, titre in [
             ("trajectoire", "Trajectoire"),
             ("global", "Distance globale"),
-            ("temporel", "Distance temporelle")
+            ("temporel", "Distance temporelle"),
+            ("extremes", "Trajectoires directes"),
+            ("cumulees", "Trajectoires cumulées")
         ]:
             onglet = ttk.Frame(
                 self.onglets_graphes
@@ -775,6 +972,94 @@ class Application(tk.Tk):
     def _terminer_verification(self):
         self.verification_en_cours = False
 
+
+    def _vider_tableau_voisins(self):
+        for item in self.tableau_voisins.get_children():
+            self.tableau_voisins.delete(item)
+
+    def _sur_changement_filtre_tableau(self, *_args):
+        self._afficher_lignes_tableau_voisins()
+
+    def _afficher_lignes_tableau_voisins(self, lignes=None):
+        self._vider_tableau_voisins()
+
+        if lignes is None:
+            lignes = self.donnees_tableau_voisins
+
+        filtre = self.var_filtre_tableau.get().strip().lower()
+
+        for ligne in lignes:
+            if filtre:
+                texte_ligne = " ".join(
+                    str(valeur).lower()
+                    for valeur in ligne
+                )
+                if filtre not in texte_ligne:
+                    continue
+
+            self.tableau_voisins.insert(
+                "",
+                "end",
+                values=ligne
+            )
+
+    def _trier_tableau_voisins(self, colonne):
+        inverser = self.tri_tableau_voisins.get(
+            colonne,
+            False
+        )
+
+        index_colonne = {
+            "categorie": 0,
+            "mot": 1,
+            "voisin": 2,
+            "score": 3
+        }[colonne]
+
+        lignes = list(
+            self.donnees_tableau_voisins
+        )
+
+        lignes.sort(
+            reverse=inverser,
+            key=lambda ligne: (
+                float(ligne[index_colonne])
+                if colonne == "score"
+                else str(ligne[index_colonne]).lower()
+            )
+        )
+
+        self.donnees_tableau_voisins = lignes
+        self._afficher_lignes_tableau_voisins()
+
+        self.tri_tableau_voisins[colonne] = not inverser
+
+    def _remplir_tableau_voisins(self, resultat):
+        self.donnees_tableau_voisins = []
+
+        for categorie, voisins_par_mot in [
+            (
+                "Trajectoire directe",
+                resultat["voisins_trajectoires_extremes"]
+            ),
+            (
+                "Trajectoire cumulée",
+                resultat["voisins_trajectoires_cumulees"]
+            )
+        ]:
+            for mot_vocab, liste_voisins in voisins_par_mot.items():
+                for voisin, score in liste_voisins:
+                    self.donnees_tableau_voisins.append(
+                        (
+                            categorie,
+                            mot_vocab,
+                            voisin,
+                            f"{score:.3f}"
+                        )
+                    )
+
+        self._afficher_lignes_tableau_voisins()
+
     def _nombre_voisins_graphe(self):
         mode = self.var_mode_voisins_graphe.get()
 
@@ -785,6 +1070,68 @@ class Application(tk.Tk):
             return 5
 
         return 0
+
+    def _nombre_voisins_listes(self):
+        return max(
+            5,
+            min(
+                10,
+                self.var_topn.get()
+            )
+        )
+
+    def _voisins_pour_mots_vocabulaire(
+            self,
+            modele_global,
+            mesures,
+            top_mots=15
+    ):
+        top_voisins = {}
+        nb_voisins = self._nombre_voisins_listes()
+        min_freq = max(
+            0,
+            self.var_min_freq_voisins_top.get()
+        )
+
+        top_mesures = sorted(
+            mesures.items(),
+            key=lambda item: item[1]["distance"],
+            reverse=True
+        )[:top_mots]
+
+        for mot_vocab, _mesure in top_mesures:
+            if mot_vocab not in modele_global.wv:
+                continue
+
+            topn_recherche = nb_voisins
+
+            if min_freq > 0:
+                topn_recherche = min(
+                    len(modele_global.wv) - 1,
+                    max(
+                        nb_voisins * 20,
+                        200
+                    )
+                )
+
+            candidats = modele_global.wv.most_similar(
+                mot_vocab,
+                topn=topn_recherche
+            )
+
+            if min_freq > 0:
+                candidats = [
+                    (voisin, score)
+                    for voisin, score in candidats
+                    if modele_global.wv.get_vecattr(
+                        voisin,
+                        "count"
+                    ) >= min_freq
+                ]
+
+            top_voisins[mot_vocab] = candidats[:nb_voisins]
+
+        return top_voisins
 
     def _sur_changement_voisins_graphe(self, *_args):
         if self.dernier_resultat is None:
@@ -830,6 +1177,20 @@ class Application(tk.Tk):
             resultat["distances_temp"]
         )
 
+        figure_extremes = creer_figure_trajectoires_vocabulaire(
+            resultat["trajectoires_extremes"],
+            "Top trajectoires directes du vocabulaire",
+            couleur="#457b9d",
+            topn=15
+        )
+
+        figure_cumulees = creer_figure_trajectoires_vocabulaire(
+            resultat["trajectoires_cumulees"],
+            "Top trajectoires cumulées du vocabulaire",
+            couleur="#e76f51",
+            topn=15
+        )
+
         self._afficher_figure(
             "global",
             figure_global
@@ -839,6 +1200,17 @@ class Application(tk.Tk):
             "temporel",
             figure_temporelle
         )
+
+        self._afficher_figure(
+            "extremes",
+            figure_extremes
+        )
+
+        self._afficher_figure(
+            "cumulees",
+            figure_cumulees
+        )
+
 
     def _repertoire_modeles(self):
         base = os.path.join(
@@ -850,6 +1222,65 @@ class Application(tk.Tk):
             exist_ok=True
         )
         return base
+
+    def afficher_voisins_par_decennie(self):
+        if self.dernier_resultat is None:
+            messagebox.showinfo(
+                "Voisins par décennie",
+                "Lancez d'abord une analyse."
+            )
+            return
+
+        if (
+            self.fenetre_voisins is not None
+            and self.fenetre_voisins.winfo_exists()
+        ):
+            self.fenetre_voisins.destroy()
+
+        self.fenetre_voisins = tk.Toplevel(self)
+        self.fenetre_voisins.title(
+            "Voisins par décennie"
+        )
+        self.fenetre_voisins.geometry(
+            "700x500"
+        )
+
+        zone = tk.Text(
+            self.fenetre_voisins,
+            wrap="word"
+        )
+        zone.pack(
+            fill="both",
+            expand=True,
+            padx=10,
+            pady=10
+        )
+
+        resultat = self.dernier_resultat
+        mot = resultat["mot"]
+        zone.insert(
+            tk.END,
+            f"Voisins par décennie pour : {mot}\n\n"
+        )
+
+        for decennie in sorted(resultat["voisins"]):
+            zone.insert(
+                tk.END,
+                f"{decennie}\n"
+            )
+            for voisin, score in resultat["voisins"][decennie]:
+                zone.insert(
+                    tk.END,
+                    f"  {voisin}: {score:.3f}\n"
+                )
+            zone.insert(
+                tk.END,
+                "\n"
+            )
+
+        zone.configure(
+            state="disabled"
+        )
 
     def effacer_cache_modeles(self):
         if self.analyse_en_cours:
@@ -944,6 +1375,7 @@ class Application(tk.Tk):
             self.var_min_common_words.get()
         )
 
+
     def _finaliser_analyse(self, resultat):
         mot = resultat["mot"]
         vecteurs = resultat["vecteurs"]
@@ -951,6 +1383,10 @@ class Application(tk.Tk):
         voisins = resultat["voisins"]
         distances = resultat["distances"]
         distances_temp = resultat["distances_temp"]
+        trajectoires_extremes = resultat["trajectoires_extremes"]
+        trajectoires_cumulees = resultat["trajectoires_cumulees"]
+        voisins_trajectoires_extremes = resultat["voisins_trajectoires_extremes"]
+        voisins_trajectoires_cumulees = resultat["voisins_trajectoires_cumulees"]
         message = resultat.get("message_cache")
         self.dernier_resultat = resultat
 
@@ -964,6 +1400,7 @@ class Application(tk.Tk):
         )
 
         self._mettre_a_jour_graphiques()
+        self._remplir_tableau_voisins(resultat)
 
         self._inserer_texte("\nVoisins par décennie:\n")
 
@@ -985,6 +1422,98 @@ class Application(tk.Tk):
             debut, fin = periode
             self._inserer_texte(
                 f"{debut}-{fin}: {distance:.3f}\n"
+            )
+
+        self._inserer_texte(
+            "\nMesures de trajectoire du mot:\n"
+        )
+
+        mesure_extreme = trajectoires_extremes.get(mot)
+
+        if mesure_extreme is not None:
+            self._inserer_texte(
+                "  Distance directe "
+                f"{mesure_extreme['premiere_decennie']} -> "
+                f"{mesure_extreme['derniere_decennie']}: "
+                f"{mesure_extreme['distance']:.3f}\n"
+            )
+        else:
+            self._inserer_texte(
+                "  Distance directe : non calculable\n"
+            )
+
+        mesure_cumulee = trajectoires_cumulees.get(mot)
+
+        if mesure_cumulee is not None:
+            self._inserer_texte(
+                "  Distance cumulée "
+                f"{mesure_cumulee['premiere_decennie']} -> "
+                f"{mesure_cumulee['derniere_decennie']}: "
+                f"{mesure_cumulee['distance']:.3f}\n"
+            )
+        else:
+            self._inserer_texte(
+                "  Distance cumulée : non calculable\n"
+            )
+
+        self._inserer_texte(
+            "\nTop 10 trajectoires directes du vocabulaire:\n"
+        )
+
+        top_extremes = sorted(
+            trajectoires_extremes.items(),
+            key=lambda item: item[1]["distance"],
+            reverse=True
+        )[:10]
+
+        for mot_vocab, mesure in top_extremes:
+            self._inserer_texte(
+                f"  {mot_vocab}: {mesure['distance']:.3f} "
+                f"({mesure['premiere_decennie']} -> "
+                f"{mesure['derniere_decennie']})\n"
+            )
+
+        self._inserer_texte(
+            "\nVoisins des mots du graphe de trajectoires directes:\n"
+        )
+
+        for mot_vocab, liste_voisins in voisins_trajectoires_extremes.items():
+            texte_voisins = ", ".join(
+                f"{voisin} ({score:.3f})"
+                for voisin, score in liste_voisins
+            )
+            self._inserer_texte(
+                f"  {mot_vocab}: {texte_voisins}\n"
+            )
+
+        self._inserer_texte(
+            "\nTop 10 trajectoires cumulées du vocabulaire:\n"
+        )
+
+        top_cumulees = sorted(
+            trajectoires_cumulees.items(),
+            key=lambda item: item[1]["distance"],
+            reverse=True
+        )[:10]
+
+        for mot_vocab, mesure in top_cumulees:
+            self._inserer_texte(
+                f"  {mot_vocab}: {mesure['distance']:.3f} "
+                f"({mesure['premiere_decennie']} -> "
+                f"{mesure['derniere_decennie']})\n"
+            )
+
+        self._inserer_texte(
+            "\nVoisins des mots du graphe de trajectoires cumulées:\n"
+        )
+
+        for mot_vocab, liste_voisins in voisins_trajectoires_cumulees.items():
+            texte_voisins = ", ".join(
+                f"{voisin} ({score:.3f})"
+                for voisin, score in liste_voisins
+            )
+            self._inserer_texte(
+                f"  {mot_vocab}: {texte_voisins}\n"
             )
 
         self._inserer_texte(
@@ -1056,6 +1585,48 @@ class Application(tk.Tk):
                     f"{distance:.6f}",
                     ""
                 ])
+
+            for mot_vocab, mesure in sorted(
+                resultat["trajectoires_extremes"].items()
+            ):
+                writer.writerow([
+                    "trajectoire_extreme",
+                    f"{mesure['premiere_decennie']}-{mesure['derniere_decennie']}",
+                    mot_vocab,
+                    f"{mesure['distance']:.6f}"
+                ])
+
+            for mot_vocab, mesure in sorted(
+                resultat["trajectoires_cumulees"].items()
+            ):
+                writer.writerow([
+                    "trajectoire_cumulee",
+                    f"{mesure['premiere_decennie']}-{mesure['derniere_decennie']}",
+                    mot_vocab,
+                    f"{mesure['distance']:.6f}"
+                ])
+
+            for mot_vocab, liste_voisins in sorted(
+                resultat["voisins_trajectoires_extremes"].items()
+            ):
+                for voisin, score in liste_voisins:
+                    writer.writerow([
+                        "voisins_trajectoire_extreme",
+                        mot_vocab,
+                        voisin,
+                        f"{score:.6f}"
+                    ])
+
+            for mot_vocab, liste_voisins in sorted(
+                resultat["voisins_trajectoires_cumulees"].items()
+            ):
+                for voisin, score in liste_voisins:
+                    writer.writerow([
+                        "voisins_trajectoire_cumulee",
+                        mot_vocab,
+                        voisin,
+                        f"{score:.6f}"
+                    ])
 
         messagebox.showinfo(
             "Export CSV",
@@ -1427,7 +1998,8 @@ class Application(tk.Tk):
                 modele_global,
                 modeles_decennies,
                 rotations,
-                topn=self.var_topn.get()
+                topn=self.var_topn.get(),
+                min_count_voisin=self.var_min_freq_voisins.get()
             )
 
             voisins_vecteurs = {
@@ -1455,6 +2027,39 @@ class Application(tk.Tk):
                 rotations
             )
 
+            self.after(
+                0,
+                lambda: self._inserer_texte(
+                    "Calcul des trajectoires du vocabulaire...\n"
+                )
+            )
+
+            trajectoires_extremes = trajectoire_extremes_vocabulaire(
+                modeles_decennies,
+                rotations
+            )
+
+            trajectoires_cumulees = trajectoire_cumulee_vocabulaire(
+                modeles_decennies,
+                rotations
+            )
+
+            voisins_trajectoires_extremes = (
+                self._voisins_pour_mots_vocabulaire(
+                    modele_global,
+                    trajectoires_extremes,
+                    top_mots=15
+                )
+            )
+
+            voisins_trajectoires_cumulees = (
+                self._voisins_pour_mots_vocabulaire(
+                    modele_global,
+                    trajectoires_cumulees,
+                    top_mots=15
+                )
+            )
+
             resultat = {
                 "mot": mot,
                 "vecteurs": vecteurs,
@@ -1463,6 +2068,10 @@ class Application(tk.Tk):
                 "voisins_vecteurs": voisins_vecteurs,
                 "distances": distances,
                 "distances_temp": distances_temp,
+                "trajectoires_extremes": trajectoires_extremes,
+                "trajectoires_cumulees": trajectoires_cumulees,
+                "voisins_trajectoires_extremes": voisins_trajectoires_extremes,
+                "voisins_trajectoires_cumulees": voisins_trajectoires_cumulees,
                 "message_cache": message_cache
             }
 

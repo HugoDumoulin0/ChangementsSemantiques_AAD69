@@ -414,3 +414,73 @@ def creer_figure_distances_temporelles(
 
     figure.tight_layout()
     return figure
+
+
+def creer_figure_trajectoires_vocabulaire(
+        mesures,
+        titre,
+        couleur="#457b9d",
+        topn=15
+):
+    """
+    Crée une figure en barres horizontales
+    pour les trajectoires les plus fortes
+    du vocabulaire.
+    """
+
+    if not mesures:
+        return creer_figure_vide(
+            "Aucune trajectoire de vocabulaire à afficher."
+        )
+
+    top_mesures = sorted(
+        mesures.items(),
+        key=lambda item: item[1]["distance"],
+        reverse=True
+    )[:topn]
+
+    mots = [
+        mot
+        for mot, _mesure in top_mesures
+    ]
+
+    valeurs = [
+        mesure["distance"]
+        for _mot, mesure in top_mesures
+    ]
+
+    figure = Figure(
+        figsize=(8, 6),
+        dpi=100
+    )
+
+    axe = figure.add_subplot(111)
+
+    positions = np.arange(
+        len(mots)
+    )
+
+    axe.barh(
+        positions,
+        valeurs,
+        color=couleur,
+        alpha=0.85
+    )
+
+    axe.set_yticks(
+        positions
+    )
+    axe.set_yticklabels(
+        mots
+    )
+    axe.invert_yaxis()
+    axe.set_title(titre)
+    axe.set_xlabel("Distance")
+    axe.grid(
+        True,
+        axis="x",
+        alpha=0.25
+    )
+
+    figure.tight_layout()
+    return figure
