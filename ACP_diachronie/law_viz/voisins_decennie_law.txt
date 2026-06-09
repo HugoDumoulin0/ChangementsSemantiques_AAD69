@@ -1,0 +1,57 @@
+Voisins par décennie pour : law
+
+1830
+
+1840
+  statute: 0.589
+  abrogate: 0.575
+  tribunals: 0.561
+  statutes: 0.551
+  enforce: 0.527
+  requisitions: 0.515
+  empowered: 0.508
+  enactment: 0.507
+  usurpation: 0.505
+  olmsted: 0.499
+
+1860
+
+1870
+
+1880
+
+1890
+  constitutions: 0.597
+
+1900
+  statute: 0.599
+
+1910
+  phipps: 0.582
+
+1920
+
+1930
+
+1940
+  danaher: 0.574
+  retroactive: 0.546
+
+1950
+
+1960
+  irreversibility: 0.569
+  boltzmann: 0.541
+  paradoxical: 0.500
+  equivalence: 0.489
+  faraday: 0.484
+
+1970
+  femininity: 0.633
+
+1980
+
+1990
+  domesticity: 0.576
+
+2000

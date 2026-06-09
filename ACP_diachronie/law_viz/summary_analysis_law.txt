@@ -1,0 +1,99 @@
+
+Distances au modèle global:
+1830: 4.072
+1840: 3.649
+1860: 3.741
+1870: 3.638
+1880: 3.959
+1890: 3.678
+1900: 3.720
+1910: 3.773
+1920: 3.857
+1930: 3.876
+1940: 3.859
+1950: 3.998
+1960: 4.185
+1970: 4.030
+1980: 3.921
+1990: 4.167
+2000: 4.013
+
+Distances temporelles:
+1830-1840: 3.838
+1840-1860: 3.435
+1860-1870: 1.947
+1870-1880: 2.667
+1880-1890: 2.979
+1890-1900: 3.076
+1900-1910: 3.085
+1910-1920: 2.750
+1920-1930: 3.126
+1930-1940: 3.272
+1940-1950: 3.266
+1950-1960: 4.076
+1960-1970: 4.003
+1970-1980: 3.554
+1980-1990: 3.921
+1990-2000: 3.801
+
+Mesures de trajectoire du mot:
+  Distance directe 1830 -> 2000: 3.470
+  Distance cumulée 1830 -> 2000: 52.796
+
+Top 10 trajectoires directes du vocabulaire:
+  first: 5.502 (1830 -> 2000)
+  long: 5.425 (1830 -> 2000)
+  men: 5.371 (1830 -> 2000)
+  good: 5.296 (1830 -> 2000)
+  says: 5.288 (1830 -> 2000)
+  new: 5.278 (1830 -> 2000)
+  made: 5.226 (1830 -> 2000)
+  high: 5.166 (1830 -> 2000)
+  old: 5.080 (1830 -> 2000)
+  white: 5.059 (1830 -> 2000)
+
+Voisins des mots du graphe de trajectoires directes:
+  first: ellie (0.442), second (0.440), algebraic (0.439), whitcombe (0.434), fortieth (0.432), hilarity (0.427), newbury (0.425), midge (0.422), autocrat (0.419), getaway (0.417)
+  long: achilles (0.466), calibre (0.449), relented (0.441), olden (0.434), shawls (0.432), envision (0.431), braided (0.427), admissible (0.425), swig (0.424), wearisome (0.422)
+  men: apologizing (0.464), man (0.446), fabricating (0.444), sufferers (0.439), peeped (0.439), socrates (0.435), freddie (0.434), stealth (0.431), grappling (0.430), regiments (0.429)
+  good: raillery (0.545), natured (0.488), pun (0.482), tirade (0.479), pooty (0.477), gemman (0.476), liars (0.474), sassy (0.470), bad (0.470), natur (0.470)
+  says: rowe (0.457), nye (0.456), jennifer (0.441), brag (0.440), nuzzling (0.438), stephenson (0.435), said (0.434), stallings (0.428), nojo (0.426), cabaret (0.425)
+  new: york (0.869), jersey (0.515), navigable (0.505), annapolis (0.501), meditate (0.499), frelinghuysen (0.489), unlisted (0.488), muriel (0.487), winch (0.483), logo (0.480)
+  made: making (0.449), dilly (0.444), make (0.424), thrashing (0.409), sombrero (0.405), notary (0.394), florid (0.392), overspread (0.391), craned (0.385), dutchman (0.385)
+  high: low (0.471), tech (0.432), unruffled (0.410), mph (0.405), rebound (0.404), highest (0.401), ranges (0.400), higher (0.397), sewers (0.395), boulton (0.395)
+  old: fashioned (0.631), gretel (0.494), sebert (0.464), steeple (0.463), nonchalant (0.453), humdrum (0.448), patriarch (0.447), astor (0.444), unimpressed (0.441), meditate (0.439)
+  white: black (0.495), suede (0.478), bleached (0.464), glitter (0.458), snails (0.457), tunic (0.456), beige (0.445), dwarf (0.444), slacks (0.441), tights (0.440)
+  around: apprehensively (0.554), thinned (0.508), craned (0.489), peeked (0.478), jerking (0.471), tomwe (0.466), somewheres (0.463), wop (0.462), hulk (0.460), nuzzling (0.460)
+  captain: dial (0.791), elliott (0.615), lieutenant (0.564), maudle (0.540), thiele (0.535), owens (0.518), gully (0.511), melanie (0.510), nudging (0.498), finn (0.491)
+  general: proctor (0.565), proc (0.510), lavelle (0.507), mcclure (0.488), schiller (0.475), pershing (0.467), macfarlane (0.463), gadir (0.462), postmaster (0.448), fran (0.445)
+  see: cuss (0.512), messiah (0.498), tomit (0.491), sammy (0.483), westcott (0.481), meddle (0.477), dearie (0.475), warbling (0.475), chagrined (0.473), twinnie (0.471)
+  little: handsomest (0.469), warbling (0.465), hooch (0.454), humoured (0.444), massage (0.441), delightedly (0.439), twinnie (0.438), goblins (0.437), sojie (0.437), wearisome (0.436)
+
+Top 10 trajectoires cumulées du vocabulaire:
+  new: 79.400 (1830 -> 2000)
+  first: 76.937 (1830 -> 2000)
+  may: 76.792 (1830 -> 2000)
+  good: 71.874 (1830 -> 2000)
+  great: 71.043 (1830 -> 2000)
+  even: 70.329 (1830 -> 2000)
+  made: 69.657 (1830 -> 2000)
+  two: 69.590 (1830 -> 2000)
+  long: 69.544 (1830 -> 2000)
+  people: 69.491 (1830 -> 2000)
+
+Voisins des mots du graphe de trajectoires cumulées:
+  new: york (0.869), jersey (0.515), navigable (0.505), annapolis (0.501), meditate (0.499), frelinghuysen (0.489), unlisted (0.488), muriel (0.487), winch (0.483), logo (0.480)
+  first: ellie (0.442), second (0.440), algebraic (0.439), whitcombe (0.434), fortieth (0.432), hilarity (0.427), newbury (0.425), midge (0.422), autocrat (0.419), getaway (0.417)
+  may: adversely (0.488), beneficiaries (0.483), florid (0.469), kepler (0.469), forger (0.464), seer (0.460), pertains (0.457), emphasise (0.452), aright (0.452), infraction (0.450)
+  good: raillery (0.545), natured (0.488), pun (0.482), tirade (0.479), pooty (0.477), gemman (0.476), liars (0.474), sassy (0.470), bad (0.470), natur (0.470)
+  great: britain (0.608), crux (0.449), gaul (0.446), phantoms (0.433), enameled (0.433), piteous (0.431), immeasurable (0.430), pageants (0.430), subsisted (0.430), rarest (0.427)
+  even: archard (0.500), fretful (0.454), ambled (0.448), hag (0.442), anchorman (0.440), markowski (0.440), shrewdly (0.434), corns (0.432), norths (0.432), rambled (0.431)
+  made: making (0.449), dilly (0.444), make (0.424), thrashing (0.409), sombrero (0.405), notary (0.394), florid (0.392), overspread (0.391), craned (0.385), dutchman (0.385)
+  two: three (0.552), four (0.515), one (0.504), six (0.485), conveyance (0.484), eight (0.480), admissible (0.480), demur (0.471), methodically (0.466), snowed (0.466)
+  long: achilles (0.466), calibre (0.449), relented (0.441), olden (0.434), shawls (0.432), envision (0.431), braided (0.427), admissible (0.425), swig (0.424), wearisome (0.422)
+  people: contradistinguished (0.515), animating (0.485), clamoring (0.483), arabs (0.480), uprightness (0.468), dredged (0.467), pitiable (0.466), protestants (0.462), bleachers (0.460), antecedent (0.458)
+  many: bazaars (0.477), lipans (0.457), mottoes (0.454), densely (0.452), prospecting (0.452), evoke (0.451), showy (0.451), analytic (0.447), piteous (0.447), piling (0.445)
+  well: natur (0.515), funniest (0.498), hag (0.481), vulcan (0.470), by'r (0.462), sinned (0.461), rigors (0.453), nibble (0.450), interrogatively (0.449), intentioned (0.445)
+  much: peremptorily (0.500), femininity (0.485), larkums (0.470), hough (0.466), mitigated (0.459), beckyi (0.456), newspaperman (0.453), piteous (0.450), archard (0.450), florid (0.447)
+  old: fashioned (0.631), gretel (0.494), sebert (0.464), steeple (0.463), nonchalant (0.453), humdrum (0.448), patriarch (0.447), astor (0.444), unimpressed (0.441), meditate (0.439)
+  must: coterie (0.504), would (0.485), sarcastically (0.465), complacent (0.460), reliant (0.459), alludes (0.455), detestable (0.452), petulance (0.449), loath (0.446), larkums (0.445)
