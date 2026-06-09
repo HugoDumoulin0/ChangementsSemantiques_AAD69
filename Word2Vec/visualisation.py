@@ -24,6 +24,121 @@ def creer_figure_vide(message):
     return figure
 
 
+def creer_figure_acp_globale_clustering(
+        vocabulaire,
+        vecteurs,
+        mots_labels=None
+):
+    if len(vocabulaire) < 2 or len(vecteurs) < 2:
+        return creer_figure_vide(
+            "Pas assez de mots pour afficher l'ACP globale."
+        )
+
+    pca = PCA(
+        n_components=2
+    )
+    coordonnees = pca.fit_transform(
+        np.array(vecteurs)
+    )
+
+    figure = Figure(
+        figsize=(8, 6),
+        dpi=100
+    )
+    axe = figure.add_subplot(111)
+
+    mots_a_annoter = set(
+        mots_labels if mots_labels is not None else vocabulaire
+    )
+
+    axe.scatter(
+        coordonnees[:, 0],
+        coordonnees[:, 1],
+        s=16,
+        alpha=0.32,
+        color="#8d99ae",
+        edgecolors="none"
+    )
+
+    indices_labels = [
+        i
+        for i, mot in enumerate(vocabulaire)
+        if mot in mots_a_annoter
+    ]
+
+    if indices_labels:
+        axe.scatter(
+            coordonnees[indices_labels, 0],
+            coordonnees[indices_labels, 1],
+            s=26,
+            alpha=0.9,
+            color="#d1495b",
+            edgecolors="white",
+            linewidths=0.4,
+            zorder=3
+        )
+
+    decalages = [
+        (6, 6),
+        (6, -10),
+        (-10, 6),
+        (-10, -10),
+        (10, 0),
+        (0, 10),
+        (-14, 0),
+        (0, -14)
+    ]
+
+    for i, mot in enumerate(vocabulaire):
+        if mot not in mots_a_annoter:
+            continue
+
+        dx, dy = decalages[
+            i % len(decalages)
+        ]
+        axe.annotate(
+            mot,
+            (coordonnees[i, 0], coordonnees[i, 1]),
+            fontsize=7.5,
+            color="#1f2933",
+            alpha=0.98,
+            xytext=(dx, dy),
+            textcoords="offset points",
+            bbox={
+                "boxstyle": "round,pad=0.2",
+                "fc": "white",
+                "ec": "#d9e2ec",
+                "lw": 0.6,
+                "alpha": 0.92
+            },
+            arrowprops={
+                "arrowstyle": "-",
+                "color": "#bcccdc",
+                "lw": 0.6,
+                "alpha": 0.8,
+                "shrinkA": 0,
+                "shrinkB": 4
+            },
+            zorder=4
+        )
+
+    axe.axhline(0, color="grey", lw=0.8, ls="--", alpha=0.5)
+    axe.axvline(0, color="grey", lw=0.8, ls="--", alpha=0.5)
+    axe.set_xlabel(
+        f"PC1 ({pca.explained_variance_ratio_[0]:.1%})"
+    )
+    axe.set_ylabel(
+        f"PC2 ({pca.explained_variance_ratio_[1]:.1%})"
+    )
+    axe.set_title(
+        "ACP globale des 3500 mots les plus fréquents"
+    )
+    axe.grid(True, alpha=0.2)
+
+    figure.tight_layout()
+    return figure
+
+
 def creer_figure_trajectoire(
         mot,
         vecteurs,

@@ -22,6 +22,7 @@ from alignment import (
 )
 
 from visualisation import (
+    creer_figure_acp_globale_clustering,
     creer_figure_trajectoire,
     creer_figure_distances_global,
     creer_figure_distances_temporelles,
@@ -811,7 +812,8 @@ class Application(tk.Tk):
             ("global", "Distance globale"),
             ("temporel", "Distance temporelle"),
             ("extremes", "Trajectoires directes"),
-            ("cumulees", "Trajectoires cumulées")
+            ("cumulees", "Trajectoires cumulées"),
+            ("acp_globale", "ACP globale")
         ]:
             onglet = ttk.Frame(
                 self.onglets_graphes
@@ -1191,6 +1193,12 @@ class Application(tk.Tk):
             topn=15
         )
 
+        figure_acp_globale = creer_figure_acp_globale_clustering(
+            resultat["mots_frequents_globaux"],
+            resultat["vecteurs_frequents_globaux"],
+            mots_labels=resultat["mots_labels_acp_globale"]
+        )
+
         self._afficher_figure(
             "global",
             figure_global
@@ -1209,6 +1217,11 @@ class Application(tk.Tk):
         self._afficher_figure(
             "cumulees",
             figure_cumulees
+        )
+
+        self._afficher_figure(
+            "acp_globale",
+            figure_acp_globale
         )
 
 
@@ -2060,6 +2073,22 @@ class Application(tk.Tk):
                 )
             )
 
+            mots_frequents_globaux = []
+            vecteurs_frequents_globaux = []
+            mots_labels_acp_globale = []
+
+            for mot_vocab in modele_global.wv.index_to_key[:3500]:
+                mots_frequents_globaux.append(
+                    mot_vocab
+                )
+                vecteurs_frequents_globaux.append(
+                    modele_global.wv[mot_vocab]
+                )
+
+            mots_labels_acp_globale = (
+                mots_frequents_globaux[:100]
+            )
+
             resultat = {
                 "mot": mot,
                 "vecteurs": vecteurs,
@@ -2072,6 +2101,9 @@ class Application(tk.Tk):
                 "trajectoires_cumulees": trajectoires_cumulees,
                 "voisins_trajectoires_extremes": voisins_trajectoires_extremes,
                 "voisins_trajectoires_cumulees": voisins_trajectoires_cumulees,
+                "mots_frequents_globaux": mots_frequents_globaux,
+                "vecteurs_frequents_globaux": vecteurs_frequents_globaux,
+                "mots_labels_acp_globale": mots_labels_acp_globale,
                 "message_cache": message_cache
             }
 
