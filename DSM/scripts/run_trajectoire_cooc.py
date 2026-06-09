@@ -456,9 +456,9 @@ if __name__ == "__main__" :
 ##### PCA GLOBALE
     print("\nPCA globale sur la matrice globale...")
 
-    norms         = np.linalg.norm(cooc_global, axis=1, keepdims=True)
+    norms = np.linalg.norm(cooc_global, axis=1, keepdims=True)
     norms[norms == 0] = 1
-    data          = cooc_global / norms
+    data = cooc_global / norms
 
     reducer = PCA(n_components=2, random_state=42)
     data_2d = reducer.fit_transform(data)   # (vocab, 2)
