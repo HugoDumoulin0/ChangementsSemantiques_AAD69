@@ -1,0 +1,478 @@
+=== TRAJECTOIRES SÉMANTIQUES — mot cible : law ===
+Décennies : 1820s – 2000s  |  PPMI (fenêtre=5)  |  vocabulaire top-3500
+
+Rang   Mot                      Longueur
+------------------------------------------
+1      atmosphere                 2.8407
+2      deficiency                 2.7959
+3      striking                   2.7335
+4      sheep                      2.5048
+5      weak                       2.4135
+6      burst                      2.2956
+7      dawn                       2.2912
+8      stomach                    2.2744
+9      eastern                    2.2708
+10     kiss                       2.2638
+11     voter                      2.2627
+12     faced                      2.2501
+13     intelligent                2.2488
+14     williams                   2.2480
+15     respective                 2.2131
+16     18                         2.2126
+17     shelter                    2.2085
+18     humanity                   2.2013
+19     formal                     2.1993
+20     surely                     2.1913
+
+
+=== TOP-10 MOTS PAR DÉPLACEMENT DÉCENNAL ===
+(distance euclidienne entre la position pondérée d'une décennie
+ et celle de la décennie suivante, pour chaque mot du vocabulaire)
+
+
+
+=== TOP-20 MOTS PAR AIRE DE TRAJECTOIRE ===
+(aire du polygone formé par les positions pondérées par décennie)
+
+Rang   Mot                          Aire
+------------------------------------------
+1      deficiency                 0.0560
+2      sam                        0.0471
+3      suffered                   0.0342
+4      bomb                       0.0327
+5      extraordinary              0.0314
+6      destruction                0.0293
+7      coast                      0.0290
+8      bedroom                    0.0283
+9      reception                  0.0277
+10     recognized                 0.0273
+11     distant                    0.0273
+12     consciousness              0.0270
+13     management                 0.0270
+14     formal                     0.0269
+15     husband                    0.0268
+16     mr                         0.0263
+17     skill                      0.0260
+18     sell                       0.0246
+19     sum                        0.0239
+20     reminded                   0.0233
+
+
+=== CONTEXTES FRÉQUENTS — TOP-5 TRAJECTOIRES ===
+(voisins les plus fréquents selon les matrices de co-occurrence)
+
+Mot : atmosphere
+  Global : said (22), extended (16), bone (16), would (15), one (13), new (13), people (11), get (11)
+  1820s : boston (2)
+  1830s : department (2), ready (2), one (2), harvard (2), col (2)
+  1850s : leg (2)
+  1870s : rather (2)
+  1880s : back (5), chest (5), armature (4), temple (4), said (4)
+  1900s : nt (3), see (2), supper (2), regarded (2), sister (2)
+  1910s : bone (16), new (10), people (7), understand (6), get (6)
+  1920s : god (4), b (3), meanwhile (3), stood (2), move (2)
+  1930s : certainly (9), carried (8), would (6), obtained (5), manetho (5)
+  1940s : said (2), abruptly (2), preparation (2), mr (2), appeared (2)
+  1950s : col (3), prepare (3), preparation (2), concept (2)
+  1960s : said (7), trying (4), one (4), relation (4), thee (4)
+  1970s : longer (3), city (3), held (2), appeal (2), really (2)
+  1980s : ignorant (8), said (4), word (3), every (3), child (3)
+  1990s : mr (2), u (2)
+  2000s : extended (11), perfect (8), housing (6), warrior (6), price (6)
+
+Mot : deficiency
+  Global : said (9), joke (8), one (8), say (8), grace (7), night (7), u (7), hand (6)
+  1820s : like (3), know (2), rather (2), long (2), beneath (2)
+  1830s : object (2)
+  1860s : could (2), carlos (2), trail (2)
+  1870s : become (3), side (3), recognition (2), collected (2), save (2)
+  1880s : like (6), st (5), hand (4), year (3), one (3)
+  1890s : joke (8), wine (3), let (2), set (2), cell (2)
+  1900s : leaving (2), would (2)
+  1910s : rather (4), nothing (3), secret (2), convention (2), series (2)
+  1920s : mr (5), golden (3), unexpected (3), rain (3), voted (2)
+  1930s : attitude (2)
+  1940s : grace (7), mind (5), said (4), architect (4), convention (3)
+  1960s : kennedy (3), jacket (2), time (2)
+  1970s : always (3), said (2), mr (2), part (2), say (2)
+  1980s : highest (4), objection (3), cover (2), iron (2), federal (2)
+  1990s : floor (3), lot (3), informed (2), mary (2)
+  2000s : buying (2), therefore (2), comparison (2)
+
+Mot : striking
+  Global : told (21), falling (18), violence (17), ago (17), reached (14), certain (13), found (12), dr (12)
+  1820s : wherever (11), landscape (10), within (3), little (2), gave (2)
+  1830s : several (3), circumstance (3), giving (2), standard (2), kiss (2)
+  1840s : together (2), attempt (2)
+  1860s : violence (16), ago (15), reached (11), dr (10), circumstance (10)
+  1870s : line (10), early (10), told (6), save (5), importance (4)
+  1880s : new (2), general (2), ad (2), deck (2), urged (2)
+  1890s : poor (3), clock (3), circumstance (2), dr (2), old (2)
+  1900s : dog (3), italian (3), visit (2), often (2), home (2)
+  1910s : device (4), go (2)
+  1920s : would (2), sitting (2)
+  1930s : certain (13), thought (7), attitude (6), social (5), sound (4)
+  1940s : saving (2), would (2), heart (2), much (2), first (2)
+  1960s : thought (25), rather (16), falling (14), found (10), told (9)
+  1970s : beer (7), memory (3), wit (2), property (2), skill (2)
+  1990s : mr (4), 60 (2), pleased (2), movement (2)
+  2000s : city (3), time (2), 22 (2)
+
+Mot : sheep
+  Global : god (10), p (9), move (9), would (8), man (8), old (7), say (7), time (7)
+  1830s : well (2), area (2)
+  1840s : record (3), duty (2), letter (2), tree (2), factor (2)
+  1870s : always (6), line (6), early (6), target (5), save (5)
+  1880s : financial (2), well (2)
+  1900s : sure (4), god (2), back (2), race (2)
+  1910s : something (2), would (2), dead (2), five (2)
+  1920s : move (9), output (4), rope (3), future (3), got (3)
+  1930s : hair (4), thought (4), god (2), divine (2)
+  1940s : white (3), magazine (3), would (2), cost (2), south (2)
+  1950s : started (2), u (2), remark (2), four (2)
+  1960s : thought (10), united (4), 5 (3), divine (3), parent (3)
+  1970s : taken (3), p (2), looked (2), washington (2), lady (2)
+  1980s : quality (2), 12 (2)
+  1990s : old (3), sad (2), god (2), beautiful (2), pain (2)
+  2000s : time (2), union (2), 22 (2), found (2)
+
+Mot : weak
+  Global : rival (18), would (16), narrow (15), picked (14), sister (12), said (12), action (11), custom (11)
+  1830s : nt (6), rival (5), day (4), fear (3), german (3)
+  1840s : return (2)
+  1860s : armed (3), family (2), young (2), came (2), found (2)
+  1870s : always (2), criminal (2)
+  1880s : running (3), sister (3), last (2), damn (2), essentially (2)
+  1890s : flash (2)
+  1930s : noble (2), sister (2)
+  1940s : color (2)
+  1950s : people (2), state (2), say (2)
+  1960s : thought (11), narrow (10), action (10), picked (9), rival (8)
+  1970s : solid (3), longer (3), march (2), contained (2), going (2)
+  1990s : custom (5), picked (5), thanks (4), class (4), believed (4)
+  2000s : said (6), york (4), child (3), could (3), year (2)
+
+
+=== CONTEXTES FRÉQUENTS — TOP-5 AIRES ===
+(voisins les plus fréquents selon les matrices de co-occurrence)
+
+Mot : deficiency
+  Global : said (9), joke (8), one (8), say (8), grace (7), night (7), u (7), hand (6)
+  1820s : like (3), know (2), rather (2), long (2), beneath (2)
+  1830s : object (2)
+  1860s : could (2), carlos (2), trail (2)
+  1870s : become (3), side (3), recognition (2), collected (2), save (2)
+  1880s : like (6), st (5), hand (4), year (3), one (3)
+  1890s : joke (8), wine (3), let (2), set (2), cell (2)
+  1900s : leaving (2), would (2)
+  1910s : rather (4), nothing (3), secret (2), convention (2), series (2)
+  1920s : mr (5), golden (3), unexpected (3), rain (3), voted (2)
+  1930s : attitude (2)
+  1940s : grace (7), mind (5), said (4), architect (4), convention (3)
+  1960s : kennedy (3), jacket (2), time (2)
+  1970s : always (3), said (2), mr (2), part (2), say (2)
+  1980s : highest (4), objection (3), cover (2), iron (2), federal (2)
+  1990s : floor (3), lot (3), informed (2), mary (2)
+  2000s : buying (2), therefore (2), comparison (2)
+
+Mot : sam
+  Global : state (10), grant (9), two (8), p (8), one (7), man (7), nature (7), greater (7)
+  1820s : always (2)
+  1900s : stone (3), saying (2), got (2), driving (2)
+  1920s : british (2)
+  1930s : surprise (4), grant (3), golden (3), valley (2), city (2)
+  1940s : artist (2)
+  1950s : nature (6), fan (4), long (3), crossed (3), light (3)
+  1960s : education (3), ready (3), english (3), board (3), line (3)
+  1970s : quantity (3), must (3), sharply (2), passed (2), longer (2)
+  1980s : mr (10), truth (3), nearly (2), word (2), fee (2)
+  1990s : mr (3), still (3), nt (2), fee (2), p (2)
+  2000s : state (4), foot (3), felt (3), mr (3), motion (3)
+
+Mot : suffered
+  Global : move (31), sawyer (26), would (15), judd (15), two (14), man (13), saw (13), got (12)
+  1920s : sawyer (18), move (15), judd (13), add (7), united (5)
+  1930s : like (2)
+  1940s : consequence (6), saw (3), deal (3), stick (3), rope (3)
+  1950s : obtained (2), head (2), troubled (2), constant (2)
+  1960s : move (16), cleared (9), box (8), gave (8), would (8)
+  1970s : would (3), sovereignty (2), know (2), called (2), may (2)
+  1980s : got (3), may (3), part (2), think (2), idea (2)
+  1990s : mr (11), two (5), pressure (5), got (4), route (3)
+  2000s : mr (5), word (3), wanted (2), p (2), history (2)
+
+Mot : bomb
+  Global : army (23), one (19), short (18), u (11), say (11), teach (11), year (9), p (9)
+  1870s : mean (2), order (2)
+  1910s : unless (3), happy (2), care (2), house (2), u (2)
+  1920s : army (23), one (19), short (18), nt (14), teach (10)
+  1930s : thought (2)
+  1950s : democrat (3), house (3), kinney (2), lieutenant (2), tip (2)
+  1960s : thought (8), found (6), talked (6), though (5), regular (5)
+  1980s : however (2)
+
+Mot : extraordinary
+  Global : sell (24), every (22), one (20), agreed (19), approach (19), stone (16), mind (16), little (16)
+  1850s : thousand (2), carefully (2)
+  1860s : accompanied (2)
+  1880s : place (2), never (2), great (2), million (2), course (2)
+  1890s : small (4), girl (3), could (3), wrong (2), head (2)
+  1900s : sell (25), every (20), stone (19), agreed (18), approach (16)
+  1910s : mysterious (3), two (2), condition (2), faith (2), less (2)
+  1920s : part (2), costume (2), yes (2), leg (2), agreed (2)
+  1930s : one (2), washington (2), state (2)
+  1940s : kitchen (4), like (2), one (2), capital (2), color (2)
+  1970s : nt (2)
+
+--- 1820s → 1830s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      ken                          0.3301
+2      conscious                    0.3158
+3      correspondent                0.3135
+4      rail                         0.3100
+5      gen                          0.2977
+6      probable                     0.2853
+7      humanity                     0.2776
+8      faced                        0.2690
+9      unity                        0.2680
+10     suggest                      0.2671
+
+--- 1830s → 1840s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      italy                        0.4463
+2      household                    0.4117
+3      deficiency                   0.4018
+4      unexpected                   0.3523
+5      chest                        0.3258
+6      gross                        0.3145
+7      typical                      0.3082
+8      printed                      0.3066
+9      stomach                      0.3033
+10     bedroom                      0.2950
+
+--- 1840s → 1850s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      germany                      0.3243
+2      memory                       0.3076
+3      rarely                       0.3017
+4      village                      0.3002
+5      damn                         0.2879
+6      pleasant                     0.2866
+7      oil                          0.2840
+8      washed                       0.2830
+9      douglas                      0.2818
+10     cop                          0.2787
+
+--- 1850s → 1860s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      william                      0.4475
+2      mistress                     0.3520
+3      medical                      0.3301
+4      ability                      0.3217
+5      world                        0.3104
+6      pacomo                       0.3085
+7      continued                    0.3038
+8      economic                     0.3002
+9      striking                     0.2973
+10     list                         0.2958
+
+--- 1860s → 1870s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      fitzpatrick                  0.3719
+2      preparing                    0.3533
+3      list                         0.3533
+4      pacific                      0.3351
+5      source                       0.3274
+6      sell                         0.3262
+7      atmosphere                   0.3246
+8      mcclintock                   0.3225
+9      accustomed                   0.3138
+10     mineral                      0.2900
+
+--- 1870s → 1880s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      wait                         0.3773
+2      lawn                         0.3597
+3      crack                        0.3420
+4      skirt                        0.3238
+5      utter                        0.3037
+6      gnulemah                     0.2922
+7      cliff                        0.2864
+8      shirt                        0.2856
+9      sell                         0.2757
+10     resolution                   0.2751
+
+--- 1880s → 1890s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      tire                         0.3825
+2      lawn                         0.3699
+3      dead                         0.3533
+4      wait                         0.3354
+5      dawn                         0.3350
+6      hastily                      0.3347
+7      criticism                    0.3310
+8      dull                         0.3280
+9      valuable                     0.3177
+10     suffered                     0.3133
+
+--- 1890s → 1900s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      dead                         0.4140
+2      burst                        0.3985
+3      blessed                      0.3424
+4      marine                       0.3238
+5      required                     0.3194
+6      cooking                      0.3073
+7      schumann                     0.2962
+8      stranger                     0.2930
+9      pine                         0.2872
+10     tire                         0.2868
+
+--- 1900s → 1910s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      blessed                      0.4277
+2      regarded                     0.3767
+3      pointing                     0.3585
+4      substantial                  0.3536
+5      speaks                       0.3522
+6      hated                        0.3446
+7      commenced                    0.3329
+8      bore                         0.3228
+9      arrive                       0.3159
+10     possessed                    0.3052
+
+--- 1910s → 1920s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      correspondent                0.3783
+2      literary                     0.3737
+3      breeding                     0.3598
+4      dawn                         0.3291
+5      device                       0.3279
+6      porch                        0.3209
+7      physic                       0.3191
+8      bore                         0.3124
+9      denied                       0.2974
+10     referred                     0.2924
+
+--- 1920s → 1930s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      inevitable                   0.4153
+2      trained                      0.3774
+3      correspondent                0.3582
+4      status                       0.3504
+5      fitted                       0.3404
+6      bend                         0.3291
+7      shaft                        0.3288
+8      pennsylvania                 0.3238
+9      tancred                      0.3082
+10     wedding                      0.3006
+
+--- 1930s → 1940s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      15                           0.4085
+2      portrait                     0.3848
+3      inevitable                   0.3440
+4      wedding                      0.3222
+5      closing                      0.3099
+6      trained                      0.2984
+7      shaft                        0.2968
+8      colored                      0.2851
+9      solid                        0.2814
+10     physician                    0.2812
+
+--- 1940s → 1950s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      slave                        0.3184
+2      bomb                         0.3160
+3      pardon                       0.3081
+4      intelligent                  0.2973
+5      18                           0.2865
+6      bit                          0.2791
+7      comrade                      0.2756
+8      battle                       0.2741
+9      deficiency                   0.2735
+10     declaration                  0.2727
+
+--- 1950s → 1960s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      declaration                  0.3324
+2      wind                         0.3293
+3      automobile                   0.3130
+4      capt                         0.3077
+5      absence                      0.3047
+6      breaking                     0.3029
+7      striking                     0.3014
+8      mission                      0.2977
+9      barrel                       0.2886
+10     slave                        0.2853
+
+--- 1960s → 1970s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      barrel                       0.3426
+2      oldfashioned                 0.3278
+3      referred                     0.3227
+4      reflection                   0.3027
+5      income                       0.3005
+6      portrait                     0.2951
+7      carolina                     0.2805
+8      shame                        0.2729
+9      picked                       0.2670
+10     18                           0.2641
+
+--- 1970s → 1980s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      deficiency                   0.4492
+2      19                           0.3659
+3      channel                      0.3183
+4      edinburgh                    0.2866
+5      bus                          0.2801
+6      mi                           0.2787
+7      constitute                   0.2761
+8      suggested                    0.2757
+9      smiling                      0.2730
+10     williams                     0.2673
+
+--- 1980s → 1990s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      deficiency                   0.5026
+2      equivalent                   0.3742
+3      secure                       0.3266
+4      containing                   0.3224
+5      imagination                  0.3191
+6      williams                     0.2908
+7      plot                         0.2825
+8      wauna                        0.2750
+9      rarely                       0.2746
+10     constitute                   0.2732
+
+--- 1990s → 2000s ---
+Rang   Mot                     Déplacement
+------------------------------------------
+1      challenge                    0.3323
+2      kiss                         0.3222
+3      radiation                    0.3212
+4      secure                       0.3173
+5      chicken                      0.3137
+6      double                       0.3047
+7      training                     0.3027
+8      corp                         0.2989
+9      emf                          0.2576
+10     26                           0.2544
+
